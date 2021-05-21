@@ -6,11 +6,11 @@
         android:id="@+id/profile_group"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/course"
+            android:id="@+id/course_fragment"
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/label_course"/>
         <item
-            android:id="@+id/about"
+            android:id="@+id/about_fragment"
             android:icon="@drawable/ic_baseline_info_24"
             android:title="@string/label_about"/>
         <item
