@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="User"
+            type="com.example.tarclearn.model.User" />
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/topPanel"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:background="@color/design_default_color_secondary_variant"
+        android:orientation="vertical"
+        android:paddingStart="40dp"
+        android:paddingTop="140dp"
+        android:paddingEnd="40dp"
+        android:theme="@style/Theme.TARCLearnMobile"
+        tools:context=".ui.fragment.ProfileFragment">
+
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Welcome,"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="#FFFFFF"
+            android:textColorHighlight="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/tvUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="#FFFFFF"
+            android:text="@{User.username}"
+            tools:text="SOH JING HENN" />
+
+        <TextView
+            android:id="@+id/tvUserId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:text="@{User.userId}"
+            tools:text="1905957" />
+
+    </LinearLayout>
+</layout>
+
