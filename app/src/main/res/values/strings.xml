@@ -24,4 +24,8 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="label_course">Course</string>
+    <string name="label_nothing_to_show">Nothing to show... yet</string>
+    <string name="label_manage_user">Manage User</string>
+    <string name="label_add">Add</string>
+    <string name="label_delete">Delete</string>
 </resources>

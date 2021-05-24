@@ -15,7 +15,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.tarclearn.R
 import com.example.tarclearn.databinding.DrawerHeaderBinding
-import com.example.tarclearn.model.User
+import com.example.tarclearn.model.UserDetailDto
 import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         val uid = sharedPref.getString(getString(R.string.key_user_id), "Nothing")
         val username = sharedPref.getString(getString(R.string.key_username), "Nothing")
         val isLect = sharedPref.getBoolean(getString(R.string.key_is_lecturer), false)
-        val currentUser = User(uid!!, "", username!!, isLect)
+        val currentUser = UserDetailDto(uid!!, "", username!!, isLect)
         drawerHeaderBinding.user = currentUser
 
         //setup nav host and navigation view menu items
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!! as NavHostFragment
         navController = navHostFragment.navController
         appBarConfiguration =
-            AppBarConfiguration(setOf(R.id.course_fragment, R.id.about_fragment), drawerLayout)
+            AppBarConfiguration(setOf(R.id.course_fragment, R.id.about_fragment, R.id.manage_user_fragment), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.menu.findItem(R.id.logout).setOnMenuItemClickListener {

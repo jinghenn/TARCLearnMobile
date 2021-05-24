@@ -1,20 +1,19 @@
 package com.example.tarclearn.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tarclearn.model.User
-import com.example.tarclearn.repository.UserRepository
+import com.example.tarclearn.model.UserDetailDto
+import com.example.tarclearn.repository.Repository
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val repository: UserRepository
+    private val repository: Repository
 ) : ViewModel() {
 
-    private val _user = MutableLiveData<User>()
-    val user = _user as LiveData<User>
+    private val _user = MutableLiveData<UserDetailDto>()
+    val user = _user as LiveData<UserDetailDto>
 
     private val _isAuthenticated = MutableLiveData<Boolean>()
     val isAuthenticated = _isAuthenticated as LiveData<Boolean>

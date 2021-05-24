@@ -10,6 +10,10 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/label_course"/>
         <item
+            android:id="@+id/manage_user_fragment"
+            android:icon="@drawable/ic_baseline_manage_accounts_24"
+            android:title="@string/label_manage_user"/>
+        <item
             android:id="@+id/about_fragment"
             android:icon="@drawable/ic_baseline_info_24"
             android:title="@string/label_about"/>
