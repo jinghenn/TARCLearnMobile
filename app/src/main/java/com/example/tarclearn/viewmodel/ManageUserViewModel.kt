@@ -42,7 +42,7 @@ class ManageUserViewModel(
         val list = mutableListOf<String>()
         if (_courseList.value != null) {
             for (x in _courseList.value!!) {
-                val str = "${x.courseId} ${x.courseName}"
+                val str = "${x.courseId} ${x.courseTitle}"
                 list.add(str)
             }
         }

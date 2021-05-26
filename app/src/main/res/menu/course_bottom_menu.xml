@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/videoFragment"
+        android:icon="@drawable/ic_baseline_menu_book_24"
+        android:title="@string/label_video" />
+    <item
+        android:id="@+id/materialFragment"
+        android:icon="@drawable/pencil"
+        android:title="@string/label_material" />
+    <item
+        android:id="@+id/discussionFragment"
+        android:icon="@drawable/flask_empty_outline"
+        android:title="@string/label_discussion" />
+    <item
+        android:id="@+id/quizFragment"
+        android:icon="@drawable/pencil"
+        android:title="@string/label_quiz" />
+    <!--    <item-->
+    <!--        android:id="@+id/courseInfoFragment"-->
+    <!--        android:icon="@drawable/flask_empty_outline"-->
+    <!--        android:title="@string/label_info" />-->
+</menu>

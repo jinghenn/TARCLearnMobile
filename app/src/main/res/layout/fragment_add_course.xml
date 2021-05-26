@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragment.AddCourseFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tv_course_id_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/label_course_id"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_course_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tv_course_name_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:hint="@string/label_course_name"
+                app:layout_constraintEnd_toEndOf="@+id/tv_course_id_layout"
+                app:layout_constraintStart_toStartOf="@+id/tv_course_id_layout"
+                app:layout_constraintTop_toBottomOf="@+id/tv_course_id_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_course_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tv_course_description_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:hint="@string/label_course_description"
+                app:helperText="@string/label_optional"
+                app:layout_constraintEnd_toEndOf="@+id/tv_course_name_layout"
+                app:layout_constraintStart_toStartOf="@+id/tv_course_name_layout"
+                app:layout_constraintTop_toBottomOf="@+id/tv_course_name_layout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_course_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancel_create_course"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:text="@string/label_cancel"
+                app:layout_constraintEnd_toStartOf="@+id/btn_create_course"
+                app:layout_constraintStart_toStartOf="@+id/tv_course_description_layout"
+                app:layout_constraintTop_toBottomOf="@+id/tv_course_description_layout" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_create_course"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="@string/label_create"
+                app:layout_constraintBottom_toBottomOf="@id/btn_cancel_create_course"
+                app:layout_constraintEnd_toEndOf="@id/tv_course_description_layout"
+                app:layout_constraintStart_toEndOf="@+id/btn_cancel_create_course"
+                app:layout_constraintTop_toTopOf="@+id/btn_cancel_create_course" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>

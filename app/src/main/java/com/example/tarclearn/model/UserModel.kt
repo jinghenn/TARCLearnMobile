@@ -13,5 +13,5 @@ data class UserDetailDto (
 
 data class UserCourseDto(
     val courseId: String,
-    val courseName: String
+    val courseTitle: String
 )

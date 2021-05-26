@@ -24,8 +24,25 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="label_course">Course</string>
-    <string name="label_nothing_to_show">Nothing to show... yet</string>
+    <string name="label_nothing_to_show">Nothing to show&#8230; yet</string>
     <string name="label_manage_user">Manage User</string>
     <string name="label_add">Add</string>
     <string name="label_delete">Delete</string>
+    <string name="label_lecture">Lecture</string>
+    <string name="label_practical">Practical</string>
+    <string name="label_tutorial">Tutorial</string>
+    <string name="label_video">Video</string>
+    <string name="label_material">Material</string>
+    <string name="label_discussion">Discussion</string>
+    <string name="label_quiz">Quiz</string>
+    <string name="label_info">Info</string>
+    <string name="label_add_course">Create New Course</string>
+    <string name="label_course_id">Course ID</string>
+    <string name="label_course_name">Course Name</string>
+    <string name="label_course_description">Course Description</string>
+    <string name="label_optional">Optional</string>
+    <string name="label_create">Create</string>
+    <string name="label_cancel">Cancel</string>
+    <string name="label_edit">Edit</string>
+    <string name="label_save">Save</string>
 </resources>
