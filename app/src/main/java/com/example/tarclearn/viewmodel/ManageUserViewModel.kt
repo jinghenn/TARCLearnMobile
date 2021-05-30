@@ -4,17 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tarclearn.model.UserCourseDto
+import com.example.tarclearn.model.CourseDto
 import com.example.tarclearn.model.UserDto
-import com.example.tarclearn.repository.Repository
+import com.example.tarclearn.repository.CourseRepository
+import com.example.tarclearn.repository.UserRepository
 import kotlinx.coroutines.launch
 
 class ManageUserViewModel(
-    private val repository: Repository
+    private val userRepository: UserRepository,
+    private val courseRepository: CourseRepository
 ) : ViewModel() {
 
-    private val _courseList = MutableLiveData<List<UserCourseDto>>()
-    val courseList: LiveData<List<UserCourseDto>>
+    private val _courseList = MutableLiveData<List<CourseDto>>()
+    val courseList: LiveData<List<CourseDto>>
         get() = _courseList
 
     private val _userList = MutableLiveData<List<UserDto>>()
@@ -31,7 +33,7 @@ class ManageUserViewModel(
 
     fun fetchCourseList(userId: String) {
         viewModelScope.launch {
-            val response = repository.getUserCourses(userId)
+            val response = userRepository.getUserCourses(userId)
             if (response.code() == 200) {
                 _courseList.value = response.body()
             }
@@ -51,7 +53,7 @@ class ManageUserViewModel(
 
     fun fetchUserList(courseId: String) {
         viewModelScope.launch {
-            val response = repository.getCourseUsers(courseId)
+            val response = courseRepository.getCourseUsers(courseId)
             if (response.code() == 200) {
                 _userList.value = response.body()
             }
@@ -60,7 +62,7 @@ class ManageUserViewModel(
 
     fun enrol(courseId: String, userId: String) {
         viewModelScope.launch {
-            val response = repository.enrol(courseId, userId)
+            val response = courseRepository.enrol(courseId, userId)
             if (response.code() == 201) {
                 _userList.value = response.body()
                 _successMessage.value = "User: $userId added to Course: $courseId"

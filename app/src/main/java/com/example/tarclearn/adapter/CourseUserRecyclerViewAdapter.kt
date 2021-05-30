@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tarclearn.R
 import com.example.tarclearn.model.UserDto
-import com.example.tarclearn.repository.Repository
+import com.example.tarclearn.repository.CourseRepository
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -36,7 +36,7 @@ class CourseUserRecyclerViewAdapter(
         viewType: Int
     ): CourseUserRecyclerViewAdapter.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.course_user_item_view, parent, false)
+        val view = layoutInflater.inflate(R.layout.item_view_course_user, parent, false)
         return CourseUserRecyclerViewAdapter.ViewHolder(view)
     }
 
@@ -57,7 +57,7 @@ class CourseUserRecyclerViewAdapter(
                 .setMessage("Are you sure you want to remove \nUser\t\t\t: ${item.userId} from \nCourse\t: $courseId")
                 .setPositiveButton("Yes") { _, _ ->
                     CoroutineScope(Dispatchers.Main).launch {
-                        val repository = Repository()
+                        val repository = CourseRepository()
                         val response = repository.unenrol(courseId, item.userId)
                         if (response.code() == 200) {
                             userList.remove(item)

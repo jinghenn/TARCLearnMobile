@@ -5,11 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tarclearn.model.CourseDetailDto
-import com.example.tarclearn.repository.Repository
+import com.example.tarclearn.repository.CourseRepository
+import com.example.tarclearn.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class AddCourseViewModel(
-    private val repository: Repository
+class ManageCourseViewModel(
+    private val repository: CourseRepository
 ) : ViewModel() {
     private val _course = MutableLiveData<CourseDetailDto>()
     val course: LiveData<CourseDetailDto>
@@ -62,7 +63,14 @@ class AddCourseViewModel(
             }
         }
     }
-
+    fun fetchCourse(courseId: String){
+        viewModelScope.launch {
+            val response = repository.getCourseInfo(courseId)
+            if(response.code() == 200){
+                _course.value = response.body()
+            }
+        }
+    }
     fun resetSuccessFlag(){
         _success.value = null
     }

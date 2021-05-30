@@ -3,7 +3,6 @@ package com.example.tarclearn.ui.fragment
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,6 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -20,10 +18,10 @@ import com.example.tarclearn.adapter.CourseUserRecyclerViewAdapter
 import com.example.tarclearn.databinding.FragmentManageUserBinding
 import com.example.tarclearn.factory.ManageUserViewModelFactory
 import com.example.tarclearn.model.UserDto
-import com.example.tarclearn.repository.Repository
+import com.example.tarclearn.repository.CourseRepository
+import com.example.tarclearn.repository.UserRepository
 import com.example.tarclearn.viewmodel.ManageUserViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import kotlinx.coroutines.coroutineScope
 
 class ManageUserFragment : Fragment() {
     private lateinit var binding: FragmentManageUserBinding
@@ -48,8 +46,7 @@ class ManageUserFragment : Fragment() {
         currentUserId = sharedPref.getString(getString(R.string.key_user_id), "")!!
 
         //create viewmodel
-        val repository = Repository()
-        val viewModelFactory = ManageUserViewModelFactory(repository)
+        val viewModelFactory = ManageUserViewModelFactory(UserRepository(), CourseRepository())
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(ManageUserViewModel::class.java)
 

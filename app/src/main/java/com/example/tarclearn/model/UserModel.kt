@@ -11,7 +11,3 @@ data class UserDetailDto (
     val isLecturer: Boolean
 )
 
-data class UserCourseDto(
-    val courseId: String,
-    val courseTitle: String
-)

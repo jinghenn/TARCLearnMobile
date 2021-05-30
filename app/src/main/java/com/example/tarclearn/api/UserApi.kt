@@ -1,7 +1,7 @@
 package com.example.tarclearn.api
 
 import com.example.tarclearn.model.UserDetailDto
-import com.example.tarclearn.model.UserCourseDto
+import com.example.tarclearn.model.CourseDto
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -11,7 +11,7 @@ interface UserApi {
     suspend fun getUser(@Path("id") id: String) : Response<UserDetailDto>
 
     @GET("users/{id}/courses")//Get the courses enrolled by a user
-    suspend fun getUserCourses(@Path("id")id: String): Response<List<UserCourseDto>>
+    suspend fun getUserCourses(@Path("id")id: String): Response<List<CourseDto>>
 
 
 //    @POST("users")//add a new user

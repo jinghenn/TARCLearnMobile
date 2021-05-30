@@ -12,23 +12,23 @@ import androidx.navigation.fragment.findNavController
 import com.example.tarclearn.R
 import com.example.tarclearn.adapter.CourseRecyclerViewAdapter
 import com.example.tarclearn.databinding.FragmentCourseListBinding
-import com.example.tarclearn.factory.CourseViewModelFactory
-import com.example.tarclearn.repository.Repository
-import com.example.tarclearn.viewmodel.CourseViewModel
+import com.example.tarclearn.factory.CourseListViewModelFactory
+import com.example.tarclearn.repository.UserRepository
+import com.example.tarclearn.viewmodel.CourseListViewModel
 
 class CourseListFragment : Fragment() {
     private lateinit var sharedPref: SharedPreferences
     private lateinit var binding: FragmentCourseListBinding
-    private lateinit var viewModel: CourseViewModel
+    private lateinit var viewModel: CourseListViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentCourseListBinding.inflate(inflater, container, false)
-        val repository = Repository()
-        val viewModelFactory = CourseViewModelFactory(repository)
-        viewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(CourseViewModel::class.java)
+        val repository = UserRepository()
+        val viewModelFactory = CourseListViewModelFactory(repository)
+        viewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(CourseListViewModel::class.java)
 
         //fetch the course enrolled by the user
         sharedPref = requireActivity().getSharedPreferences(
@@ -48,7 +48,7 @@ class CourseListFragment : Fragment() {
         val adapter = CourseRecyclerViewAdapter()
         viewModel.courseList.observe(viewLifecycleOwner, {
             it?.let {
-                if (it.size == 0) {
+                if (it.isEmpty()) {
                     binding.tvEmpty.text = getString(R.string.label_nothing_to_show)
                 } else {
                     binding.tvEmpty.text = ""
@@ -59,7 +59,7 @@ class CourseListFragment : Fragment() {
         binding.courseRecyclerView.adapter = adapter
 
         binding.fabAddCourse.setOnClickListener {
-            val action = CourseListFragmentDirections.actionCourseFragmentToAddCourseFragment(1, "")
+            val action = CourseListFragmentDirections.actionCourseFragmentToManageCourseFragment(1, "")
             findNavController().navigate(action)
         }
     }

@@ -7,13 +7,13 @@ import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tarclearn.R
-import com.example.tarclearn.model.UserCourseDto
+import com.example.tarclearn.model.CourseDto
 import com.example.tarclearn.ui.fragment.CourseListFragmentDirections
 import com.google.android.material.card.MaterialCardView
 
 class CourseRecyclerViewAdapter() : RecyclerView.Adapter<CourseRecyclerViewAdapter.ViewHolder>() {
 
-    var courseList = listOf<UserCourseDto>()
+    var courseList = listOf<CourseDto>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -27,7 +27,7 @@ class CourseRecyclerViewAdapter() : RecyclerView.Adapter<CourseRecyclerViewAdapt
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.course_list_item_view, parent, false)
+        val view = layoutInflater.inflate(R.layout.item_view_course_list, parent, false)
         return ViewHolder(view)
     }
 
@@ -36,11 +36,6 @@ class CourseRecyclerViewAdapter() : RecyclerView.Adapter<CourseRecyclerViewAdapt
         holder.cardHeader.text = item.courseId
         holder.cardSubHeader.text = item.courseTitle
         holder.card.setOnClickListener {
-//            val context = holder.card.context
-//            val intent = Intent(context, CourseActivity::class.java)
-//            intent.putExtra("courseId", item.courseId)
-//            intent.putExtra("courseName", item.courseName)
-//            context.startActivity(intent)
             val action =
                 CourseListFragmentDirections.actionCourseFragmentToCourseInfoFragment(item.courseId)
             holder.card.findNavController().navigate(action)

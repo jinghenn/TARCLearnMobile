@@ -2,15 +2,17 @@ package com.example.tarclearn.ui.fragment
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tarclearn.R
+import com.example.tarclearn.adapter.ChapterRecyclerViewAdapter
 import com.example.tarclearn.databinding.FragmentCourseInfoBinding
 import com.example.tarclearn.factory.CourseInfoViewModelFactory
-import com.example.tarclearn.repository.Repository
+import com.example.tarclearn.model.ChapterDetailDto
+import com.example.tarclearn.repository.CourseRepository
+import com.example.tarclearn.util.Constants
 import com.example.tarclearn.viewmodel.CourseInfoViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -27,8 +29,7 @@ class CourseInfoFragment : Fragment() {
         binding = FragmentCourseInfoBinding.inflate(inflater, container, false)
 
         //initialize viewmodel
-        val repository = Repository()
-        val vmFactory = CourseInfoViewModelFactory(repository)
+        val vmFactory = CourseInfoViewModelFactory(CourseRepository())
         viewModel = ViewModelProvider(this, vmFactory)
             .get(CourseInfoViewModel::class.java)
 
@@ -47,7 +48,26 @@ class CourseInfoFragment : Fragment() {
                 binding.tvCourseName.text = it.courseTitle
             }
         }
+        //bind course chapters to recyclerview
+        viewModel.fetchChapterList(args.courseId)
+        viewModel.chapterList.observe(viewLifecycleOwner) {
+            val adapter = ChapterRecyclerViewAdapter(args.courseId)
+            if (it.isNotEmpty()) {
+                adapter.chapterList = it as MutableList<ChapterDetailDto>
+                binding.chapterListRecyclerView.adapter = adapter
+            }
+        }
 
+        //fab
+        binding.fabAddChapter.setOnClickListener {
+            val action =
+                CourseInfoFragmentDirections.actionCourseInfoFragmentToManageChapterFragment(
+                    0,
+                    Constants.MODE_CREATE,
+                    args.courseId
+                )
+            findNavController().navigate(action)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -60,7 +80,10 @@ class CourseInfoFragment : Fragment() {
             R.id.delete_course -> {
                 MaterialAlertDialogBuilder(requireActivity())
                     .setTitle("Delete Course")
-                    .setMessage("Are you sure you want to delete course ${args.courseId} permanently?\nThis action cannot be undone.")
+                    .setMessage(
+                        "Are you sure you want to delete course ${args.courseId} permanently?" +
+                                "\nThis action cannot be undone."
+                    )
                     .setPositiveButton("Yes") { _, _ ->
                         viewModel.deleteCourse(args.courseId)
                         requireActivity().onBackPressed()
@@ -71,7 +94,7 @@ class CourseInfoFragment : Fragment() {
             }
             R.id.edit_course -> {
                 val action =
-                    CourseInfoFragmentDirections.actionCourseInfoFragmentToAddCourseFragment(
+                    CourseInfoFragmentDirections.actionCourseInfoFragmentToManageCourseFragment(
                         2,
                         args.courseId
                     )
@@ -81,4 +104,5 @@ class CourseInfoFragment : Fragment() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 }

@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!! as NavHostFragment
         navController = navHostFragment.navController
         appBarConfiguration =
-            AppBarConfiguration(setOf(R.id.course_fragment, R.id.about_fragment, R.id.manage_user_fragment), drawerLayout)
+            AppBarConfiguration(setOf(R.id.course_list_fragment, R.id.about_fragment, R.id.manage_user_fragment), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.menu.findItem(R.id.logout).setOnMenuItemClickListener {

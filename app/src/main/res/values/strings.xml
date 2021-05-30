@@ -45,4 +45,8 @@
     <string name="label_cancel">Cancel</string>
     <string name="label_edit">Edit</string>
     <string name="label_save">Save</string>
+    <string name="label_chapter_name">Chapter Name</string>
+    <string name="chapter_title">Chapter %s: %s</string>
+    <string name="label_chapter_sub_no">Sub-chapter No.</string>
+    <string name="label_chapter_no">Chapter No.</string>
 </resources>

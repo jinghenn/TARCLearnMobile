@@ -2,12 +2,12 @@ package com.example.tarclearn.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.tarclearn.repository.Repository
+import com.example.tarclearn.repository.UserRepository
 import com.example.tarclearn.viewmodel.LoginViewModel
 import java.lang.IllegalArgumentException
 
 class LoginViewModelFactory(
-    private val repository: Repository
+    private val repository: UserRepository
 ) : ViewModelProvider.Factory{
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

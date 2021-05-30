@@ -3,19 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/course_fragment">
+    app:startDestination="@id/course_list_fragment">
 
     <fragment
-        android:id="@+id/course_fragment"
+        android:id="@+id/course_list_fragment"
         android:name="com.example.tarclearn.ui.fragment.CourseListFragment"
-        android:label="Course"
-        tools:layout="@layout/fragment_course_list" >
+        android:label="Course">
         <action
             android:id="@+id/action_course_fragment_to_courseInfoFragment"
             app:destination="@id/courseInfoFragment" />
         <action
-            android:id="@+id/action_course_fragment_to_addCourseFragment"
-            app:destination="@id/addCourseFragment" />
+            android:id="@+id/action_course_fragment_to_manageCourseFragment"
+            app:destination="@id/manageCourseFragment" />
     </fragment>
     <fragment
         android:id="@+id/about_fragment"
@@ -30,24 +29,42 @@
     <fragment
         android:id="@+id/courseInfoFragment"
         android:name="com.example.tarclearn.ui.fragment.CourseInfoFragment"
-        android:label="CourseInfoFragment" >
+        android:label="Course Info" >
         <argument
             android:name="courseId"
             app:argType="string" />
         <action
-            android:id="@+id/action_courseInfoFragment_to_addCourseFragment"
-            app:destination="@id/addCourseFragment" />
+            android:id="@+id/action_courseInfoFragment_to_manageCourseFragment"
+            app:destination="@id/manageCourseFragment" />
+        <action
+            android:id="@+id/action_courseInfoFragment_to_manageChapterFragment"
+            app:destination="@id/manageChapterFragment" />
     </fragment>
     <fragment
-        android:id="@+id/addCourseFragment"
-        android:name="com.example.tarclearn.ui.fragment.AddCourseFragment"
-        android:label="fragment_add_course"
-        tools:layout="@layout/fragment_add_course" >
+        android:id="@+id/manageCourseFragment"
+        android:name="com.example.tarclearn.ui.fragment.ManageCourseFragment"
+        android:label="Manage Course"
+        tools:layout="@layout/fragment_manage_course">
         <argument
             android:name="mode"
             app:argType="integer" />
         <argument
             android:name="courseId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageChapterFragment"
+        android:name="com.example.tarclearn.ui.fragment.ManageChapterFragment"
+        android:label="ManageChapterFragment" >
+        <argument
+            android:name="chapterId"
+            app:argType="integer" />
+        <argument
+            android:name="mode"
+            app:argType="integer" />
+        <argument
+            android:name="courseId"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.tarclearn.R
 import com.example.tarclearn.databinding.ActivityLoginBinding
 import com.example.tarclearn.factory.LoginViewModelFactory
-import com.example.tarclearn.repository.Repository
+import com.example.tarclearn.repository.UserRepository
 import com.example.tarclearn.viewmodel.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
         //initialize user repository
-        val repository = Repository()
+        val repository = UserRepository()
         //create a view model using factory design pattern
         val viewModelFactory = LoginViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)

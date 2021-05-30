@@ -1,5 +1,6 @@
 package com.example.tarclearn.api
 
+import com.example.tarclearn.model.ChapterDetailDto
 import com.example.tarclearn.model.CourseDetailDto
 import com.example.tarclearn.model.UserDto
 import retrofit2.Response
@@ -35,4 +36,7 @@ interface CourseApi {
 
     @DELETE("courses/{id}")
     suspend fun deleteCourse(@Path("id") id:String):Response<CourseDetailDto>
+
+    @GET("courses/{id}/chapters")
+    suspend fun getCourseChapters(@Path("id") id: String):Response<List<ChapterDetailDto>>
 }

@@ -4,15 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tarclearn.model.UserCourseDto
-import com.example.tarclearn.repository.Repository
+import com.example.tarclearn.model.CourseDto
+import com.example.tarclearn.repository.UserRepository
 import kotlinx.coroutines.launch
 
-class CourseViewModel(
-    private val repository: Repository
+class CourseListViewModel(
+    private val repository: UserRepository
 ) : ViewModel() {
-    private val _courseList = MutableLiveData<List<UserCourseDto>>()
-    val courseList: LiveData<List<UserCourseDto>>
+    private val _courseList = MutableLiveData<List<CourseDto>>()
+    val courseList: LiveData<List<CourseDto>>
         get() = _courseList
 
 fun fetchCourseList(userId: String) {

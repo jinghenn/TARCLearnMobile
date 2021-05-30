@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tarclearn.model.UserDetailDto
-import com.example.tarclearn.repository.Repository
+import com.example.tarclearn.repository.UserRepository
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
-    private val repository: Repository
+    private val repository: UserRepository
 ) : ViewModel() {
 
     private val _user = MutableLiveData<UserDetailDto>()

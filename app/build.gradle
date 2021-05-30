@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'androidx.navigation.safeargs'
+
 }
 
 android {
@@ -31,10 +32,13 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+
     }
-    buildFeatures{
+    buildFeatures {
         dataBinding true
+
     }
+
 }
 
 dependencies {
@@ -77,4 +81,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
     //media player
     implementation 'com.google.android.exoplayer:exoplayer:2.14.0'
+
+
 }

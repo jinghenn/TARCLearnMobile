@@ -6,7 +6,7 @@
         android:id="@+id/profile_group"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/course_fragment"
+            android:id="@+id/course_list_fragment"
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/label_course"/>
         <item
