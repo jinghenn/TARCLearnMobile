@@ -82,5 +82,4 @@ dependencies {
     //media player
     implementation 'com.google.android.exoplayer:exoplayer:2.14.0'
 
-
 }

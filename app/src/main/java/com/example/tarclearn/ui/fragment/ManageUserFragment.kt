@@ -55,7 +55,7 @@ class ManageUserFragment : Fragment() {
         //initialize dropdown menu
         viewModel.courseList.observe(viewLifecycleOwner,{
             val items = viewModel.getCourseListWithName()
-            val adapter = ArrayAdapter(requireContext(), R.layout.manage_user_menu_layout, items)
+            val adapter = ArrayAdapter(requireContext(), R.layout.dropdown, items)
             (binding.etCourse as? AutoCompleteTextView)?.setAdapter(adapter)
         })
         binding.etCourse.doAfterTextChanged {

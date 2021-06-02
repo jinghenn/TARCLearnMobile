@@ -3,6 +3,7 @@ package com.example.tarclearn.repository
 import com.example.tarclearn.api.RetrofitInstance
 import com.example.tarclearn.model.ChapterDetailDto
 import com.example.tarclearn.model.ChapterDto
+import com.example.tarclearn.model.MaterialDetailDto
 import com.example.tarclearn.model.MaterialDto
 import retrofit2.Response
 
@@ -16,8 +17,8 @@ class ChapterRepository {
     suspend fun deleteChapter(chapterId: Int): Response<ChapterDetailDto> {
         return RetrofitInstance.chapterApi.deleteChapter(chapterId)
     }
-    suspend fun getChapterVideos(chapterId: Int): Response<List<MaterialDto>> {
-        return RetrofitInstance.chapterApi.getChapterVideos(chapterId)
+    suspend fun getChapterVideos(chapterId: Int, mode: String): Response<List<MaterialDetailDto>> {
+        return RetrofitInstance.chapterApi.getChapterVideos(chapterId, mode)
     }
     suspend fun getChapter(chapterId: Int): Response<ChapterDto> {
         return RetrofitInstance.chapterApi.getChapter(chapterId)

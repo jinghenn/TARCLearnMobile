@@ -32,5 +32,19 @@
         <action
             android:id="@+id/action_videoListFragment_to_videoFragment"
             app:destination="@id/videoFragment" />
+        <action
+            android:id="@+id/action_videoListFragment_to_manageVideoFragment"
+            app:destination="@id/manageVideoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageVideoFragment"
+        android:name="com.example.tarclearn.ui.video.ManageVideoFragment"
+        android:label="ManageVideoFragment" >
+        <argument
+            android:name="mode"
+            app:argType="integer" />
+        <argument
+            android:name="materialId"
+            app:argType="integer" />
     </fragment>
 </navigation>

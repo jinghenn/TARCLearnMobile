@@ -59,7 +59,7 @@ class ManageChapterFragment : Fragment() {
         viewModel.success.observe(viewLifecycleOwner) {
             val text = when (args.mode) {
                 Constants.MODE_CREATE -> "Chapter ${viewModel.chapter.value?.chapterNo} created successfully"
-                Constants.MODE_EDIT -> "Course: ${viewModel.chapter.value?.chapterNo} updated successfully"
+                Constants.MODE_EDIT -> "Chapter: ${viewModel.chapter.value?.chapterNo} updated successfully"
                 else -> "Success"
             }
             if (it == true) {
@@ -123,7 +123,7 @@ class ManageChapterFragment : Fragment() {
         val subChapterNo = binding.tvChapterSubNo.text.toString()
         val mergedChapNo = when (subChapterNo) {
             "" -> chapterNo
-            else -> "$chapterNo-$subChapterNo"
+            else -> "$chapterNo.$subChapterNo"
         }
 
         if (chapterNo == "") {
