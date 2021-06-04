@@ -2,9 +2,9 @@ package com.example.tarclearn.ui.video
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,18 +22,19 @@ import com.example.tarclearn.model.MaterialDetailDto
 import com.example.tarclearn.repository.MaterialRepository
 import com.example.tarclearn.util.Constants
 import com.example.tarclearn.viewmodel.ManageVideoViewModel
-import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import java.io.File
+import net.gotev.uploadservice.protocols.multipart.MultipartUploadRequest
 import java.util.*
+import kotlin.properties.Delegates
+
 
 class ManageVideoFragment : Fragment() {
     private lateinit var binding: FragmentManageVideoBinding
     private lateinit var viewModel: ManageVideoViewModel
     private val args: ManageVideoFragmentArgs by navArgs()
-    private var chapterId = -1
-    private var filePath = ""
+    private var chapterId: Int by Delegates.notNull()
+    private var uri: Uri by Delegates.notNull()
+    private var newVid: MaterialDetailDto by Delegates.notNull()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -58,9 +59,12 @@ class ManageVideoFragment : Fragment() {
                 else -> "Action succeeded"
             }
             it?.let {
+
                 Toast.makeText(requireContext(), text, Toast.LENGTH_LONG)
                     .show()
                 viewModel.resetSuccessFlag()
+                requireActivity().onBackPressed()
+
             }
 
         }
@@ -127,14 +131,19 @@ class ManageVideoFragment : Fragment() {
                     val vidName = getVideoName()
                     val vidDesc = binding.tvVideoDesc.text.toString()
                     if (vidNo != -1 && vidTitle != "" && vidMode != "" && vidName != "") {
-                        val newVid =
+                        Toast.makeText(requireContext(), "Upload started", Toast.LENGTH_SHORT).show()
+                        newVid =
                             MaterialDetailDto(0, vidNo, vidTitle, vidDesc, vidName, vidMode, true)
-                        val f = File(filePath).asRequestBody("video/*".toMediaType())
-                        val fileModel =
-                            MultipartBody.Part.createFormData("material", newVid.toString())
-                        val file = MultipartBody.Part.createFormData("file", vidName, f)
 
-                        viewModel.uploadVideo(fileModel, file, chapterId, vidMode)
+                        val serverUrl =
+                            "http://192.168.0.72:50000/api/upload?chapterId=$chapterId&type=${Constants.VIDEO_MATERIAL}"
+                        MultipartUploadRequest(
+                            requireContext(), serverUrl
+                        ).setMethod("POST")
+                            .addFileToUpload(uri.toString(), "file")
+                            .addParameter("material", newVid.toString())
+                            .startUpload()
+
                     }
                 }
             }
@@ -216,25 +225,21 @@ class ManageVideoFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (resultCode == RESULT_OK && requestCode == Constants.REQUEST_PICK_VIDEO) {
-            Log.d("uri", data!!.data!!.path!!)
-            data?.data?.also { uri ->
+            data?.data?.also {
+                uri = it
                 val cursor =
                     requireContext().contentResolver.query(
-                        data.data!!, null, null, null, null
+                        it, null, null, null, null
                     )
-                val nameIdx = cursor?.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME)
-                val pathIdx = cursor?.getColumnIndex(MediaStore.Video.Media.DATA)
-                if (cursor != null && cursor.moveToFirst()) {
-                    val name = cursor.getString(nameIdx!!)
-                    filePath = cursor.getString(pathIdx!!)
-                    Log.d("path", filePath)
+
+                cursor?.let {
+                    val nameIdx = it.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME)
+                    it.moveToFirst()
+                    val name = it.getString(nameIdx)
                     binding.tvVideoName.setText(name)
                 }
                 cursor?.close()
-
             }
-
-
         }
     }
 

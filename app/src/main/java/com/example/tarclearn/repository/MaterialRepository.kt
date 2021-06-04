@@ -10,14 +10,14 @@ class MaterialRepository {
         return RetrofitInstance.materialApi.getMaterial(materialId)
     }
 
-    suspend fun upload(
-        fileModel: MultipartBody.Part,
-        filePart: MultipartBody.Part,
-        chapterId: Int,
-        type: String
-    ): Response<MaterialDetailDto> {
-        return RetrofitInstance.materialApi.upload(fileModel, filePart, chapterId, type)
-    }
+//    suspend fun upload(
+//        fileModel: MultipartBody.Part,
+//        filePart: MultipartBody.Part,
+//        chapterId: Int,
+//        type: String
+//    ): Response<MaterialDetailDto> {
+//        return RetrofitInstance.materialApi.upload(fileModel, filePart, chapterId, type)
+//    }
 
     suspend fun updateMaterial(materialId: Int, newMaterial: MaterialDetailDto):Response<MaterialDetailDto>{
         return RetrofitInstance.materialApi.updateMaterial(materialId, newMaterial)

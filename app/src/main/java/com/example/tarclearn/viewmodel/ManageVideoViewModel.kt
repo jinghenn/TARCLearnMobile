@@ -34,18 +34,18 @@ class ManageVideoViewModel(
         }
     }
 
-    fun uploadVideo(fileModel: MultipartBody.Part, file: MultipartBody.Part, chapterId: Int, type: String) {
-        viewModelScope.launch {
-            val response = repository.upload(fileModel, file, chapterId, Constants.VIDEO_MATERIAL)
-            if(response.code() == 200){
-                _video.value = response.body()
-                _success.value = true
-            }
-            if(response.code() == 400){
-                _error.value = true
-            }
-        }
-    }
+//    fun uploadVideo(fileModel: MultipartBody.Part, file: MultipartBody.Part, chapterId: Int, type: String) {
+//        viewModelScope.launch {
+//            val response = repository.upload(fileModel, file, chapterId, Constants.VIDEO_MATERIAL)
+//            if(response.code() == 200){
+//                _video.value = response.body()
+//                _success.value = true
+//            }
+//            if(response.code() == 400){
+//                _error.value = true
+//            }
+//        }
+//    }
     fun updateVideo(materialId: Int, newMaterial: MaterialDetailDto){
         viewModelScope.launch {
             val response = repository.updateMaterial(materialId, newMaterial)
