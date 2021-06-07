@@ -3,7 +3,7 @@ package com.example.tarclearn.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.tarclearn.repository.UserRepository
-import com.example.tarclearn.viewmodel.CourseListViewModel
+import com.example.tarclearn.viewmodel.course.CourseListViewModel
 
 class CourseListViewModelFactory(
     private val repository: UserRepository

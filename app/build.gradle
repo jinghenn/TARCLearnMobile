@@ -85,6 +85,11 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer:2.14.0'
     //work manager
     implementation("androidx.work:work-runtime-ktx:$work_version")
+    //IO
     implementation 'com.squareup.okio:okio:2.8.0'
+    //file upload
     implementation 'net.gotev:uploadservice:4.5.5'
+    //file download
+    //implementation 'com.mindorks.android:prdownloader:0.6.0'
+    implementation "androidx.tonyodev.fetch2:xfetch2:3.1.6"
 }

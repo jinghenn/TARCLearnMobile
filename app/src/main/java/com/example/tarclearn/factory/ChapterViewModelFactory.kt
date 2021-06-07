@@ -3,8 +3,9 @@ package com.example.tarclearn.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.tarclearn.repository.ChapterRepository
-import com.example.tarclearn.viewmodel.ManageChapterViewModel
-import com.example.tarclearn.viewmodel.VideoListViewModel
+import com.example.tarclearn.viewmodel.course.ManageChapterViewModel
+import com.example.tarclearn.viewmodel.video.VideoListViewModel
+import com.example.tarclearn.viewmodel.material.MaterialListViewModel
 
 class ChapterViewModelFactory(
     private val repository: ChapterRepository
@@ -16,6 +17,9 @@ class ChapterViewModelFactory(
         }
         if(modelClass.isAssignableFrom(VideoListViewModel::class.java)) {
             return VideoListViewModel(repository) as T
+        }
+        if (modelClass.isAssignableFrom(MaterialListViewModel::class.java)) {
+            return MaterialListViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel Class")
     }

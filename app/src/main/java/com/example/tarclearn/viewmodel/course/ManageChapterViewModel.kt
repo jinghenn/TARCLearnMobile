@@ -1,4 +1,4 @@
-package com.example.tarclearn.viewmodel
+package com.example.tarclearn.viewmodel.course
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

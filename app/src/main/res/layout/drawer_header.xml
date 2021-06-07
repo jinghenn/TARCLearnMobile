@@ -22,7 +22,7 @@
         android:paddingTop="140dp"
         android:paddingEnd="40dp"
         android:theme="@style/Theme.TARCLearnMobile"
-        tools:context=".ui.fragment.ProfileFragment">
+        tools:context=".ui.about.ProfileFragment">
 
         <TextView
             android:id="@+id/tvWelcome"

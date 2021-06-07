@@ -12,7 +12,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.fragment.ManageChapterFragment">
+        tools:context=".ui.course.ManageChapterFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -98,3 +98,4 @@
 
     </ScrollView>
 </layout>
+

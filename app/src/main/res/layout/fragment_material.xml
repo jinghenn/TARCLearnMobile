@@ -1,21 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.courseFragment.MaterialFragment">
+        android:layout_height="match_parent">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            tools:context=".ui.course.MaterialFragment">
 
-    </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvMaterialTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Object-Oriented Programming Notes" />
+
+            <TextView
+                android:id="@+id/tvMaterialDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintEnd_toEndOf="@+id/tvMaterialTitle"
+                app:layout_constraintStart_toStartOf="@+id/tvMaterialTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvMaterialTitle"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Turpis massa sed elementum tempus egestas sed sed. Varius quam quisque id diam vel. Malesuada fames ac turpis egestas maecenas pharetra convallis." />
+
+            <Button
+                android:id="@+id/btnViewMaterial"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="@+id/tvMaterialDesc"
+                app:layout_constraintStart_toStartOf="@+id/tvMaterialDesc"
+                app:layout_constraintTop_toBottomOf="@+id/tvMaterialDesc"
+                tools:text="Notes chapter 1.pdf" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>

@@ -10,7 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.tarclearn.databinding.FragmentVideoBinding
 import com.example.tarclearn.factory.MaterialViewModelFactory
 import com.example.tarclearn.repository.MaterialRepository
-import com.example.tarclearn.viewmodel.VideoViewModel
+import com.example.tarclearn.viewmodel.video.VideoViewModel
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
 

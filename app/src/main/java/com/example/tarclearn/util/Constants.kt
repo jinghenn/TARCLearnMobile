@@ -4,11 +4,13 @@ class Constants {
 
 
     companion object {
-        const val UPLOAD_ID = "TARCLEARN_UPLOAD"
+        const val BASE_URL = "http://192.168.0.72:50000/api/"
         const val MODE_CREATE = 1
         const val MODE_EDIT = 2
         const val VIDEO_MATERIAL = "video"
         const val OTHER_MATERIAL = "material"
-        const val REQUEST_PICK_VIDEO = 1
+        const val UPLOAD_ID = "TARCLEARN_UPLOAD"
+        const val REQUEST_PICK_MATERIAL = 1
+        const val REQUEST_CREATE_FILE = 2
     }
 }

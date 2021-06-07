@@ -1,4 +1,4 @@
-package com.example.tarclearn.ui.fragment
+package com.example.tarclearn.ui.course
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -14,7 +14,7 @@ import com.example.tarclearn.adapter.CourseRecyclerViewAdapter
 import com.example.tarclearn.databinding.FragmentCourseListBinding
 import com.example.tarclearn.factory.CourseListViewModelFactory
 import com.example.tarclearn.repository.UserRepository
-import com.example.tarclearn.viewmodel.CourseListViewModel
+import com.example.tarclearn.viewmodel.course.CourseListViewModel
 
 class CourseListFragment : Fragment() {
     private lateinit var sharedPref: SharedPreferences
@@ -28,7 +28,8 @@ class CourseListFragment : Fragment() {
         binding = FragmentCourseListBinding.inflate(inflater, container, false)
         val repository = UserRepository()
         val viewModelFactory = CourseListViewModelFactory(repository)
-        viewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(CourseListViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(
+            CourseListViewModel::class.java)
 
         //fetch the course enrolled by the user
         sharedPref = requireActivity().getSharedPreferences(
@@ -59,7 +60,11 @@ class CourseListFragment : Fragment() {
         binding.courseRecyclerView.adapter = adapter
 
         binding.fabAddCourse.setOnClickListener {
-            val action = CourseListFragmentDirections.actionCourseFragmentToManageCourseFragment(1, "")
+            val action =
+                CourseListFragmentDirections.actionCourseFragmentToManageCourseFragment(
+                    1,
+                    ""
+                )
             findNavController().navigate(action)
         }
     }

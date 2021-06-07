@@ -1,4 +1,4 @@
-package com.example.tarclearn.ui.fragment
+package com.example.tarclearn.ui.course
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -20,7 +20,7 @@ import com.example.tarclearn.factory.ManageUserViewModelFactory
 import com.example.tarclearn.model.UserDto
 import com.example.tarclearn.repository.CourseRepository
 import com.example.tarclearn.repository.UserRepository
-import com.example.tarclearn.viewmodel.ManageUserViewModel
+import com.example.tarclearn.viewmodel.course.ManageUserViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class ManageUserFragment : Fragment() {

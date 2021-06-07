@@ -3,7 +3,7 @@ package com.example.tarclearn.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.tarclearn.repository.UserRepository
-import com.example.tarclearn.viewmodel.LoginViewModel
+import com.example.tarclearn.viewmodel.login.LoginViewModel
 import java.lang.IllegalArgumentException
 
 class LoginViewModelFactory(

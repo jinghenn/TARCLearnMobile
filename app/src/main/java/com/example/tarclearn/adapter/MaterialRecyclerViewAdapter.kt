@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tarclearn.R
 import com.example.tarclearn.model.MaterialDetailDto
 import com.example.tarclearn.repository.MaterialRepository
-import com.example.tarclearn.ui.video.VideoListFragmentDirections
+import com.example.tarclearn.ui.material.MaterialListFragmentDirections
 import com.example.tarclearn.util.Constants
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -18,8 +18,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class VideoRecyclerViewAdapter() : RecyclerView.Adapter<VideoRecyclerViewAdapter.ViewHolder>() {
-    var videoList = mutableListOf<MaterialDetailDto>()
+class MaterialRecyclerViewAdapter : RecyclerView.Adapter<MaterialRecyclerViewAdapter.ViewHolder>() {
+    var materialList = mutableListOf<MaterialDetailDto>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -34,45 +34,50 @@ class VideoRecyclerViewAdapter() : RecyclerView.Adapter<VideoRecyclerViewAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        //TODO rename the layout for itemView
         val view = layoutInflater.inflate(R.layout.item_view_course_chapter, parent, false)
         return ViewHolder(view)
     }
 
     override fun getItemCount(): Int {
-        return videoList.size
+        return materialList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = videoList[position]
-        holder.title.setText(item.materialTitle)
+        val item = materialList[position]
+        holder.title.text = item.materialTitle
         holder.card.setOnClickListener {
             val action =
-                VideoListFragmentDirections.actionVideoListFragmentToVideoFragment(item.materialId)
+                MaterialListFragmentDirections.actionMaterialListFragmentToMaterialFragment(item.materialId)
             holder.card.findNavController().navigate(action)
         }
         holder.editBtn.setOnClickListener {
-            val action = VideoListFragmentDirections.actionVideoListFragmentToManageVideoFragment(
-                Constants.MODE_EDIT,
-                item.materialId
-            )
+            val action =
+                MaterialListFragmentDirections.actionMaterialListFragmentToManageMaterialFragment(
+                    Constants.MODE_EDIT,
+                    item.materialId
+                )
             holder.card.findNavController().navigate(action)
         }
         holder.deleteBtn.setOnClickListener {
-            MaterialAlertDialogBuilder(holder.deleteBtn.context)
-                .setTitle("Remove Video")
-                .setMessage("Are you sure you want to remove this video?")
-                .setPositiveButton("Yes") { _, _ ->
-                    CoroutineScope(Dispatchers.Main).launch {
-                        val repository = MaterialRepository()
-                        val response = repository.deleteMaterial(item.materialId)
-                        if (response.code() == 200) {
-                            videoList.remove(item)
-                            notifyDataSetChanged()
-                        }
+            onDelete(holder, position)
+        }
+    }
+
+    private fun onDelete(holder: ViewHolder, position: Int) {
+        val item = materialList[position]
+        MaterialAlertDialogBuilder(holder.deleteBtn.context)
+            .setTitle("Remove Material")
+            .setMessage("Are you sure you want to remove this material?")
+            .setPositiveButton("Yes") { _, _ ->
+                CoroutineScope(Dispatchers.Main).launch {
+                    val repository = MaterialRepository()
+                    val response = repository.deleteMaterial(item.materialId)
+                    if (response.code() == 200) {
+                        materialList.remove(item)
+                        notifyDataSetChanged()
                     }
                 }
-                .setNegativeButton("Cancel", null).show()
-        }
+            }
+            .setNegativeButton("Cancel", null).show()
     }
 }

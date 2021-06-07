@@ -1,4 +1,4 @@
-package com.example.tarclearn.viewmodel
+package com.example.tarclearn.viewmodel.video
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

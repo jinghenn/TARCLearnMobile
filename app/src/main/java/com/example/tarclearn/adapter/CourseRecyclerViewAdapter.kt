@@ -8,7 +8,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tarclearn.R
 import com.example.tarclearn.model.CourseDto
-import com.example.tarclearn.ui.fragment.CourseListFragmentDirections
+import com.example.tarclearn.ui.course.CourseListFragmentDirections
 import com.google.android.material.card.MaterialCardView
 
 class CourseRecyclerViewAdapter() : RecyclerView.Adapter<CourseRecyclerViewAdapter.ViewHolder>() {

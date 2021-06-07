@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_baseline_menu_book_24"
         android:title="@string/label_video" />
     <item
-        android:id="@+id/materialFragment"
+        android:id="@+id/materialListFragment"
         android:icon="@drawable/pencil"
         android:title="@string/label_material" />
     <item

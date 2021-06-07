@@ -1,4 +1,4 @@
-package com.example.tarclearn.ui.fragment
+package com.example.tarclearn.ui.course
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import com.example.tarclearn.databinding.FragmentManageChapterBinding
 import com.example.tarclearn.factory.ChapterViewModelFactory
 import com.example.tarclearn.repository.ChapterRepository
 import com.example.tarclearn.util.Constants
-import com.example.tarclearn.viewmodel.ManageChapterViewModel
+import com.example.tarclearn.viewmodel.course.ManageChapterViewModel
 
 class ManageChapterFragment : Fragment() {
     private lateinit var binding: FragmentManageChapterBinding

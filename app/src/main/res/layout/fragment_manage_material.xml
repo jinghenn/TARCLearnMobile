@@ -11,7 +11,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.course.ManageChapterFragment">
+        tools:context=".ui.material.ManageMaterialFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:padding="16dp">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tv_video_no_layout"
+                android:id="@+id/tv_material_no_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -29,7 +29,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tv_video_no"
+                    android:id="@+id/tv_material_no"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
@@ -43,7 +43,7 @@
                 android:layout_marginStart="8dp"
                 android:hint="@string/teaching_mode"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_video_no_layout"
+                app:layout_constraintStart_toEndOf="@+id/tv_material_no_layout"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <AutoCompleteTextView
@@ -56,61 +56,61 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tv_video_title_layout"
+                android:id="@+id/tv_material_title_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:hint="@string/label_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_video_no_layout">
+                app:layout_constraintTop_toBottomOf="@+id/tv_material_no_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tv_video_title"
+                    android:id="@+id/tv_material_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tv_video_desc_layout"
+                android:id="@+id/tv_material_desc_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:hint="@string/label_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_video_title_layout">
+                app:layout_constraintTop_toBottomOf="@+id/tv_material_title_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tv_video_desc"
+                    android:id="@+id/tv_material_desc"
                     android:layout_width="match_parent"
-                    android:inputType="textMultiLine"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tv_video_name_layout"
+                android:id="@+id/tv_material_name_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:hint="@string/label_pick_video"
-                app:layout_constraintEnd_toStartOf="@+id/btn_choose_video"
-                app:layout_constraintStart_toStartOf="parent"
+                android:hint="@string/label_pick_material"
+                app:layout_constraintEnd_toStartOf="@+id/btn_choose_material"
                 app:layout_constraintHorizontal_weight="5"
-                app:layout_constraintTop_toBottomOf="@+id/tv_video_desc_layout">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_material_desc_layout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tv_video_name"
+                    android:id="@+id/tv_material_name"
                     android:layout_width="match_parent"
-                    android:enabled="false"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:enabled="false" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_choose_video"
+                android:id="@+id/btn_choose_material"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -119,11 +119,11 @@
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 android:text="@string/label_choose"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_video_name_layout"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_material_name_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="2"
-                app:layout_constraintStart_toEndOf="@+id/tv_video_name_layout"
-                app:layout_constraintTop_toTopOf="@+id/tv_video_name_layout" />
+                app:layout_constraintStart_toEndOf="@+id/tv_material_name_layout"
+                app:layout_constraintTop_toTopOf="@+id/tv_material_name_layout" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_cancel"
@@ -135,7 +135,7 @@
                 android:text="@string/label_cancel"
                 app:layout_constraintEnd_toStartOf="@+id/btn_ok"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_choose_video" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_choose_material" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_ok"

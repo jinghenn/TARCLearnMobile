@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/course_list_fragment"
-        android:name="com.example.tarclearn.ui.fragment.CourseListFragment"
+        android:name="com.example.tarclearn.ui.course.CourseListFragment"
         android:label="Course">
         <action
             android:id="@+id/action_course_fragment_to_courseInfoFragment"
@@ -18,17 +18,17 @@
     </fragment>
     <fragment
         android:id="@+id/about_fragment"
-        android:name="com.example.tarclearn.ui.fragment.AboutFragment"
+        android:name="com.example.tarclearn.ui.about.AboutFragment"
         android:label="About"
         tools:layout="@layout/fragment_about" />
     <fragment
         android:id="@+id/manage_user_fragment"
-        android:name="com.example.tarclearn.ui.fragment.ManageUserFragment"
+        android:name="com.example.tarclearn.ui.course.ManageUserFragment"
         android:label="Manage User"
         tools:layout="@layout/fragment_manage_user" />
     <fragment
         android:id="@+id/courseInfoFragment"
-        android:name="com.example.tarclearn.ui.fragment.CourseInfoFragment"
+        android:name="com.example.tarclearn.ui.course.CourseInfoFragment"
         android:label="Course Info" >
         <argument
             android:name="courseId"
@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/manageCourseFragment"
-        android:name="com.example.tarclearn.ui.fragment.ManageCourseFragment"
+        android:name="com.example.tarclearn.ui.course.ManageCourseFragment"
         android:label="Manage Course"
         tools:layout="@layout/fragment_manage_course">
         <argument
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/manageChapterFragment"
-        android:name="com.example.tarclearn.ui.fragment.ManageChapterFragment"
+        android:name="com.example.tarclearn.ui.course.ManageChapterFragment"
         android:label="ManageChapterFragment" >
         <argument
             android:name="chapterId"

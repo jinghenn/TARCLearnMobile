@@ -12,7 +12,7 @@ import com.example.tarclearn.R
 import com.example.tarclearn.databinding.ActivityLoginBinding
 import com.example.tarclearn.factory.LoginViewModelFactory
 import com.example.tarclearn.repository.UserRepository
-import com.example.tarclearn.viewmodel.LoginViewModel
+import com.example.tarclearn.viewmodel.login.LoginViewModel
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding

@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.tarclearn.repository.CourseRepository
 import com.example.tarclearn.repository.UserRepository
-import com.example.tarclearn.viewmodel.ManageUserViewModel
+import com.example.tarclearn.viewmodel.course.ManageUserViewModel
 
 class ManageUserViewModelFactory(
     private val userRepository: UserRepository,

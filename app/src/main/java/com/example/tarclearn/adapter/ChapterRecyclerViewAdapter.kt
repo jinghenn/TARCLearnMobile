@@ -12,7 +12,7 @@ import com.example.tarclearn.R
 import com.example.tarclearn.model.ChapterDetailDto
 import com.example.tarclearn.repository.ChapterRepository
 import com.example.tarclearn.ui.activity.ChapterActivity
-import com.example.tarclearn.ui.fragment.CourseInfoFragmentDirections
+import com.example.tarclearn.ui.course.CourseInfoFragmentDirections
 import com.example.tarclearn.util.Constants
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

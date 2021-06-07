@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.tarclearn.R
@@ -25,7 +24,7 @@ class ChapterActivity : AppCompatActivity() {
         val appBarConfig = AppBarConfiguration(
             setOf(
                 R.id.videoListFragment,
-                R.id.materialFragment,
+                R.id.materialListFragment,
                 R.id.discussionFragment,
                 R.id.quizFragment
             )
@@ -33,9 +32,11 @@ class ChapterActivity : AppCompatActivity() {
 
         binding.bottomNav.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfig)
+
     }
+
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()|| super.onSupportNavigateUp()
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
 

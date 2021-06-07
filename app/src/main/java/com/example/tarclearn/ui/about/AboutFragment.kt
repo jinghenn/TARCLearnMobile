@@ -1,4 +1,4 @@
-package com.example.tarclearn.ui.fragment
+package com.example.tarclearn.ui.about
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

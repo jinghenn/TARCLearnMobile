@@ -1,4 +1,4 @@
-package com.example.tarclearn.ui.fragment
+package com.example.tarclearn.ui.course
 
 import android.os.Bundle
 import android.view.*
@@ -13,7 +13,7 @@ import com.example.tarclearn.factory.CourseInfoViewModelFactory
 import com.example.tarclearn.model.ChapterDetailDto
 import com.example.tarclearn.repository.CourseRepository
 import com.example.tarclearn.util.Constants
-import com.example.tarclearn.viewmodel.CourseInfoViewModel
+import com.example.tarclearn.viewmodel.course.CourseInfoViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class CourseInfoFragment : Fragment() {

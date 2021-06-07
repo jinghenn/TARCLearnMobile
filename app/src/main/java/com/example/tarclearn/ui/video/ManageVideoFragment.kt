@@ -21,7 +21,7 @@ import com.example.tarclearn.factory.MaterialViewModelFactory
 import com.example.tarclearn.model.MaterialDetailDto
 import com.example.tarclearn.repository.MaterialRepository
 import com.example.tarclearn.util.Constants
-import com.example.tarclearn.viewmodel.ManageVideoViewModel
+import com.example.tarclearn.viewmodel.video.ManageVideoViewModel
 import net.gotev.uploadservice.protocols.multipart.MultipartUploadRequest
 import java.util.*
 import kotlin.properties.Delegates
@@ -176,7 +176,7 @@ class ManageVideoFragment : Fragment() {
         btnPick.setOnClickListener {
             startActivityForResult(
                 Intent.createChooser(intent, "Select Video"),
-                Constants.REQUEST_PICK_VIDEO
+                Constants.REQUEST_PICK_MATERIAL
             )
         }
 
@@ -224,7 +224,7 @@ class ManageVideoFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode == RESULT_OK && requestCode == Constants.REQUEST_PICK_VIDEO) {
+        if (resultCode == RESULT_OK && requestCode == Constants.REQUEST_PICK_MATERIAL) {
             data?.data?.also {
                 uri = it
                 val cursor =

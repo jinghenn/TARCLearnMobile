@@ -22,6 +22,12 @@ interface ChapterApi {
         @Query("mode") mode: String
     ): Response<List<MaterialDetailDto>>
 
+    @GET("chapters/{id}/materials")
+    suspend fun getChapterMaterials(
+        @Path("id") id: Int,
+        @Query("mode") mode: String
+    ): Response<List<MaterialDetailDto>>
+
     @PUT("chapters/{id}")
     suspend fun updateChapter(
         @Path("id") id: Int,

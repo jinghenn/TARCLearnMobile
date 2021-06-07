@@ -6,28 +6,35 @@
     app:startDestination="@id/videoListFragment">
     <fragment
         android:id="@+id/quizFragment"
-        android:name="com.example.tarclearn.ui.courseFragment.QuizFragment"
-        android:label="QuizFragment" />
+        android:name="com.example.tarclearn.ui.quiz.QuizFragment"
+        android:label="Quiz" />
     <fragment
         android:id="@+id/videoFragment"
         android:name="com.example.tarclearn.ui.video.VideoFragment"
-        android:label="VideoFragment" >
+        android:label="Video" >
         <argument
             android:name="materialId"
             app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/discussionFragment"
-        android:name="com.example.tarclearn.ui.courseFragment.DiscussionFragment"
-        android:label="DiscussionFragment" />
+        android:name="com.example.tarclearn.ui.discussion.DiscussionFragment"
+        android:label="Discussion" />
     <fragment
-        android:id="@+id/materialFragment"
-        android:name="com.example.tarclearn.ui.material.MaterialFragment"
-        android:label="MaterialFragment" />
+        android:id="@+id/materialListFragment"
+        android:name="com.example.tarclearn.ui.material.MaterialListFragment"
+        android:label="Material List" >
+        <action
+            android:id="@+id/action_materialListFragment_to_materialFragment"
+            app:destination="@id/materialFragment" />
+        <action
+            android:id="@+id/action_materialListFragment_to_manageMaterialFragment"
+            app:destination="@id/manageMaterialFragment" />
+    </fragment>
     <fragment
         android:id="@+id/videoListFragment"
         android:name="com.example.tarclearn.ui.video.VideoListFragment"
-        android:label="fragment_video_list"
+        android:label="Video List"
         tools:layout="@layout/fragment_video_list" >
         <action
             android:id="@+id/action_videoListFragment_to_videoFragment"
@@ -39,7 +46,26 @@
     <fragment
         android:id="@+id/manageVideoFragment"
         android:name="com.example.tarclearn.ui.video.ManageVideoFragment"
-        android:label="ManageVideoFragment" >
+        android:label="Manage Video" >
+        <argument
+            android:name="mode"
+            app:argType="integer" />
+        <argument
+            android:name="materialId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/materialFragment"
+        android:name="com.example.tarclearn.ui.material.MaterialFragment"
+        android:label="MaterialFragment" >
+        <argument
+            android:name="materialId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageMaterialFragment"
+        android:name="com.example.tarclearn.ui.material.ManageMaterialFragment"
+        android:label="ManageMaterialFragment" >
         <argument
             android:name="mode"
             app:argType="integer" />

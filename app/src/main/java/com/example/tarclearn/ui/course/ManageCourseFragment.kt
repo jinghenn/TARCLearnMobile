@@ -1,4 +1,4 @@
-package com.example.tarclearn.ui.fragment
+package com.example.tarclearn.ui.course
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -16,7 +16,7 @@ import com.example.tarclearn.databinding.FragmentManageCourseBinding
 import com.example.tarclearn.factory.ManageCourseViewModelFactory
 import com.example.tarclearn.repository.CourseRepository
 import com.example.tarclearn.util.Constants
-import com.example.tarclearn.viewmodel.ManageCourseViewModel
+import com.example.tarclearn.viewmodel.course.ManageCourseViewModel
 
 class ManageCourseFragment : Fragment() {
     private lateinit var binding: FragmentManageCourseBinding

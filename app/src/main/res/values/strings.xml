@@ -56,4 +56,6 @@
     <string name="label_choose">Choose</string>
     <string name="label_pick_video">Pick a Video</string>
     <string name="label_add_video">Add Vide</string>
+    <string name="label_add_material">Add Material</string>
+    <string name="label_pick_material">Pick a material</string>
 </resources>

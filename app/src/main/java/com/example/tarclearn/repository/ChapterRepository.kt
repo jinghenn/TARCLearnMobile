@@ -20,6 +20,9 @@ class ChapterRepository {
     suspend fun getChapterVideos(chapterId: Int, mode: String): Response<List<MaterialDetailDto>> {
         return RetrofitInstance.chapterApi.getChapterVideos(chapterId, mode)
     }
+    suspend fun getChapterMaterials(chapterId: Int, mode: String): Response<List<MaterialDetailDto>> {
+        return RetrofitInstance.chapterApi.getChapterMaterials(chapterId, mode)
+    }
     suspend fun getChapter(chapterId: Int): Response<ChapterDto> {
         return RetrofitInstance.chapterApi.getChapter(chapterId)
     }
