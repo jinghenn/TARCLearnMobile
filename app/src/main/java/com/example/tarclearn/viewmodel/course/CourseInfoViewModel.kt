@@ -25,7 +25,7 @@ class CourseInfoViewModel(
     val success: LiveData<Boolean?>
         get() = _success
 
-    fun fetchCourseInfo(courseId: String) {
+    fun fetchCourseInfo(courseId: Int) {
         viewModelScope.launch {
             val response = repository.getCourseInfo(courseId)
             if (response.code() == 200) {
@@ -33,7 +33,7 @@ class CourseInfoViewModel(
             }
         }
     }
-    fun fetchChapterList(courseId: String){
+    fun fetchChapterList(courseId: Int){
         viewModelScope.launch {
             val response = repository.getCourseChapters(courseId)
             if(response.code() == 200){
@@ -41,7 +41,7 @@ class CourseInfoViewModel(
             }
         }
     }
-    fun deleteCourse(courseId: String) {
+    fun deleteCourse(courseId: Int) {
         viewModelScope.launch {
             val response = repository.deleteCourse(courseId)
             if (response.code() == 200) {

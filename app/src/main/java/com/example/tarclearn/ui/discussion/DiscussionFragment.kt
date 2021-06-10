@@ -1,60 +1,105 @@
 package com.example.tarclearn.ui.discussion
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
+import android.os.Build
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.tarclearn.R
+import com.example.tarclearn.databinding.FragmentDiscussionBinding
+import com.example.tarclearn.factory.DiscussionViewModelFactory
+import com.example.tarclearn.repository.DiscussionRepository
+import com.example.tarclearn.util.Constants
+import com.example.tarclearn.viewmodel.discussion.DiscussionViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DiscussionFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DiscussionFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private lateinit var binding: FragmentDiscussionBinding
+    private lateinit var viewModel: DiscussionViewModel
+    private val args: DiscussionFragmentArgs by navArgs()
+    private lateinit var sharedPref: SharedPreferences
+    private lateinit var userId: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_discussion, container, false)
+        binding = FragmentDiscussionBinding.inflate(inflater, container, false)
+        val vmFactory = DiscussionViewModelFactory(DiscussionRepository())
+        viewModel = ViewModelProvider(this, vmFactory)
+            .get(DiscussionViewModel::class.java)
+        sharedPref = requireContext().getSharedPreferences(
+            getString(R.string.pref_user),
+            Context.MODE_PRIVATE
+        )
+        userId = sharedPref.getString(getString(R.string.key_user_id), null) ?: ""
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DiscussionFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DiscussionFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchDiscussionThreadDetail(args.threadId)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            binding.tvThreadDescription.justificationMode = JUSTIFICATION_MODE_INTER_WORD
+        }
+
+        viewModel.discussionDetail.observe(viewLifecycleOwner) {
+            it?.let {
+                binding.tvThreadTitle.text = it.threadTitle
+                binding.tvThreadDescription.text = it.threadDescription
+                binding.tvUserName.text = it.userName
+                if (it.userId == userId) {
+                    setHasOptionsMenu(true)
                 }
             }
+        }
+        viewModel.successFlag.observe(viewLifecycleOwner) {
+            it?.let {
+                requireActivity().onBackPressed()
+            }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.edit_delete_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.edit -> {
+                val action = DiscussionFragmentDirections
+                    .actionDiscussionFragmentToManageDiscussionFragment(
+                        Constants.MODE_EDIT,
+                        args.threadId
+                    )
+                findNavController().navigate(action)
+                true
+            }
+            R.id.delete -> {
+                MaterialAlertDialogBuilder(requireActivity())
+                    .setTitle("Delete Discussion")
+                    .setMessage(
+                        "Are you sure you want to delete this discussion thread permanently?" +
+                                "\n\nThis action cannot be undone."
+                    )
+                    .setPositiveButton("Yes") { _, _ ->
+                        viewModel.deleteDiscussionThread(args.threadId)
+                    }
+                    .setNegativeButton("No", null)
+                    .show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

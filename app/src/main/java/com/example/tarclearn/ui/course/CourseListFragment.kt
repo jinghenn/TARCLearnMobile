@@ -63,7 +63,7 @@ class CourseListFragment : Fragment() {
             val action =
                 CourseListFragmentDirections.actionCourseFragmentToManageCourseFragment(
                     1,
-                    ""
+                    -1
                 )
             findNavController().navigate(action)
         }

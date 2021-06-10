@@ -24,18 +24,18 @@ class ManageCourseViewModel(
     val success: LiveData<Boolean?>
         get() = _success
 
-    fun createCourse(userId: String, courseId: String, courseName: String, desc: String) {
+    fun createCourse(userId: String, courseCode: String, courseName: String, desc: String) {
         viewModelScope.launch {
-            val newCourse = CourseDetailDto(courseId, courseName, desc)
+            val newCourse = CourseDetailDto(0, courseCode, courseName, desc)
             val response = repository.createCourse(newCourse)
             if (response.code() == 201) {
                 _course.value = response.body()
                 _error.value = null
                 _success.value = true
-                repository.enrol(courseId, userId)
+                repository.enrol(_course.value!!.courseId, userId)
             }
             if (response.code() == 409) {
-                _error.value = "Course: $courseId already exist"
+                _error.value = "Course already exist"
                 _success.value = null
             }
             if (response.code() == 400) {
@@ -44,9 +44,9 @@ class ManageCourseViewModel(
             }
         }
     }
-    fun editCourse(courseId: String, courseName: String, desc: String) {
+    fun editCourse(courseId: Int, courseCode: String, courseName: String, desc: String) {
         viewModelScope.launch {
-            val newCourse = CourseDetailDto(courseId, courseName, desc)
+            val newCourse = CourseDetailDto(0, courseCode, courseName, desc)
             val response = repository.editCourse(courseId,newCourse)
             if (response.code() == 200) {
                 _course.value = response.body()
@@ -63,7 +63,7 @@ class ManageCourseViewModel(
             }
         }
     }
-    fun fetchCourse(courseId: String){
+    fun fetchCourse(courseId: Int){
         viewModelScope.launch {
             val response = repository.getCourseInfo(courseId)
             if(response.code() == 200){

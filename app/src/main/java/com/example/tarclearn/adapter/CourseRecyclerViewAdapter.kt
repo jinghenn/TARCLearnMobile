@@ -33,7 +33,7 @@ class CourseRecyclerViewAdapter() : RecyclerView.Adapter<CourseRecyclerViewAdapt
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = courseList[position]
-        holder.cardHeader.text = item.courseId
+        holder.cardHeader.text = item.courseCode
         holder.cardSubHeader.text = item.courseTitle
         holder.card.setOnClickListener {
             val action =

@@ -24,7 +24,7 @@ class ManageChapterViewModel(
     val success: LiveData<Boolean?>
         get() = _success
 
-    fun createChapter(courseId: String, chapterNo: String, title: String) {
+    fun createChapter(courseId: Int, chapterNo: String, title: String) {
         val newChap = ChapterDto(chapterNo,title)
         viewModelScope.launch {
             val response = repository.createChapter(courseId, newChap)

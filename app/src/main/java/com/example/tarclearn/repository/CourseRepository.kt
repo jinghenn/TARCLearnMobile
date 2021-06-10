@@ -8,7 +8,7 @@ import com.example.tarclearn.model.UserDto
 import retrofit2.Response
 
 class CourseRepository {
-    suspend fun getCourseUsers(courseId: String): Response<List<UserDto>> {
+    suspend fun getCourseUsers(courseId: Int): Response<List<UserDto>> {
         return RetrofitInstance.courseApi.getCourseUsers(courseId)
     }
 
@@ -16,26 +16,26 @@ class CourseRepository {
         return RetrofitInstance.courseApi.createCourse(course)
     }
 
-    suspend fun getCourseInfo(courseId: String): Response<CourseDetailDto> {
+    suspend fun getCourseInfo(courseId: Int): Response<CourseDetailDto> {
         return RetrofitInstance.courseApi.getCourseInfo(courseId)
     }
 
-    suspend fun enrol(courseId: String, userId: String): Response<List<UserDto>> {
+    suspend fun enrol(courseId: Int, userId: String): Response<List<UserDto>> {
         return RetrofitInstance.courseApi.enrol(courseId, userId)
     }
 
-    suspend fun unenrol(courseId: String, userId: String): Response<Void> {
+    suspend fun unenrol(courseId: Int, userId: String): Response<Void> {
         return RetrofitInstance.courseApi.unenrol(courseId, userId)
     }
 
-    suspend fun editCourse(courseId: String, course: CourseDetailDto): Response<CourseDetailDto> {
+    suspend fun editCourse(courseId: Int, course: CourseDetailDto): Response<CourseDetailDto> {
         return RetrofitInstance.courseApi.editCourse(courseId, course)
     }
 
-    suspend fun deleteCourse(courseId: String): Response<CourseDetailDto> {
+    suspend fun deleteCourse(courseId: Int): Response<CourseDetailDto> {
         return RetrofitInstance.courseApi.deleteCourse(courseId)
     }
-    suspend fun getCourseChapters(courseId: String): Response<List<ChapterDetailDto>> {
+    suspend fun getCourseChapters(courseId: Int): Response<List<ChapterDetailDto>> {
         return RetrofitInstance.courseApi.getCourseChapters(courseId)
     }
 }

@@ -49,12 +49,12 @@ class ManageCourseFragment : Fragment() {
         setupTextFieldWithCourseDetail()
         setupButtonWithMode()
 
-        binding.tvCourseId.doAfterTextChanged {
+        binding.tvCourseCode.doAfterTextChanged {
             if (it.toString() == "") {
-                binding.tvCourseIdLayout.isErrorEnabled = true
-                binding.tvCourseIdLayout.error = "Course ID cannot be empty"
+                binding.tvCourseCodeLayout.isErrorEnabled = true
+                binding.tvCourseCodeLayout.error = "Course ID cannot be empty"
             } else {
-                binding.tvCourseIdLayout.isErrorEnabled = false
+                binding.tvCourseCodeLayout.isErrorEnabled = false
             }
         }
         binding.tvCourseName.doAfterTextChanged {
@@ -67,8 +67,8 @@ class ManageCourseFragment : Fragment() {
         }
         viewModel.success.observe(viewLifecycleOwner) {
             val text = when (args.mode) {
-                Constants.MODE_CREATE -> "Course: ${viewModel.course.value?.courseId} created successfully"
-                Constants.MODE_EDIT -> "Course: ${viewModel.course.value?.courseId} updated successfully"
+                Constants.MODE_CREATE -> "Course: ${viewModel.course.value?.courseCode} created successfully"
+                Constants.MODE_EDIT -> "Course: ${viewModel.course.value?.courseCode} updated successfully"
                 else -> "Success"
             }
             if (it == true) {
@@ -82,19 +82,18 @@ class ManageCourseFragment : Fragment() {
         }
         viewModel.error.observe(viewLifecycleOwner) {
             if (it != null) {
-                binding.tvCourseIdLayout.isErrorEnabled = true
-                binding.tvCourseIdLayout.error = it
+                binding.tvCourseCodeLayout.isErrorEnabled = true
+                binding.tvCourseCodeLayout.error = it
             }
         }
     }
 
     private fun setupTextFieldWithCourseDetail() {
         if (args.mode == Constants.MODE_EDIT) {
-            binding.tvCourseId.isEnabled = false
             viewModel.fetchCourse(args.courseId)
             viewModel.course.observe(viewLifecycleOwner) {
                 it?.let {
-                    binding.tvCourseId.setText(it.courseId)
+                    binding.tvCourseCode.setText(it.courseCode)
                     binding.tvCourseName.setText(it.courseTitle)
                     binding.tvCourseDescription.setText(it.courseDescription)
                 }
@@ -109,7 +108,7 @@ class ManageCourseFragment : Fragment() {
             Constants.MODE_CREATE -> {
                 btnOk.setText(getString(R.string.label_create))
                 btnOk.setOnClickListener {
-                    val courseId = getCourseId()
+                    val courseId = getCourseCode()
                     val courseName = getCourseName()
                     if (courseId != "" && courseName != "") {
                         viewModel.createCourse(
@@ -124,11 +123,12 @@ class ManageCourseFragment : Fragment() {
             Constants.MODE_EDIT -> {
                 btnOk.setText(getString(R.string.label_save))
                 btnOk.setOnClickListener {
-                    val courseId = getCourseId()
+                    val courseCode = getCourseCode()
                     val courseName = getCourseName()
-                    if (courseId != "" && courseName != "") {
+                    if (courseCode != "" && courseName != "") {
                         viewModel.editCourse(
-                            courseId,
+                            args.courseId,
+                            courseCode,
                             courseName,
                             binding.tvCourseDescription.text.toString()
                         )
@@ -141,14 +141,14 @@ class ManageCourseFragment : Fragment() {
         }
     }
 
-    private fun getCourseId(): String {
-        val courseId = binding.tvCourseId.text.toString()
-        if (courseId == "") {
-            binding.tvCourseIdLayout.isErrorEnabled = true
-            binding.tvCourseIdLayout.error = "Course ID cannot be empty"
+    private fun getCourseCode(): String {
+        val courseCode = binding.tvCourseCode.text.toString()
+        if (courseCode == "") {
+            binding.tvCourseCodeLayout.isErrorEnabled = true
+            binding.tvCourseCodeLayout.error = "Course ID cannot be empty"
             return ""
         }
-        return courseId
+        return courseCode
     }
 
     private fun getCourseName(): String {

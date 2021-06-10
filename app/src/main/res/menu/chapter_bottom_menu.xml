@@ -10,7 +10,7 @@
         android:icon="@drawable/pencil"
         android:title="@string/label_material" />
     <item
-        android:id="@+id/discussionFragment"
+        android:id="@+id/discussionListFragment"
         android:icon="@drawable/flask_empty_outline"
         android:title="@string/label_discussion" />
     <item

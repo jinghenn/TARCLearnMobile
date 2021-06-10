@@ -43,7 +43,7 @@ class CourseInfoFragment : Fragment() {
         viewModel.fetchCourseInfo(args.courseId)
         viewModel.course.observe(viewLifecycleOwner) {
             it?.let {
-                binding.tvCourseId.text = it.courseId
+                binding.tvCourseCode.text = it.courseCode
                 binding.tvCourseDescription.text = it.courseDescription
                 binding.tvCourseName.text = it.courseTitle
             }
@@ -71,18 +71,18 @@ class CourseInfoFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.course_info_menu, menu)
+        inflater.inflate(R.menu.edit_delete_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.delete_course -> {
+            R.id.delete -> {
                 MaterialAlertDialogBuilder(requireActivity())
                     .setTitle("Delete Course")
                     .setMessage(
-                        "Are you sure you want to delete course ${args.courseId} permanently?" +
-                                "\nThis action cannot be undone."
+                        "Are you sure you want to delete this course permanently?" +
+                                "\n\nThis action cannot be undone."
                     )
                     .setPositiveButton("Yes") { _, _ ->
                         viewModel.deleteCourse(args.courseId)
@@ -92,7 +92,7 @@ class CourseInfoFragment : Fragment() {
                     .show()
                 true
             }
-            R.id.edit_course -> {
+            R.id.edit -> {
                 val action =
                     CourseInfoFragmentDirections.actionCourseInfoFragmentToManageCourseFragment(
                         2,

@@ -19,7 +19,14 @@
     <fragment
         android:id="@+id/discussionFragment"
         android:name="com.example.tarclearn.ui.discussion.DiscussionFragment"
-        android:label="Discussion" />
+        android:label="Discussion" >
+        <argument
+            android:name="threadId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_discussionFragment_to_manageDiscussionFragment"
+            app:destination="@id/manageDiscussionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/materialListFragment"
         android:name="com.example.tarclearn.ui.material.MaterialListFragment"
@@ -71,6 +78,28 @@
             app:argType="integer" />
         <argument
             android:name="materialId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/discussionListFragment"
+        android:name="com.example.tarclearn.ui.discussion.DiscussionListFragment"
+        android:label="Discussion">
+        <action
+            android:id="@+id/action_discussionListFragment_to_discussionFragment"
+            app:destination="@id/discussionFragment" />
+        <action
+            android:id="@+id/action_discussionListFragment_to_manageDiscussionFragment"
+            app:destination="@id/manageDiscussionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageDiscussionFragment"
+        android:name="com.example.tarclearn.ui.discussion.ManageDiscussionFragment"
+        android:label="ManageDiscussionFragment" >
+        <argument
+            android:name="mode"
+            app:argType="integer" />
+        <argument
+            android:name="threadId"
             app:argType="integer" />
     </fragment>
 </navigation>

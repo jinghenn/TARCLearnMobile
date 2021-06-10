@@ -1,14 +1,11 @@
 package com.example.tarclearn.repository
 
 import com.example.tarclearn.api.RetrofitInstance
-import com.example.tarclearn.model.ChapterDetailDto
-import com.example.tarclearn.model.ChapterDto
-import com.example.tarclearn.model.MaterialDetailDto
-import com.example.tarclearn.model.MaterialDto
+import com.example.tarclearn.model.*
 import retrofit2.Response
 
 class ChapterRepository {
-    suspend fun createChapter(courseId: String, newChapter: ChapterDto): Response<ChapterDto> {
+    suspend fun createChapter(courseId: Int, newChapter: ChapterDto): Response<ChapterDto> {
         return RetrofitInstance.chapterApi.createChapter(courseId, newChapter)
     }
     suspend fun updateChapter(chapterId:Int, updatedChapter: ChapterDto): Response<ChapterDto>{
@@ -25,5 +22,8 @@ class ChapterRepository {
     }
     suspend fun getChapter(chapterId: Int): Response<ChapterDto> {
         return RetrofitInstance.chapterApi.getChapter(chapterId)
+    }
+    suspend fun getChapterDiscussions(chapterId: Int): Response<List<DiscussionThreadDto>>{
+        return RetrofitInstance.chapterApi.getChapterDiscussions(chapterId)
     }
 }

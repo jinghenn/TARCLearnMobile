@@ -37,7 +37,7 @@
     <string name="label_quiz">Quiz</string>
     <string name="label_info">Info</string>
     <string name="label_add_course">Create New Course</string>
-    <string name="label_course_id">Course ID</string>
+    <string name="label_course_code">Course Code</string>
     <string name="label_course_name">Course Name</string>
     <string name="label_course_description">Course Description</string>
     <string name="label_optional">Optional</string>
@@ -58,4 +58,5 @@
     <string name="label_add_video">Add Vide</string>
     <string name="label_add_material">Add Material</string>
     <string name="label_pick_material">Pick a material</string>
+    <string name="label_discussion_description">Description</string>
 </resources>

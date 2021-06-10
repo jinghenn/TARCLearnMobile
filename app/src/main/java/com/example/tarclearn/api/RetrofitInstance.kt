@@ -32,4 +32,7 @@ object RetrofitInstance {
     val materialApi: MaterialApi by lazy{
         retrofit.create(MaterialApi::class.java)
     }
+    val discussionApi: DiscussionApi by lazy{
+        retrofit.create(DiscussionApi::class.java)
+    }
 }

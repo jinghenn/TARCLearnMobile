@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.tarclearn.repository.ChapterRepository
 import com.example.tarclearn.viewmodel.course.ManageChapterViewModel
+import com.example.tarclearn.viewmodel.discussion.DiscussionListViewModel
 import com.example.tarclearn.viewmodel.video.VideoListViewModel
 import com.example.tarclearn.viewmodel.material.MaterialListViewModel
 
@@ -20,6 +21,9 @@ class ChapterViewModelFactory(
         }
         if (modelClass.isAssignableFrom(MaterialListViewModel::class.java)) {
             return MaterialListViewModel(repository) as T
+        }
+        if (modelClass.isAssignableFrom(DiscussionListViewModel::class.java)) {
+            return DiscussionListViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel Class")
     }

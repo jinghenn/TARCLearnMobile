@@ -25,7 +25,7 @@ class ChapterActivity : AppCompatActivity() {
             setOf(
                 R.id.videoListFragment,
                 R.id.materialListFragment,
-                R.id.discussionFragment,
+                R.id.discussionListFragment,
                 R.id.quizFragment
             )
         )

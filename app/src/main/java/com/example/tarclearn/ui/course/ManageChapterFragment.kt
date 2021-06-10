@@ -78,8 +78,8 @@ class ManageChapterFragment : Fragment() {
         if (args.mode == Constants.MODE_EDIT) {
             viewModel.fetchChapter(args.chapterId)
             viewModel.chapter.observe(viewLifecycleOwner) {
-                val chapNo = viewModel.chapter.value!!.chapterNo.substringBefore("-")
-                val chapSubNo = viewModel.chapter.value!!.chapterNo.substringAfter("-", "")
+                val chapNo = viewModel.chapter.value!!.chapterNo.substringBefore(".")
+                val chapSubNo = viewModel.chapter.value!!.chapterNo.substringAfter(".", "")
                 it?.let {
                     binding.tvChapterNo.setText(chapNo)
                     binding.tvChapterSubNo.setText(chapSubNo)
@@ -98,7 +98,7 @@ class ManageChapterFragment : Fragment() {
                     val chapterNo = getChapterNo()
                     val chapterName = getChapterName()
                     if (chapterNo != "" && chapterName != "") {
-                        viewModel.createChapter(args.courseId!!, chapterNo, chapterName)
+                        viewModel.createChapter(args.courseId, chapterNo, chapterName)
                     }
                 }
             }

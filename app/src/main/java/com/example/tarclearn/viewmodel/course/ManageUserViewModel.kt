@@ -40,18 +40,8 @@ class ManageUserViewModel(
         }
     }
 
-    fun getCourseListWithName(): List<String> {
-        val list = mutableListOf<String>()
-        if (_courseList.value != null) {
-            for (x in _courseList.value!!) {
-                val str = "${x.courseId} ${x.courseTitle}"
-                list.add(str)
-            }
-        }
-        return list
-    }
 
-    fun fetchUserList(courseId: String) {
+    fun fetchUserList(courseId: Int) {
         viewModelScope.launch {
             val response = courseRepository.getCourseUsers(courseId)
             if (response.code() == 200) {
@@ -60,18 +50,18 @@ class ManageUserViewModel(
         }
     }
 
-    fun enrol(courseId: String, userId: String) {
+    fun enrol(courseId: Int, userId: String) {
         viewModelScope.launch {
             val response = courseRepository.enrol(courseId, userId)
             if (response.code() == 201) {
                 _userList.value = response.body()
-                _successMessage.value = "User: $userId added to Course: $courseId"
+                _successMessage.value = "User: $userId added successfully"
             }
             if (response.code() == 404) {
                 _errorMessage.value = "User: $userId does not exist"
             }
             if (response.code() == 409) {
-                _errorMessage.value = "User: $userId already in Course: $courseId."
+                _errorMessage.value = "User: $userId is already in this course."
             }
 
         }

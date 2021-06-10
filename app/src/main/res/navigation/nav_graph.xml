@@ -32,7 +32,7 @@
         android:label="Course Info" >
         <argument
             android:name="courseId"
-            app:argType="string" />
+            app:argType="integer" />
         <action
             android:id="@+id/action_courseInfoFragment_to_manageCourseFragment"
             app:destination="@id/manageCourseFragment" />
@@ -50,7 +50,7 @@
             app:argType="integer" />
         <argument
             android:name="courseId"
-            app:argType="string" />
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/manageChapterFragment"
@@ -64,7 +64,6 @@
             app:argType="integer" />
         <argument
             android:name="courseId"
-            app:argType="string"
-            app:nullable="true" />
+            app:argType="integer" />
     </fragment>
 </navigation>

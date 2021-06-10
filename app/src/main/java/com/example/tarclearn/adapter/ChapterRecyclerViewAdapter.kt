@@ -20,7 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ChapterRecyclerViewAdapter(val courseId: String) :
+class ChapterRecyclerViewAdapter(val courseId: Int) :
     RecyclerView.Adapter<ChapterRecyclerViewAdapter.ViewHolder>() {
     var chapterList = mutableListOf<ChapterDetailDto>()
         set(value) {

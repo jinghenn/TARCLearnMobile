@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CourseUserRecyclerViewAdapter(
-    val courseId: String,
+    val courseId: Int,
     val currentUserId: String
 ) :
     RecyclerView.Adapter<CourseUserRecyclerViewAdapter.ViewHolder>() {
@@ -34,13 +34,13 @@ class CourseUserRecyclerViewAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CourseUserRecyclerViewAdapter.ViewHolder {
+    ): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.item_view_course_user, parent, false)
-        return CourseUserRecyclerViewAdapter.ViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: CourseUserRecyclerViewAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = userList[position]
         holder.cardHeader.text = item.userId
         holder.cardSubHeader.text = item.username
@@ -54,7 +54,7 @@ class CourseUserRecyclerViewAdapter(
         holder.btnDelete.setOnClickListener {
             MaterialAlertDialogBuilder(holder.btnDelete.context)
                 .setTitle("Remove User")
-                .setMessage("Are you sure you want to remove \nUser\t\t\t: ${item.userId} from \nCourse\t: $courseId")
+                .setMessage("Are you sure you want to remove \nUser: ${item.userId} from this course?")
                 .setPositiveButton("Yes") { _, _ ->
                     CoroutineScope(Dispatchers.Main).launch {
                         val repository = CourseRepository()
@@ -66,8 +66,6 @@ class CourseUserRecyclerViewAdapter(
                     }
                 }
                 .setNegativeButton("Cancel", null).show()
-
-
         }
     }
 

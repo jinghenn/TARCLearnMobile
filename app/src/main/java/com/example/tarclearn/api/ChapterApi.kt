@@ -2,6 +2,7 @@ package com.example.tarclearn.api
 
 import com.example.tarclearn.model.ChapterDetailDto
 import com.example.tarclearn.model.ChapterDto
+import com.example.tarclearn.model.DiscussionThreadDto
 import com.example.tarclearn.model.MaterialDetailDto
 import retrofit2.Response
 import retrofit2.http.*
@@ -9,7 +10,7 @@ import retrofit2.http.*
 interface ChapterApi {
     @POST("chapters")
     suspend fun createChapter(
-        @Query("courseId") courseId: String,
+        @Query("courseId") courseId: Int,
         @Body newChapter: ChapterDto
     ): Response<ChapterDto>
 
@@ -36,4 +37,7 @@ interface ChapterApi {
 
     @GET("chapters/{id}")
     suspend fun getChapter(@Path("id") id: Int): Response<ChapterDto>
+
+    @GET("chapters/{id}/discussions")
+    suspend fun getChapterDiscussions(@Path("id") id: Int): Response<List<DiscussionThreadDto>>
 }
