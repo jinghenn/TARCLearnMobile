@@ -14,6 +14,7 @@ import com.example.tarclearn.R
 import com.example.tarclearn.databinding.FragmentManageDiscussionBinding
 import com.example.tarclearn.factory.DiscussionViewModelFactory
 import com.example.tarclearn.repository.DiscussionRepository
+import com.example.tarclearn.repository.MessageRepository
 import com.example.tarclearn.util.Constants
 import com.example.tarclearn.viewmodel.discussion.ManageDiscussionViewModel
 import kotlin.properties.Delegates
@@ -31,7 +32,7 @@ class ManageDiscussionFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentManageDiscussionBinding.inflate(inflater, container, false)
-        val vmFactory = DiscussionViewModelFactory(DiscussionRepository())
+        val vmFactory = DiscussionViewModelFactory(DiscussionRepository(), MessageRepository())
         viewModel = ViewModelProvider(this, vmFactory)
             .get(ManageDiscussionViewModel::class.java)
         val sharedPref = requireContext().getSharedPreferences(

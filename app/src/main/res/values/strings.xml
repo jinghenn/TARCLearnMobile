@@ -59,4 +59,6 @@
     <string name="label_add_material">Add Material</string>
     <string name="label_pick_material">Pick a material</string>
     <string name="label_discussion_description">Description</string>
+    <string name="label_send">Send</string>
+    <string name="label_enter_message">Enter message</string>
 </resources>

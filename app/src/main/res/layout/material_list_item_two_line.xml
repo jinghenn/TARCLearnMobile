@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/list_item"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
-    android:minHeight="64dp">
+    android:focusable="true"
+    android:longClickable="true"
+    android:orientation="vertical"
+    android:minHeight="30dp">
 
     <TextView
         android:id="@+id/tv_message"
@@ -16,23 +20,18 @@
         android:paddingEnd="16dp"
         android:textAppearance="?attr/textAppearanceSubtitle1"
         android:justificationMode="inter_word"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+        tools:text="as;dlfjksa;dlkfjs;ldkjfs;ldsdfsdfsdff"/>
 
     <TextView
         android:id="@+id/tv_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:maxLines="1"
         android:layout_marginTop="8dp"
+        android:maxLines="1"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:textAppearance="?attr/textAppearanceBody2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_message"
-        tools:text="SOH JING HENN"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="10sp"
+        tools:text="SOH JING HENN" />
+</LinearLayout>

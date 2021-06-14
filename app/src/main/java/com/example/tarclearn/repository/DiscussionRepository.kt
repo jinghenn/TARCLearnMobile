@@ -4,6 +4,7 @@ import com.example.tarclearn.api.RetrofitInstance
 import com.example.tarclearn.model.DiscussionAboutDto
 import com.example.tarclearn.model.DiscussionThread
 import com.example.tarclearn.model.DiscussionThreadDetailDto
+import com.example.tarclearn.model.MessageDetailDto
 import retrofit2.Response
 
 class DiscussionRepository {
@@ -25,5 +26,9 @@ class DiscussionRepository {
     suspend fun createDiscussionThread(newThread: DiscussionThread):
             Response<DiscussionThreadDetailDto> {
         return RetrofitInstance.discussionApi.createDiscussionThread(newThread)
+    }
+
+    suspend fun getDiscussionMessages(threadId: Int): Response<List<MessageDetailDto>> {
+        return RetrofitInstance.discussionApi.getDiscussionMessages(threadId)
     }
 }

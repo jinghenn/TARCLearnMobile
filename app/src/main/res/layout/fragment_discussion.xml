@@ -7,60 +7,115 @@
 
     </data>
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/message_box_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tv_thread_title"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit?" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_user_name"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_thread_title"
-                tools:text="soh jing henn" />
+                <TextView
+                    android:id="@+id/tv_thread_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit?" />
 
-            <TextView
-                android:id="@+id/tv_thread_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                app:layout_constraintBottom_toTopOf="@+id/message_recycler_view"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_user_name"
-                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_thread_title"
+                    tools:text="soh jing henn" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/message_recycler_view"
+                <TextView
+                    android:id="@+id/tv_thread_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintBottom_toTopOf="@+id/message_recycler_view"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_user_name"
+                    tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/message_recycler_view"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="16dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_thread_description">
+
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/message_box_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tv_message_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:hint="@string/label_enter_message"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/btn_send"
+                app:layout_constraintHorizontal_weight="7"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tv_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_send"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/label_send"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_thread_description">
-
-
-            </androidx.recyclerview.widget.RecyclerView>
-
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@+id/tv_message_layout" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

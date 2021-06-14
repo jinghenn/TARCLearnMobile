@@ -1,21 +1,28 @@
 package com.example.tarclearn.ui.discussion
 
 import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.SharedPreferences
 import android.graphics.text.LineBreaker.JUSTIFICATION_MODE_INTER_WORD
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.example.tarclearn.R
+import com.example.tarclearn.adapter.MessageRecyclerViewAdapter
 import com.example.tarclearn.databinding.FragmentDiscussionBinding
 import com.example.tarclearn.factory.DiscussionViewModelFactory
 import com.example.tarclearn.repository.DiscussionRepository
+import com.example.tarclearn.repository.MessageRepository
 import com.example.tarclearn.util.Constants
 import com.example.tarclearn.viewmodel.discussion.DiscussionViewModel
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class DiscussionFragment : Fragment() {
@@ -24,13 +31,14 @@ class DiscussionFragment : Fragment() {
     private val args: DiscussionFragmentArgs by navArgs()
     private lateinit var sharedPref: SharedPreferences
     private lateinit var userId: String
+    private lateinit var recyclerView: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentDiscussionBinding.inflate(inflater, container, false)
-        val vmFactory = DiscussionViewModelFactory(DiscussionRepository())
+        val vmFactory = DiscussionViewModelFactory(DiscussionRepository(), MessageRepository())
         viewModel = ViewModelProvider(this, vmFactory)
             .get(DiscussionViewModel::class.java)
         sharedPref = requireContext().getSharedPreferences(
@@ -38,6 +46,7 @@ class DiscussionFragment : Fragment() {
             Context.MODE_PRIVATE
         )
         userId = sharedPref.getString(getString(R.string.key_user_id), null) ?: ""
+        recyclerView = binding.messageRecyclerView
         return binding.root
     }
 
@@ -51,6 +60,8 @@ class DiscussionFragment : Fragment() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             binding.tvThreadDescription.justificationMode = JUSTIFICATION_MODE_INTER_WORD
         }
+        setupRecyclerView()
+        setupSendButton()
 
         viewModel.discussionDetail.observe(viewLifecycleOwner) {
             it?.let {
@@ -65,6 +76,40 @@ class DiscussionFragment : Fragment() {
         viewModel.successFlag.observe(viewLifecycleOwner) {
             it?.let {
                 requireActivity().onBackPressed()
+            }
+        }
+
+    }
+
+    private fun setupSendButton() {
+
+        binding.btnSend.setOnClickListener {
+            val message = binding.tvMessage.text.toString().trim()
+            if (message != "") {
+                viewModel.sendMessage(message, userId, args.threadId)
+                binding.tvMessage.setText("")
+                val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
+                binding.scrollView.smoothScrollTo(0, binding.scrollView.getChildAt(0).height)
+            }else{
+                binding.tvMessageLayout.isErrorEnabled = true
+                binding.tvMessageLayout.error = "Message cannot be empty"
+            }
+
+        }
+        binding.tvMessage.doAfterTextChanged {
+            binding.tvMessageLayout.isErrorEnabled = false
+        }
+
+    }
+
+    private fun setupRecyclerView() {
+        val adapter = MessageRecyclerViewAdapter()
+        recyclerView.adapter = adapter
+        viewModel.messages.observe(viewLifecycleOwner) {
+            it?.let {
+                adapter.messageList = it
+
             }
         }
     }

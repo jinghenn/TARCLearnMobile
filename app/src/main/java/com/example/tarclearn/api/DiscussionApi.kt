@@ -3,6 +3,7 @@ package com.example.tarclearn.api
 import com.example.tarclearn.model.DiscussionAboutDto
 import com.example.tarclearn.model.DiscussionThread
 import com.example.tarclearn.model.DiscussionThreadDetailDto
+import com.example.tarclearn.model.MessageDetailDto
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -22,4 +23,7 @@ interface DiscussionApi {
 
     @DELETE("discussions/{id}")
     suspend fun deleteDiscussionThread(@Path("id") id: Int): Response<DiscussionAboutDto>
+
+    @GET("discussions/{id}/messages")
+    suspend fun getDiscussionMessages(@Path("id") id: Int): Response<List<MessageDetailDto>>
 }
