@@ -7,6 +7,7 @@ import com.example.tarclearn.viewmodel.course.ManageChapterViewModel
 import com.example.tarclearn.viewmodel.discussion.DiscussionListViewModel
 import com.example.tarclearn.viewmodel.video.VideoListViewModel
 import com.example.tarclearn.viewmodel.material.MaterialListViewModel
+import com.example.tarclearn.viewmodel.quiz.QuizListViewModel
 
 class ChapterViewModelFactory(
     private val repository: ChapterRepository
@@ -24,6 +25,9 @@ class ChapterViewModelFactory(
         }
         if (modelClass.isAssignableFrom(DiscussionListViewModel::class.java)) {
             return DiscussionListViewModel(repository) as T
+        }
+        if (modelClass.isAssignableFrom(QuizListViewModel::class.java)) {
+            return QuizListViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel Class")
     }

@@ -61,4 +61,8 @@
     <string name="label_discussion_description">Description</string>
     <string name="label_send">Send</string>
     <string name="label_enter_message">Enter message</string>
+    <string name="question_text">%d) %s</string>
+    <string name="label_check_answer">Check Answer</string>
+    <string name="answer">Answer: %s</string>
+    <string name="label_question">Question</string>
 </resources>

@@ -26,7 +26,7 @@ class DiscussionRecyclerViewAdapter() :
         }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val btnDelete: MaterialButton = itemView.findViewById(R.id.btn_delete_user)
+        val btnDelete: MaterialButton = itemView.findViewById(R.id.btn_delete)
         val cardHeader: TextView = itemView.findViewById(R.id.tv_card_header)
         val cardSubHeader: TextView = itemView.findViewById(R.id.tv_card_subheader)
         val card: MaterialCardView = itemView.findViewById(R.id.item_card)
@@ -34,7 +34,7 @@ class DiscussionRecyclerViewAdapter() :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_view_course_user, parent, false)
+            .inflate(R.layout.item_view_card, parent, false)
         return ViewHolder(layout)
     }
 

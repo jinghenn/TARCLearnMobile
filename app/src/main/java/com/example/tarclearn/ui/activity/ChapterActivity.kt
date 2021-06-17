@@ -26,12 +26,14 @@ class ChapterActivity : AppCompatActivity() {
                 R.id.videoListFragment,
                 R.id.materialListFragment,
                 R.id.discussionListFragment,
-                R.id.quizFragment
+                R.id.quizListFragment
             )
         )
 
         binding.bottomNav.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfig)
+        val title = "Chapter ${intent.getStringExtra("chapterNo")}: ${intent.getStringExtra("chapterTitle")}"
+        supportActionBar?.title = title
 
     }
 

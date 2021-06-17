@@ -29,15 +29,15 @@ class ChapterRecyclerViewAdapter(val courseId: Int) :
         }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val card: MaterialCardView = itemView.findViewById(R.id.chapter_card)
-        val title: TextView = itemView.findViewById(R.id.chapter_title)
-        val editBtn: Button = itemView.findViewById(R.id.btn_edit_chapter)
-        val deleteBtn: Button = itemView.findViewById(R.id.btn_delete_chapter)
+        val card: MaterialCardView = itemView.findViewById(R.id.card_view)
+        val title: TextView = itemView.findViewById(R.id.card_text)
+        val editBtn: Button = itemView.findViewById(R.id.btn_edit)
+        val deleteBtn: Button = itemView.findViewById(R.id.btn_delete)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.item_view_course_chapter, parent, false)
+        val view = layoutInflater.inflate(R.layout.item_view_editable_card, parent, false)
         return ViewHolder(view)
     }
 
@@ -54,6 +54,7 @@ class ChapterRecyclerViewAdapter(val courseId: Int) :
             val context = holder.card.context
             val intent = Intent(context, ChapterActivity::class.java)
             intent.putExtra("chapterId", item.chapterId)
+            intent.putExtra("chapterNo", item.chapterNo)
             intent.putExtra("chapterTitle", item.chapterTitle)
             context.startActivity(intent)
         }

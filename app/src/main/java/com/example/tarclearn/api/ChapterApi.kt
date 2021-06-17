@@ -1,9 +1,6 @@
 package com.example.tarclearn.api
 
-import com.example.tarclearn.model.ChapterDetailDto
-import com.example.tarclearn.model.ChapterDto
-import com.example.tarclearn.model.DiscussionThreadDto
-import com.example.tarclearn.model.MaterialDetailDto
+import com.example.tarclearn.model.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -40,4 +37,7 @@ interface ChapterApi {
 
     @GET("chapters/{id}/discussions")
     suspend fun getChapterDiscussions(@Path("id") id: Int): Response<List<DiscussionThreadDto>>
+
+    @GET("chapters/{id}/quiz")
+    suspend fun getChapterQuizzes(@Path("id") chapterId: Int): Response<List<QuizDto>>
 }

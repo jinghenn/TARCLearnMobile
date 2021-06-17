@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.tarclearn.repository.CourseRepository
 import com.example.tarclearn.viewmodel.course.ManageCourseViewModel
 
-class ManageCourseViewModelFactory (
+class ManageCourseViewModelFactory(
     private val repository: CourseRepository
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
