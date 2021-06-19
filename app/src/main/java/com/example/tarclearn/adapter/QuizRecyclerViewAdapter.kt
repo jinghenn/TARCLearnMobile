@@ -9,8 +9,9 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tarclearn.R
 import com.example.tarclearn.model.QuizDto
-import com.example.tarclearn.repository.ChapterRepository
+import com.example.tarclearn.repository.QuizRepository
 import com.example.tarclearn.ui.quiz.QuizListFragmentDirections
+import com.example.tarclearn.util.Constants
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -41,8 +42,9 @@ class QuizRecyclerViewAdapter : RecyclerView.Adapter<QuizRecyclerViewAdapter.Vie
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = quizList[position]
         holder.title.text = item.quizTitle
-        holder.card.setOnClickListener{
-            val action = QuizListFragmentDirections.actionQuizListFragmentToQuizFragment(item.quizId)
+        holder.card.setOnClickListener {
+            val action =
+                QuizListFragmentDirections.actionQuizListFragmentToQuizFragment(item.quizId)
             holder.card.findNavController().navigate(action)
         }
         holder.deleteBtn.setOnClickListener {
@@ -51,15 +53,22 @@ class QuizRecyclerViewAdapter : RecyclerView.Adapter<QuizRecyclerViewAdapter.Vie
                 .setMessage("Are you sure you want to remove this chapter?")
                 .setPositiveButton("Yes") { _, _ ->
                     CoroutineScope(Dispatchers.Main).launch {
-//                        val repository = ChapterRepository()
-//                        val response = repository.deleteQuiz(item.quizId)
-//                        if (response.code() == 200) {
-//                            quizList.remove(item)
-//                            notifyDataSetChanged()
-//                        }
+                        val repository = QuizRepository()
+                        val response = repository.deleteQuiz(item.quizId)
+                        if (response.code() == 200) {
+                            quizList.remove(item)
+                            notifyDataSetChanged()
+                        }
                     }
                 }
                 .setNegativeButton("Cancel", null).show()
+        }
+        holder.editBtn.setOnClickListener {
+            val action = QuizListFragmentDirections.actionQuizListFragmentToManageQuizFragment(
+                Constants.MODE_EDIT,
+                item.quizId
+            )
+            it.findNavController().navigate(action)
         }
     }
 

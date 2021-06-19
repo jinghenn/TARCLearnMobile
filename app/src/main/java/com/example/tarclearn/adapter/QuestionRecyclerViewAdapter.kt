@@ -1,6 +1,7 @@
 package com.example.tarclearn.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,26 +10,24 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.core.view.children
-import androidx.core.view.forEach
-import androidx.core.view.get
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tarclearn.R
-import com.example.tarclearn.model.ChoiceDto
-import com.example.tarclearn.model.QuestionDto
-import org.w3c.dom.Text
+import com.example.tarclearn.model.Question
 
-class QuestionRecyclerViewAdapter : RecyclerView.Adapter<QuestionRecyclerViewAdapter.ViewHolder>() {
-    var questionList = mutableListOf<QuestionDto>()
+class QuestionRecyclerViewAdapter(private val context: Context) :
+    RecyclerView.Adapter<QuestionRecyclerViewAdapter.ViewHolder>() {
+    var questionList = mutableListOf<Question>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
     private val radioGroupList = mutableListOf<RadioGroup>()
-    private val answerList = mutableListOf<Int>()
+    private val qtnLayoutList = mutableListOf<LinearLayout>()
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val question: TextView = itemView.findViewById(R.id.tv_question)
-        val choiceLayout: LinearLayout = itemView.findViewById(R.id.choice_layout)
+        val tvQuestion: TextView = itemView.findViewById(R.id.tv_question)
+        val choiceRadioGroup: RadioGroup = itemView.findViewById(R.id.choice_radio_group)
+        val questionLayout: LinearLayout = itemView.findViewById(R.id.question_layout)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,73 +37,46 @@ class QuestionRecyclerViewAdapter : RecyclerView.Adapter<QuestionRecyclerViewAda
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val context = holder.question.context
-        val item = questionList[position]
-        holder.question.text =
-            context.getString(R.string.question_text, (position + 1), item.questionText)
+        val adPosition = holder.adapterPosition
+        val item = questionList[adPosition]
 
-        initializeChoices(context, holder.choiceLayout, item.choices)
+        holder.tvQuestion.text = context.getString(
+            R.string.question_text, adPosition + 1, item.questionText
+        )
 
+        item.Choices.forEach { c ->
+            val radioButton = RadioButton(context)
+            radioButton.text = c.choiceText
+            holder.choiceRadioGroup.addView(radioButton)
+
+        }
+        val firstBtn = holder.choiceRadioGroup.getChildAt(0) as RadioButton
+        firstBtn.isChecked = true
+        radioGroupList.add(holder.choiceRadioGroup)
+        qtnLayoutList.add(holder.questionLayout)
     }
 
     override fun getItemCount(): Int {
         return questionList.size
     }
 
-    private fun initializeChoices(context: Context, parent: ViewGroup, choices: List<ChoiceDto>) {
-        val child = LayoutInflater.from(context)
-            .inflate(R.layout.choice, parent, true)
-        val radioGroup = child.findViewById<RadioGroup>(R.id.choice_radio_group)
-        choices.forEachIndexed { idx, c ->
-            val radioBtn = RadioButton(context)
-            radioBtn.text = c.choiceText
-            radioBtn.id = c.choiceId
-            if(c.isAnswer){
-                answerList.add(c.choiceId)
-            }
-            radioGroup.addView(radioBtn)
-            if(idx == 0){
-                radioGroup.check(radioBtn.id)
-            }
-        }
-
-        radioGroupList.add(radioGroup)
-    }
-
     fun checkAnswer(): Int {
-        var result = 0
-
-        radioGroupList.forEachIndexed { idx, grp ->
-            grp.children.forEach { v ->
-                if(v is RadioButton){
-                    v.error = null
+        var score = 0
+        radioGroupList.forEachIndexed { i, radioGroup ->
+            for ((j, b) in radioGroup.children.withIndex()) {
+                val btn = b as RadioButton
+                if (btn.isChecked && questionList[i].Choices[j].isAnswer) {
+                    score += 1
+                    qtnLayoutList[i].setBackgroundColor(Color.parseColor("#98FB98"))
+                    break
+                } else {
+                    qtnLayoutList[i].setBackgroundColor(Color.parseColor("#FFCCCC"))
                 }
             }
-            val answerBtn = grp.findViewById<RadioButton>(answerList[idx])
-            val selectedBtn = grp.findViewById<RadioButton>(grp.checkedRadioButtonId)
-            val errorView = TextView(grp.context)
-            errorView.id = answerList[idx] + 1000
-            if(selectedBtn.id == -1 ){
-                return -1
-            }
-            if(selectedBtn.id == answerList[idx]){
-
-                result++
-                val x = grp.findViewById<TextView>(answerList[idx] + 1000)
-                x?.let{
-                    grp.removeView(it)
-                }
-
-            }else{
-                selectedBtn.error = "Incorrect"
-                val x = grp.findViewById<TextView>(answerList[idx] + 1000)
-                if(x == null){
-                    errorView.text = answerBtn.context.getString(R.string.answer, answerBtn.text)
-                    grp.addView(errorView)
-                }
-            }
-
         }
-        return result
+
+        return score
     }
+
+
 }

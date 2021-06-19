@@ -65,4 +65,7 @@
     <string name="label_check_answer">Check Answer</string>
     <string name="answer">Answer: %s</string>
     <string name="label_question">Question</string>
+    <string name="label_add_choice">choice</string>
+    <string name="label_add_question">question</string>
+    <string name="score_string">Score: %d/%d</string>
 </resources>

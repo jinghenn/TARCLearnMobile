@@ -7,6 +7,6 @@ data class ChoiceDto(
 )
 
 data class Choice(
-    val choiceText: String,
-    val isAnswer: Boolean
+    var choiceText: String,
+    var isAnswer: Boolean
 )

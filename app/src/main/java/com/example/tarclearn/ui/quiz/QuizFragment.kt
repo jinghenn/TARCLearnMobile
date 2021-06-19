@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.example.tarclearn.R
 import com.example.tarclearn.adapter.QuestionRecyclerViewAdapter
 import com.example.tarclearn.databinding.FragmentQuizBinding
 import com.example.tarclearn.factory.QuizViewModelFactory
@@ -34,22 +35,21 @@ class QuizFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.fetchQuizQuestions(args.quizId)
 
-        val adapter = QuestionRecyclerViewAdapter()
+        val adapter = QuestionRecyclerViewAdapter(requireContext())
         val recyclerView = binding.questionRecyclerView
         recyclerView.adapter = adapter
-        viewModel.quizTitle.observe(viewLifecycleOwner) {
-            it?.let {
-                binding.tvQuizTitle.text = it
-            }
-        }
-        viewModel.questionList.observe(viewLifecycleOwner) {
-            it?.let {
-                adapter.questionList = it as MutableList
+
+        viewModel.quizQuestions.observe(viewLifecycleOwner){
+            it?.let{
+                binding.tvQuizTitle.text = it.quizTitle
+                adapter.questionList = it.getQuestionList()
             }
         }
         binding.btnCheckAnswer.setOnClickListener {
-            val a = adapter.checkAnswer()
-            Log.d("Score", a.toString())
+            val score = adapter.checkAnswer()
+            binding.tvScore.text = getString(R.string.score_string, score, adapter.questionList.size)
+
         }
+
     }
 }

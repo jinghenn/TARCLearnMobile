@@ -7,6 +7,6 @@ data class QuestionDto(
 )
 
 data class Question(
-    val questionText: String,
-    val Choices: List<Choice>
+    var questionText: String,
+    val Choices: MutableList<Choice>
 )

@@ -31,13 +31,12 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/choice_layout"
+        <RadioGroup
+            android:id="@+id/choice_radio_group"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-        </LinearLayout>
+        </RadioGroup>
+
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
