@@ -8,19 +8,19 @@
         <item
             android:id="@+id/course_list_fragment"
             android:icon="@drawable/ic_baseline_home_24"
-            android:title="@string/label_course"/>
+            android:title="@string/label_course" />
         <item
             android:id="@+id/manage_user_fragment"
             android:icon="@drawable/ic_baseline_manage_accounts_24"
-            android:title="@string/label_manage_user"/>
+            android:title="@string/label_manage_user" />
         <item
             android:id="@+id/about_fragment"
             android:icon="@drawable/ic_baseline_info_24"
-            android:title="@string/label_about"/>
+            android:title="@string/label_about" />
         <item
             android:id="@+id/logout"
             android:icon="@drawable/ic_baseline_logout_24"
-            android:title="@string/label_logout"/>
+            android:title="@string/label_logout" />
 
     </group>
 </menu>

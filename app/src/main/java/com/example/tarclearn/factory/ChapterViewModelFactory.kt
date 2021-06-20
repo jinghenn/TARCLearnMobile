@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.tarclearn.repository.ChapterRepository
 import com.example.tarclearn.viewmodel.course.ManageChapterViewModel
 import com.example.tarclearn.viewmodel.discussion.DiscussionListViewModel
-import com.example.tarclearn.viewmodel.video.VideoListViewModel
 import com.example.tarclearn.viewmodel.material.MaterialListViewModel
 import com.example.tarclearn.viewmodel.quiz.QuizListViewModel
+import com.example.tarclearn.viewmodel.video.VideoListViewModel
 
 class ChapterViewModelFactory(
     private val repository: ChapterRepository
@@ -17,7 +17,7 @@ class ChapterViewModelFactory(
         if (modelClass.isAssignableFrom(ManageChapterViewModel::class.java)) {
             return ManageChapterViewModel(repository) as T
         }
-        if(modelClass.isAssignableFrom(VideoListViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(VideoListViewModel::class.java)) {
             return VideoListViewModel(repository) as T
         }
         if (modelClass.isAssignableFrom(MaterialListViewModel::class.java)) {

@@ -13,10 +13,10 @@ class MaterialViewModel(val repository: MaterialRepository) : ViewModel() {
     val material: LiveData<MaterialDetailDto>
         get() = _material
 
-    fun fetchMaterialDetail(materialId: Int){
+    fun fetchMaterialDetail(materialId: Int) {
         viewModelScope.launch {
             val response = repository.getMaterial(materialId)
-            if(response.code() == 200){
+            if (response.code() == 200) {
                 _material.value = response.body()
             }
         }

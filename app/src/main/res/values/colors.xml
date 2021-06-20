@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="tarc_blue_500">#53aeda</color>
+    <color name="tarc_blue_700">#438EB9</color>
+    <color name="tarc_blue_900">#325d82</color>
+    <color name="tarc_gold_900">#b96e43</color>
+    <color name="tarc_gold_600">#d99952</color>
+    <color name="tarc_teal_300">#43b9a9</color>
+    <color name="tarc_indigo_300">#7b88ce</color>
+    <color name="tarc_indigo_500">#4353b9</color>
+    <color name="tarc_purple_500">#6e43b9</color>
+    <color name="tarc_violet_400">#b9438e</color>
 </resources>

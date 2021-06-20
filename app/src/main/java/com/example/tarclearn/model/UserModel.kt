@@ -4,7 +4,8 @@ data class UserDto(
     val userId: String,
     val username: String
 )
-data class UserDetailDto (
+
+data class UserDetailDto(
     val userId: String,
     var password: String,
     val username: String,

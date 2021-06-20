@@ -14,7 +14,7 @@ class QuizViewModelFactory(
         if (modelClass.isAssignableFrom(QuizViewModel::class.java)) {
             return QuizViewModel(repository) as T
         }
-        if(modelClass.isAssignableFrom(ManageQuizViewModel::class.java)){
+        if (modelClass.isAssignableFrom(ManageQuizViewModel::class.java)) {
             return ManageQuizViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel Class")

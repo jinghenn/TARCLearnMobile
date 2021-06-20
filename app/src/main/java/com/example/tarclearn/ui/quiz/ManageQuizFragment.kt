@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tarclearn.adapter.QuizCreateRecyclerViewAdapter
 import com.example.tarclearn.databinding.FragmentManageQuizBinding
 import com.example.tarclearn.factory.QuizViewModelFactory
-import com.example.tarclearn.model.Question
 import com.example.tarclearn.model.Quiz
 import com.example.tarclearn.repository.QuizRepository
 import com.example.tarclearn.util.Constants
@@ -90,7 +89,7 @@ class ManageQuizFragment : Fragment() {
     }
 
     private fun setupButtons() {
-        binding.btnCreate.text = when(args.mode){
+        binding.btnCreate.text = when (args.mode) {
             Constants.MODE_CREATE -> "Create"
             else -> "Save"
         }
@@ -99,8 +98,8 @@ class ManageQuizFragment : Fragment() {
             val quizQuestions = adapter?.getQuizQuestions()
             Log.d("quiz", quizQuestions.toString())
             val quizTitle = binding.etQuizTitle.text.toString()
-            if(quizTitle != ""){
-                when(args.mode){
+            if (quizTitle != "") {
+                when (args.mode) {
                     Constants.MODE_CREATE -> {
                         if (quizQuestions != null) {
                             viewModel.createQuiz(Quiz(quizTitle, quizQuestions, chapterId))
@@ -108,15 +107,18 @@ class ManageQuizFragment : Fragment() {
                             showRequiredFieldToast()
                         }
                     }
-                    Constants.MODE_EDIT ->{
+                    Constants.MODE_EDIT -> {
                         if (quizQuestions != null) {
-                            viewModel.updateQuiz(args.quizId,Quiz(quizTitle, quizQuestions, chapterId))
+                            viewModel.updateQuiz(
+                                args.quizId,
+                                Quiz(quizTitle, quizQuestions, chapterId)
+                            )
                         } else {
                             showRequiredFieldToast()
                         }
                     }
                 }
-            }else{
+            } else {
                 binding.etQuizTitleLayout.isErrorEnabled = true
                 binding.etQuizTitleLayout.error = "Title cannot be empty"
             }
@@ -125,7 +127,7 @@ class ManageQuizFragment : Fragment() {
         binding.btnCancel.setOnClickListener { requireActivity().onBackPressed() }
     }
 
-    private fun showRequiredFieldToast(){
+    private fun showRequiredFieldToast() {
         Toast.makeText(
             requireContext(),
             "Please fill in required field",

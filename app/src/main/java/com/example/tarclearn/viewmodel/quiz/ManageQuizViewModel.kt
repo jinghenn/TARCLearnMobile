@@ -20,13 +20,14 @@ class ManageQuizViewModel(private val repository: QuizRepository) : ViewModel() 
     fun createQuiz(newQuiz: Quiz) {
         viewModelScope.launch {
             val response = repository.createQuiz(newQuiz)
-            if(response.code() == 201){
+            if (response.code() == 201) {
                 _quizQuestions.value = response.body()
                 _successFlag.value = true
             }
         }
     }
-    fun fetchQuizQuestions(quizId: Int){
+
+    fun fetchQuizQuestions(quizId: Int) {
         viewModelScope.launch {
             val response = repository.getQuizQuestions(quizId)
             if (response.code() == 200) {
@@ -35,15 +36,17 @@ class ManageQuizViewModel(private val repository: QuizRepository) : ViewModel() 
 
         }
     }
-    fun updateQuiz(quizId: Int, updatedQuiz: Quiz){
+
+    fun updateQuiz(quizId: Int, updatedQuiz: Quiz) {
         viewModelScope.launch {
             val response = repository.updateQuiz(quizId, updatedQuiz)
-            if(response.code() == 200){
+            if (response.code() == 200) {
                 _successFlag.value = true
             }
         }
     }
-    fun resetSuccessFlag(){
+
+    fun resetSuccessFlag() {
         _successFlag.value = null
     }
 }

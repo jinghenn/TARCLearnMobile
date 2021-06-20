@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.provider.OpenableColumns
 import android.util.Log
 import android.view.LayoutInflater
@@ -203,8 +202,11 @@ class ManageMaterialFragment : Fragment() {
     private fun setupFilePicker() {
         val btnPick = binding.btnChooseMaterial
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
-            type="*/*"
-            putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("text/*", "application/*", "audio/*", "image/*"))
+            type = "*/*"
+            putExtra(
+                Intent.EXTRA_MIME_TYPES,
+                arrayOf("text/*", "application/*", "audio/*", "image/*")
+            )
             //addCategory(Intent.CATEGORY_OPENABLE)
         }
         btnPick.setOnClickListener {

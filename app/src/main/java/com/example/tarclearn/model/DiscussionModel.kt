@@ -20,6 +20,7 @@ data class DiscussionAboutDto(
     val threadTitle: String,
     val threadDescription: String
 )
+
 data class DiscussionThread(
     val threadTitle: String,
     val threadDescription: String,

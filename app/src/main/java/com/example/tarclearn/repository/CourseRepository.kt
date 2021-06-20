@@ -2,7 +2,6 @@ package com.example.tarclearn.repository
 
 import com.example.tarclearn.api.RetrofitInstance
 import com.example.tarclearn.model.ChapterDetailDto
-import com.example.tarclearn.model.ChapterDto
 import com.example.tarclearn.model.CourseDetailDto
 import com.example.tarclearn.model.UserDto
 import retrofit2.Response
@@ -35,6 +34,7 @@ class CourseRepository {
     suspend fun deleteCourse(courseId: Int): Response<CourseDetailDto> {
         return RetrofitInstance.courseApi.deleteCourse(courseId)
     }
+
     suspend fun getCourseChapters(courseId: Int): Response<List<ChapterDetailDto>> {
         return RetrofitInstance.courseApi.getCourseChapters(courseId)
     }

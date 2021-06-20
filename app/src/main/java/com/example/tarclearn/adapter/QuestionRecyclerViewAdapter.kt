@@ -2,6 +2,7 @@ package com.example.tarclearn.adapter
 
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,7 +66,11 @@ class QuestionRecyclerViewAdapter(private val context: Context) :
         radioGroupList.forEachIndexed { i, radioGroup ->
             for ((j, b) in radioGroup.children.withIndex()) {
                 val btn = b as RadioButton
+                Log.d("oob", questionList[i].questionText)
+
+                Log.d("oob", questionList[i].Choices[j].isAnswer.toString())
                 if (btn.isChecked && questionList[i].Choices[j].isAnswer) {
+
                     score += 1
                     qtnLayoutList[i].setBackgroundColor(Color.parseColor("#98FB98"))
                     break

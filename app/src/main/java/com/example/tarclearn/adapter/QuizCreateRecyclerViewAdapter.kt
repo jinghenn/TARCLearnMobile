@@ -1,7 +1,6 @@
 package com.example.tarclearn.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +15,10 @@ import com.google.android.material.textfield.TextInputLayout
 class QuizCreateRecyclerViewAdapter(val context: Context) :
     RecyclerView.Adapter<QuizCreateRecyclerViewAdapter.ViewHolder>() {
     var questionList = mutableListOf<Question>()
-    set(value){
-        field = value
-        notifyDataSetChanged()
-    }
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val etQuestionLayout: TextInputLayout = itemView.findViewById(R.id.et_question_layout)
@@ -89,7 +88,7 @@ class QuizCreateRecyclerViewAdapter(val context: Context) :
             item.Choices.add(newChoice)
             notifyItemChanged(holder.adapterPosition)
         }
-        if(holder.choiceRadioGroup.childCount < 2){
+        if (holder.choiceRadioGroup.childCount < 2) {
             holder.etQuestionLayout.isErrorEnabled = true
             holder.etQuestionLayout.error = "Insufficient choice"
         }
@@ -110,23 +109,23 @@ class QuizCreateRecyclerViewAdapter(val context: Context) :
     }
 
     fun getQuizQuestions(): MutableList<Question>? {
-        if(questionList.size == 0){
+        if (questionList.size == 0) {
             return null
         }
         val qIterator = questionList.listIterator()
-        while(qIterator.hasNext()){
+        while (qIterator.hasNext()) {
             val question = qIterator.next()
-            if(isEmptyString(question.questionText)){
+            if (isEmptyString(question.questionText)) {
                 return null
             }
             val cIterator = question.Choices.listIterator()
-            while(cIterator.hasNext()){
+            while (cIterator.hasNext()) {
 
                 val choice = cIterator.next()
-                if(isEmptyString(choice.choiceText)){
-                    if(question.Choices.size > 1) {
+                if (isEmptyString(choice.choiceText)) {
+                    if (question.Choices.size > 1) {
                         cIterator.remove()
-                        if(choice.isAnswer){
+                        if (choice.isAnswer) {
                             val next = cIterator.next()
                             next.isAnswer = true
                             cIterator.previous()
@@ -134,7 +133,7 @@ class QuizCreateRecyclerViewAdapter(val context: Context) :
                         notifyDataSetChanged()
                     }
                 }
-                if(question.Choices.size < 2){
+                if (question.Choices.size < 2) {
                     return null
                 }
             }

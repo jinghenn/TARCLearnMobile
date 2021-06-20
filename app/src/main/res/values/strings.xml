@@ -68,4 +68,5 @@
     <string name="label_add_choice">choice</string>
     <string name="label_add_question">question</string>
     <string name="score_string">Score: %d/%d</string>
+    <string name="welcome">Welcome,</string>
 </resources>

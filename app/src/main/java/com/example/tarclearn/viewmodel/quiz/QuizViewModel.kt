@@ -24,10 +24,9 @@ class QuizViewModel(val repository: QuizRepository) : ViewModel() {
             val response = repository.getQuizQuestions(quizId)
             if (response.code() == 200) {
                 _quizQuestion.value = response.body()
-                //_questionList.value = response.body()?.questions
-                //_quizTitle.value = response.body()?.quizTitle
             }
 
         }
     }
+
 }

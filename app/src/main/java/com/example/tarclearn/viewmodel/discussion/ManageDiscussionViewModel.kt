@@ -43,7 +43,7 @@ class ManageDiscussionViewModel(val repository: DiscussionRepository) : ViewMode
                 _discussionDetail.value = response.body()
                 _successFlag.value = true
             }
-            if(!response.isSuccessful){
+            if (!response.isSuccessful) {
                 _errorFlag.value = true
             }
         }
@@ -60,7 +60,7 @@ class ManageDiscussionViewModel(val repository: DiscussionRepository) : ViewMode
             if (response.code() == 200) {
                 _successFlag.value = true
             }
-            if(!response.isSuccessful){
+            if (!response.isSuccessful) {
                 _errorFlag.value = true
             }
         }
@@ -69,6 +69,7 @@ class ManageDiscussionViewModel(val repository: DiscussionRepository) : ViewMode
     fun resetSuccessFlag() {
         _successFlag.value = null
     }
+
     fun resetErrorFlag() {
         _errorFlag.value = null
     }

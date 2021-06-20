@@ -8,10 +8,11 @@ import android.os.Build
 import net.gotev.uploadservice.BuildConfig
 import net.gotev.uploadservice.UploadServiceConfig
 
-class TARCLearn: Application() {
-    companion object{
+class TARCLearn : Application() {
+    companion object {
         const val notificationChannelID = "TARCLEARN_UPLOAD_CHANNEL"
     }
+
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= 26) {
             val channel = NotificationChannel(
@@ -23,6 +24,7 @@ class TARCLearn: Application() {
             manager.createNotificationChannel(channel)
         }
     }
+
     override fun onCreate() {
         super.onCreate()
 

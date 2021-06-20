@@ -12,8 +12,7 @@ interface MessageApi {
 
     @PUT("messages/{id}")
     suspend fun updateMessage(
-        @Path("id") id: Int
-        , @Body updatedMessage: MessageDto
+        @Path("id") id: Int, @Body updatedMessage: MessageDto
     ): Response<MessageDetailDto>
 
     @POST("messages")

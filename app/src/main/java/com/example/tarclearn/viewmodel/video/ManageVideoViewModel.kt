@@ -1,15 +1,12 @@
 package com.example.tarclearn.viewmodel.video
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tarclearn.model.MaterialDetailDto
 import com.example.tarclearn.repository.MaterialRepository
-import com.example.tarclearn.util.Constants
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
 
 class ManageVideoViewModel(
     private val repository: MaterialRepository
@@ -34,7 +31,7 @@ class ManageVideoViewModel(
         }
     }
 
-//    fun uploadVideo(fileModel: MultipartBody.Part, file: MultipartBody.Part, chapterId: Int, type: String) {
+    //    fun uploadVideo(fileModel: MultipartBody.Part, file: MultipartBody.Part, chapterId: Int, type: String) {
 //        viewModelScope.launch {
 //            val response = repository.upload(fileModel, file, chapterId, Constants.VIDEO_MATERIAL)
 //            if(response.code() == 200){
@@ -46,23 +43,25 @@ class ManageVideoViewModel(
 //            }
 //        }
 //    }
-    fun updateVideo(materialId: Int, newMaterial: MaterialDetailDto){
+    fun updateVideo(materialId: Int, newMaterial: MaterialDetailDto) {
         viewModelScope.launch {
             val response = repository.updateMaterial(materialId, newMaterial)
 
-            if(response.code() == 200){
+            if (response.code() == 200) {
                 _video.value = response.body()
                 _success.value = true
             }
-            if(response.code() == 400 || response.code() == 404){
+            if (response.code() == 400 || response.code() == 404) {
                 _error.value = true
             }
         }
     }
-    fun resetSuccessFlag(){
+
+    fun resetSuccessFlag() {
         _success.value = null
     }
-    fun resetErrorFlag(){
+
+    fun resetErrorFlag() {
         _error.value = null
     }
 }

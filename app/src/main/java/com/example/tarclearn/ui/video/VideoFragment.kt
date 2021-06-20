@@ -11,8 +11,9 @@ import com.example.tarclearn.databinding.FragmentVideoBinding
 import com.example.tarclearn.factory.MaterialViewModelFactory
 import com.example.tarclearn.repository.MaterialRepository
 import com.example.tarclearn.viewmodel.video.VideoViewModel
-import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.SimpleExoPlayer
+import com.norulab.exofullscreen.preparePlayer
+import com.norulab.exofullscreen.setSource
 
 class VideoFragment : Fragment() {
     private lateinit var binding: FragmentVideoBinding
@@ -38,18 +39,25 @@ class VideoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.video.observe(viewLifecycleOwner){
-            it?.let{
+        viewModel.video.observe(viewLifecycleOwner) {
+            it?.let {
                 binding.tvVideoTitle.text = it.materialTitle
                 binding.tvVideoDescription.text = it.materialDescription
             }
         }
-        binding.playerView.player = exoPlayer
-        val item: MediaItem = MediaItem.Builder()
-            .setUri("http://192.168.0.72:50000/api/videos/play?videoId=${args.materialId}")
-            .build()
-        exoPlayer.setMediaItem(item)
-        exoPlayer.prepare()
+        exoPlayer.preparePlayer(binding.playerView)
+        exoPlayer.setSource(
+            requireActivity().applicationContext,
+            "http://192.168.0.72:50000/api/videos/play?videoId=${args.materialId}"
+        )
+//        binding.playerView.player = exoPlayer
+//        val item: MediaItem = MediaItem.Builder()
+//            .setUri("http://192.168.0.72:50000/api/videos/play?videoId=${args.materialId}")
+//            .build()
+//
+//        exoPlayer.setMediaItem(item)
+
+
         exoPlayer.play()
     }
 

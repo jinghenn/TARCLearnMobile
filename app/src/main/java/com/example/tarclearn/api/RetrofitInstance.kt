@@ -11,7 +11,7 @@ object RetrofitInstance {
     private val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     private val httpClient = OkHttpClient().newBuilder().addInterceptor(logging).build()
 
-    private val retrofit by lazy{
+    private val retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .client(httpClient)
@@ -19,26 +19,26 @@ object RetrofitInstance {
             .build()
     }
 
-    val userApi: UserApi by lazy{
+    val userApi: UserApi by lazy {
         retrofit.create(UserApi::class.java)
     }
 
-    val courseApi: CourseApi by lazy{
+    val courseApi: CourseApi by lazy {
         retrofit.create(CourseApi::class.java)
     }
-    val chapterApi: ChapterApi by lazy{
+    val chapterApi: ChapterApi by lazy {
         retrofit.create(ChapterApi::class.java)
     }
-    val materialApi: MaterialApi by lazy{
+    val materialApi: MaterialApi by lazy {
         retrofit.create(MaterialApi::class.java)
     }
-    val discussionApi: DiscussionApi by lazy{
+    val discussionApi: DiscussionApi by lazy {
         retrofit.create(DiscussionApi::class.java)
     }
-    val messageApi: MessageApi by lazy{
+    val messageApi: MessageApi by lazy {
         retrofit.create(MessageApi::class.java)
     }
-    val quizApi: QuizApi by lazy{
+    val quizApi: QuizApi by lazy {
         retrofit.create(QuizApi::class.java)
     }
 }

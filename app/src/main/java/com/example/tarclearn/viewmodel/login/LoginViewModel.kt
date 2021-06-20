@@ -20,7 +20,7 @@ class LoginViewModel(
     private val _loginError = MutableLiveData<Boolean>()
     val loginError = _loginError as LiveData<Boolean>
 
-    fun login(userId: String, password: String){
+    fun login(userId: String, password: String) {
         viewModelScope.launch {
             val response = repository.getUserById(userId)
             if (response.isSuccessful) {

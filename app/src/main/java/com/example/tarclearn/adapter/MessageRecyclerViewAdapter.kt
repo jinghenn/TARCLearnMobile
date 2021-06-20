@@ -1,7 +1,6 @@
 package com.example.tarclearn.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,14 +69,15 @@ class MessageRecyclerViewAdapter : RecyclerView.Adapter<MessageRecyclerViewAdapt
                         val btnCancel: Button = editView.findViewById(R.id.btn_cancel)
                         val btnOk: Button = editView.findViewById(R.id.btn_ok)
                         val etNewMsg: EditText = editView.findViewById(R.id.tv_edit_message)
-                        val etLayout: TextInputLayout = editView.findViewById(R.id.tv_edit_message_layout)
+                        val etLayout: TextInputLayout =
+                            editView.findViewById(R.id.tv_edit_message_layout)
                         val oldMsg = etNewMsg.text.toString()
                         etNewMsg.setText(item.message)
                         etNewMsg.doAfterTextChanged {
-                            if(it.toString() == ""){
+                            if (it.toString() == "") {
                                 etLayout.isErrorEnabled = true
                                 etLayout.error = "Message cannot be empty"
-                            }else{
+                            } else {
                                 etLayout.isErrorEnabled = false
                             }
                         }
@@ -87,7 +87,7 @@ class MessageRecyclerViewAdapter : RecyclerView.Adapter<MessageRecyclerViewAdapt
                         btnOk.setOnClickListener {
 
                             val newMsg = etNewMsg.text.toString()
-                            if(newMsg != "" && newMsg != oldMsg) {
+                            if (newMsg != "" && newMsg != oldMsg) {
                                 CoroutineScope(Dispatchers.Main).launch {
                                     val repository = MessageRepository()
                                     val response = repository.updateMessage(
@@ -101,7 +101,7 @@ class MessageRecyclerViewAdapter : RecyclerView.Adapter<MessageRecyclerViewAdapt
 
                                     }
                                 }
-                            }else{
+                            } else {
                                 editDialog.cancel()
                                 dialog.cancel()
                             }

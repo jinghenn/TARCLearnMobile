@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tarclearn.model.ChapterDetailDto
 import com.example.tarclearn.model.ChapterDto
 import com.example.tarclearn.repository.ChapterRepository
 import kotlinx.coroutines.launch
@@ -25,7 +24,7 @@ class ManageChapterViewModel(
         get() = _success
 
     fun createChapter(courseId: Int, chapterNo: String, title: String) {
-        val newChap = ChapterDto(chapterNo,title)
+        val newChap = ChapterDto(chapterNo, title)
         viewModelScope.launch {
             val response = repository.createChapter(courseId, newChap)
             if (response.code() == 201) {
@@ -38,7 +37,7 @@ class ManageChapterViewModel(
         }
     }
 
-    fun updateChapter(chapterId: Int, chapterNo: String, title:String){
+    fun updateChapter(chapterId: Int, chapterNo: String, title: String) {
         val updatedChapter = ChapterDto(chapterNo, title)
         viewModelScope.launch {
             val response = repository.updateChapter(chapterId, updatedChapter)
@@ -52,14 +51,16 @@ class ManageChapterViewModel(
         }
 
     }
-    fun fetchChapter(chapterId: Int){
+
+    fun fetchChapter(chapterId: Int) {
         viewModelScope.launch {
             val response = repository.getChapter(chapterId)
-            if(response.code() == 200){
+            if (response.code() == 200) {
                 _chapter.value = response.body()
             }
         }
     }
+
     fun resetSuccessFlag() {
         _success.value = null
     }

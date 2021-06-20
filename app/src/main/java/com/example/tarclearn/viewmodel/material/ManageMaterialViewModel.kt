@@ -8,7 +8,7 @@ import com.example.tarclearn.model.MaterialDetailDto
 import com.example.tarclearn.repository.MaterialRepository
 import kotlinx.coroutines.launch
 
-class ManageMaterialViewModel (
+class ManageMaterialViewModel(
     private val repository: MaterialRepository
 ) : ViewModel() {
     private val _material = MutableLiveData<MaterialDetailDto>()
@@ -31,23 +31,25 @@ class ManageMaterialViewModel (
         }
     }
 
-    fun updateMaterial(materialId: Int, newMaterial: MaterialDetailDto){
+    fun updateMaterial(materialId: Int, newMaterial: MaterialDetailDto) {
         viewModelScope.launch {
             val response = repository.updateMaterial(materialId, newMaterial)
 
-            if(response.code() == 200){
+            if (response.code() == 200) {
                 _material.value = response.body()
                 _success.value = true
             }
-            if(response.code() == 400 || response.code() == 404){
+            if (response.code() == 400 || response.code() == 404) {
                 _error.value = true
             }
         }
     }
-    fun resetSuccessFlag(){
+
+    fun resetSuccessFlag() {
         _success.value = null
     }
-    fun resetErrorFlag(){
+
+    fun resetErrorFlag() {
         _error.value = null
     }
 }

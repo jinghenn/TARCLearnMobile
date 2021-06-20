@@ -4,13 +4,16 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28"/>
-    <uses-permission android:name="com.google.android.gm.permission.READ_GMAIL"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="com.google.android.gm.permission.READ_GMAIL" />
+
     <queries>
         <intent>
-            <action android:name="android.intent.action.VIEW"/>
-            <data android:mimeType="*/*"/>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:mimeType="*/*" />
         </intent>
     </queries>
     <application
@@ -22,7 +25,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TARCLearnMobile"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activity.ChapterActivity"/>
+        <activity android:name=".ui.activity.ChapterActivity" />
         <activity android:name=".ui.activity.LoginActivity" />
         <activity android:name=".ui.activity.MainActivity">
             <intent-filter>

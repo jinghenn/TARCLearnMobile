@@ -51,13 +51,23 @@ class MainActivity : AppCompatActivity() {
         val isLect = sharedPref.getBoolean(getString(R.string.key_is_lecturer), false)
         val currentUser = UserDetailDto(uid!!, "", username!!, isLect)
         drawerHeaderBinding.user = currentUser
-
+        if (isLect) {
+            navView.inflateMenu(R.menu.profile_menu)
+        } else {
+            navView.inflateMenu(R.menu.student_profile_menu)
+        }
         //setup nav host and navigation view menu items
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment)!! as NavHostFragment
         navController = navHostFragment.navController
         appBarConfiguration =
-            AppBarConfiguration(setOf(R.id.course_list_fragment, R.id.about_fragment, R.id.manage_user_fragment), drawerLayout)
+            AppBarConfiguration(
+                setOf(
+                    R.id.course_list_fragment,
+                    R.id.about_fragment,
+                    R.id.manage_user_fragment
+                ), drawerLayout
+            )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.menu.findItem(R.id.logout).setOnMenuItemClickListener {

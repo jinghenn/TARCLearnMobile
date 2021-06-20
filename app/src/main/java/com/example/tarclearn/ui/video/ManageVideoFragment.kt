@@ -131,7 +131,8 @@ class ManageVideoFragment : Fragment() {
                     val vidName = getVideoName()
                     val vidDesc = binding.tvVideoDesc.text.toString()
                     if (vidNo != -1 && vidTitle != "" && vidMode != "" && vidName != "") {
-                        Toast.makeText(requireContext(), "Upload started", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Upload started", Toast.LENGTH_SHORT)
+                            .show()
                         newVid =
                             MaterialDetailDto(0, vidNo, vidTitle, vidDesc, vidName, vidMode, true)
 

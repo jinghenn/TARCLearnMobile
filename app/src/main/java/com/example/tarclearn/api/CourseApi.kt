@@ -35,8 +35,8 @@ interface CourseApi {
     ): Response<CourseDetailDto>
 
     @DELETE("courses/{id}")
-    suspend fun deleteCourse(@Path("id") id:Int):Response<CourseDetailDto>
+    suspend fun deleteCourse(@Path("id") id: Int): Response<CourseDetailDto>
 
     @GET("courses/{id}/chapters")
-    suspend fun getCourseChapters(@Path("id") id: Int):Response<List<ChapterDetailDto>>
+    suspend fun getCourseChapters(@Path("id") id: Int): Response<List<ChapterDetailDto>>
 }

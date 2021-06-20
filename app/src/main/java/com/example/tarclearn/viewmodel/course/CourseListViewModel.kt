@@ -15,14 +15,14 @@ class CourseListViewModel(
     val courseList: LiveData<List<CourseDto>>
         get() = _courseList
 
-fun fetchCourseList(userId: String) {
-    viewModelScope.launch {
-        val response = repository.getUserCourses(userId)
-        if (response.code() == 200) {
-            _courseList.value = response.body()
+    fun fetchCourseList(userId: String) {
+        viewModelScope.launch {
+            val response = repository.getUserCourses(userId)
+            if (response.code() == 200) {
+                _courseList.value = response.body()
+            }
         }
     }
-}
 
 
 }

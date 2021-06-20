@@ -22,7 +22,6 @@ import com.example.tarclearn.repository.DiscussionRepository
 import com.example.tarclearn.repository.MessageRepository
 import com.example.tarclearn.util.Constants
 import com.example.tarclearn.viewmodel.discussion.DiscussionViewModel
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class DiscussionFragment : Fragment() {
@@ -88,10 +87,11 @@ class DiscussionFragment : Fragment() {
             if (message != "") {
                 viewModel.sendMessage(message, userId, args.threadId)
                 binding.tvMessage.setText("")
-                val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                val imm =
+                    requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(requireActivity().currentFocus?.windowToken, 0)
                 binding.scrollView.smoothScrollTo(0, binding.scrollView.getChildAt(0).height)
-            }else{
+            } else {
                 binding.tvMessageLayout.isErrorEnabled = true
                 binding.tvMessageLayout.error = "Message cannot be empty"
             }

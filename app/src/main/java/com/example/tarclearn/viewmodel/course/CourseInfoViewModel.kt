@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tarclearn.model.ChapterDetailDto
-import com.example.tarclearn.model.ChapterDto
 import com.example.tarclearn.model.CourseDetailDto
 import com.example.tarclearn.repository.CourseRepository
 import kotlinx.coroutines.launch
@@ -33,14 +32,16 @@ class CourseInfoViewModel(
             }
         }
     }
-    fun fetchChapterList(courseId: Int){
+
+    fun fetchChapterList(courseId: Int) {
         viewModelScope.launch {
             val response = repository.getCourseChapters(courseId)
-            if(response.code() == 200){
+            if (response.code() == 200) {
                 _chapterList.value = response.body()
             }
         }
     }
+
     fun deleteCourse(courseId: Int) {
         viewModelScope.launch {
             val response = repository.deleteCourse(courseId)

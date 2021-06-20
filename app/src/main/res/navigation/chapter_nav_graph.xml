@@ -41,7 +41,7 @@
     <fragment
         android:id="@+id/videoListFragment"
         android:name="com.example.tarclearn.ui.video.VideoListFragment"
-        tools:layout="@layout/fragment_video_list" >
+        tools:layout="@layout/fragment_video_list">
         <action
             android:id="@+id/action_videoListFragment_to_videoFragment"
             app:destination="@id/videoFragment" />
@@ -99,7 +99,7 @@
     <fragment
         android:id="@+id/quizListFragment"
         android:name="com.example.tarclearn.ui.quiz.QuizListFragment"
-        tools:layout="@layout/fragment_quiz_list" >
+        tools:layout="@layout/fragment_quiz_list">
         <action
             android:id="@+id/action_quizListFragment_to_quizFragment"
             app:destination="@id/quizFragment" />

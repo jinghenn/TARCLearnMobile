@@ -65,10 +65,12 @@
                     android:textSize="10sp"
                     app:icon="@drawable/ic_baseline_add_24"
                     app:iconSize="20dp" />
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_marginTop="32dp"
                     android:layout_height="wrap_content">
+
                     <Button
                         android:id="@+id/btn_cancel"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"

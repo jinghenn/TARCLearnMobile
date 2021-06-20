@@ -83,6 +83,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.5'
     //media player
     implementation 'com.google.android.exoplayer:exoplayer:2.14.0'
+    implementation 'com.github.norulab:android-exoplayer-fullscreen:1.2.1'
     //work manager
     implementation("androidx.work:work-runtime-ktx:$work_version")
     //IO

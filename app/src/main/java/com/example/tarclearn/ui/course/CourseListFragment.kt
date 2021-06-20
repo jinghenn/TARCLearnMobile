@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -20,6 +21,8 @@ class CourseListFragment : Fragment() {
     private lateinit var sharedPref: SharedPreferences
     private lateinit var binding: FragmentCourseListBinding
     private lateinit var viewModel: CourseListViewModel
+    private var isLect = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,7 +32,8 @@ class CourseListFragment : Fragment() {
         val repository = UserRepository()
         val viewModelFactory = CourseListViewModelFactory(repository)
         viewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(
-            CourseListViewModel::class.java)
+            CourseListViewModel::class.java
+        )
 
         //fetch the course enrolled by the user
         sharedPref = requireActivity().getSharedPreferences(
@@ -40,11 +44,18 @@ class CourseListFragment : Fragment() {
         if (userId != null) {
             viewModel.fetchCourseList(userId)
         }
+        isLect = sharedPref.getBoolean(getString(R.string.key_is_lecturer), false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (!isLect) {
+            binding.rootLayout.removeView(binding.coordLayout)
+            val params = binding.courseRecyclerView.layoutParams as ConstraintLayout.LayoutParams
+            params.setMargins(0, 0, 0, 0)
+            binding.courseRecyclerView.layoutParams = params
+        }
         //setup the recycler view of course list
         val adapter = CourseRecyclerViewAdapter()
         viewModel.courseList.observe(viewLifecycleOwner, {

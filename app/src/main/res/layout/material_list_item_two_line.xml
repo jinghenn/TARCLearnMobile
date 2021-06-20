@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_item"
     android:layout_width="match_parent"
@@ -8,19 +7,19 @@
     android:background="?attr/selectableItemBackground"
     android:focusable="true"
     android:longClickable="true"
-    android:orientation="vertical"
-    android:minHeight="30dp">
+    android:minHeight="30dp"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:justificationMode="inter_word"
         android:paddingStart="16dp"
         android:paddingTop="16dp"
         android:paddingEnd="16dp"
         android:textAppearance="?attr/textAppearanceSubtitle1"
-        android:justificationMode="inter_word"
-        tools:text="as;dlfjksa;dlkfjs;ldkjfs;ldsdfsdfsdff"/>
+        tools:text="as;dlfjksa;dlkfjs;ldkjfs;ldsdfsdfsdff" />
 
     <TextView
         android:id="@+id/tv_user_name"
@@ -29,9 +28,9 @@
         android:layout_gravity="center_vertical"
         android:layout_marginTop="8dp"
         android:maxLines="1"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textSize="10sp"
+        android:textSize="12sp"
         tools:text="SOH JING HENN" />
 </LinearLayout>

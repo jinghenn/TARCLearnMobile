@@ -32,9 +32,9 @@ class ChapterActivity : AppCompatActivity() {
 
         binding.bottomNav.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfig)
-        val title = "Chapter ${intent.getStringExtra("chapterNo")}: ${intent.getStringExtra("chapterTitle")}"
+        val title =
+            "Chapter ${intent.getStringExtra("chapterNo")}: ${intent.getStringExtra("chapterTitle")}"
         supportActionBar?.title = title
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

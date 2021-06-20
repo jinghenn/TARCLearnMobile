@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tarclearn.model.MaterialDetailDto
-import com.example.tarclearn.model.MaterialDto
 import com.example.tarclearn.repository.MaterialRepository
 import kotlinx.coroutines.launch
 

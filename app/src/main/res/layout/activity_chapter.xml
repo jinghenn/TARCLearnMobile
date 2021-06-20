@@ -25,14 +25,16 @@
             app:navGraph="@navigation/chapter_nav_graph" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:background="@color/design_default_color_primary_variant"
+            android:background="@color/tarc_blue_700"
+            app:itemIconTint="@color/nav_color"
+            app:itemTextColor="@color/nav_color"
             android:id="@+id/bottom_nav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:menu="@menu/chapter_bottom_menu"/>
+            app:menu="@menu/chapter_bottom_menu" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

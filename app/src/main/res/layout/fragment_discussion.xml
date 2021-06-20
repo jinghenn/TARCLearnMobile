@@ -42,6 +42,7 @@
                     android:layout_height="match_parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="12sp"
                     app:layout_constraintTop_toBottomOf="@+id/tv_thread_title"
                     tools:text="soh jing henn" />
 

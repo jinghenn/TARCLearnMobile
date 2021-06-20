@@ -3,22 +3,18 @@
 
     <item
         android:id="@+id/videoListFragment"
-        android:icon="@drawable/ic_baseline_menu_book_24"
+        android:icon="@drawable/ic_baseline_ondemand_video_24"
         android:title="@string/label_video" />
     <item
         android:id="@+id/materialListFragment"
-        android:icon="@drawable/pencil"
+        android:icon="@drawable/ic_baseline_menu_book_24"
         android:title="@string/label_material" />
     <item
         android:id="@+id/discussionListFragment"
-        android:icon="@drawable/flask_empty_outline"
+        android:icon="@drawable/ic_baseline_comment_24"
         android:title="@string/label_discussion" />
     <item
         android:id="@+id/quizListFragment"
         android:icon="@drawable/pencil"
         android:title="@string/label_quiz" />
-    <!--        <item-->
-    <!--            android:id="@+id/courseInfoFragment"-->
-    <!--            android:icon="@drawable/flask_empty_outline"-->
-    <!--            android:title="@string/label_info" />-->
 </menu>

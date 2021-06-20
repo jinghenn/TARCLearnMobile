@@ -1,13 +1,17 @@
 package com.example.tarclearn.ui.course
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.tarclearn.R
 import com.example.tarclearn.adapter.ChapterRecyclerViewAdapter
+import com.example.tarclearn.adapter.student.StudentChapterRecyclerViewAdapter
 import com.example.tarclearn.databinding.FragmentCourseInfoBinding
 import com.example.tarclearn.factory.CourseInfoViewModelFactory
 import com.example.tarclearn.model.ChapterDetailDto
@@ -20,6 +24,8 @@ class CourseInfoFragment : Fragment() {
     private lateinit var binding: FragmentCourseInfoBinding
     private lateinit var viewModel: CourseInfoViewModel
     private val args: CourseInfoFragmentArgs by navArgs()
+    private lateinit var sharedPref: SharedPreferences
+    private var isLect = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,13 +38,23 @@ class CourseInfoFragment : Fragment() {
         val vmFactory = CourseInfoViewModelFactory(CourseRepository())
         viewModel = ViewModelProvider(this, vmFactory)
             .get(CourseInfoViewModel::class.java)
-
-        setHasOptionsMenu(true)
+        sharedPref = requireContext()
+            .getSharedPreferences(getString(R.string.pref_user), Context.MODE_PRIVATE)
+        isLect = sharedPref.getBoolean(getString(R.string.key_is_lecturer), false)
+        if (isLect) {
+            setHasOptionsMenu(true)
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (!isLect) {
+            binding.parentView.removeView(binding.coordLayout)
+            val params = binding.nestedScrollView.layoutParams as ConstraintLayout.LayoutParams
+            params.setMargins(0, 0, 0, 0)
+            binding.nestedScrollView.layoutParams = params
+        }
         //bind data to textviews
         viewModel.fetchCourseInfo(args.courseId)
         viewModel.course.observe(viewLifecycleOwner) {
@@ -51,10 +67,18 @@ class CourseInfoFragment : Fragment() {
         //bind course chapters to recyclerview
         viewModel.fetchChapterList(args.courseId)
         viewModel.chapterList.observe(viewLifecycleOwner) {
-            val adapter = ChapterRecyclerViewAdapter(args.courseId)
-            if (it.isNotEmpty()) {
-                adapter.chapterList = it as MutableList<ChapterDetailDto>
-                binding.chapterListRecyclerView.adapter = adapter
+            if (isLect) {
+                val adapter = ChapterRecyclerViewAdapter(args.courseId)
+                if (it.isNotEmpty()) {
+                    adapter.chapterList = it as MutableList<ChapterDetailDto>
+                    binding.chapterListRecyclerView.adapter = adapter
+                }
+            } else {
+                val adapter = StudentChapterRecyclerViewAdapter(args.courseId)
+                it?.let {
+                    adapter.chapterList = it as MutableList<ChapterDetailDto>
+                    binding.chapterListRecyclerView.adapter = adapter
+                }
             }
         }
 
@@ -71,7 +95,9 @@ class CourseInfoFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+
         inflater.inflate(R.menu.edit_delete_menu, menu)
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 

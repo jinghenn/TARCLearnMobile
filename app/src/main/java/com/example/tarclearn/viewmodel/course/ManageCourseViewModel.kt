@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tarclearn.model.CourseDetailDto
 import com.example.tarclearn.repository.CourseRepository
-import com.example.tarclearn.repository.UserRepository
 import kotlinx.coroutines.launch
 
 class ManageCourseViewModel(
@@ -44,10 +43,11 @@ class ManageCourseViewModel(
             }
         }
     }
+
     fun editCourse(courseId: Int, courseCode: String, courseName: String, desc: String) {
         viewModelScope.launch {
             val newCourse = CourseDetailDto(0, courseCode, courseName, desc)
-            val response = repository.editCourse(courseId,newCourse)
+            val response = repository.editCourse(courseId, newCourse)
             if (response.code() == 200) {
                 _course.value = response.body()
                 _error.value = null
@@ -63,15 +63,17 @@ class ManageCourseViewModel(
             }
         }
     }
-    fun fetchCourse(courseId: Int){
+
+    fun fetchCourse(courseId: Int) {
         viewModelScope.launch {
             val response = repository.getCourseInfo(courseId)
-            if(response.code() == 200){
+            if (response.code() == 200) {
                 _course.value = response.body()
             }
         }
     }
-    fun resetSuccessFlag(){
+
+    fun resetSuccessFlag() {
         _success.value = null
     }
 }
