@@ -3,6 +3,7 @@ package com.example.tarclearn.ui.video
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -173,14 +174,28 @@ class ManageVideoFragment : Fragment() {
 
     private fun setupFilePicker() {
         val btnPick = binding.btnChooseVideo
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
+        var intent: Intent? = null
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.Q) {
+            intent =
+                Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+                    type = "video/*"
+                    flags =
+                        (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+                }
+
+        } else {
+            intent = Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI).apply {
+                type = "video/*"
+                flags =
+                    (Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+            }
+        }
         btnPick.setOnClickListener {
             startActivityForResult(
                 Intent.createChooser(intent, "Select Video"),
                 Constants.REQUEST_PICK_MATERIAL
             )
         }
-
     }
 
     private fun getVideoNo(): Int {
@@ -229,14 +244,14 @@ class ManageVideoFragment : Fragment() {
             data?.data?.also {
                 uri = it
                 val cursor =
-                    requireContext().contentResolver.query(
+                    requireActivity().applicationContext.contentResolver.query(
                         it, null, null, null, null
                     )
 
-                cursor?.let {
-                    val nameIdx = it.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME)
-                    it.moveToFirst()
-                    val name = it.getString(nameIdx)
+                cursor?.let { c ->
+                    val nameIdx = c.getColumnIndex(MediaStore.MediaColumns.DISPLAY_NAME)
+                    c.moveToFirst()
+                    val name = c.getString(nameIdx)
                     binding.tvVideoName.setText(name)
                 }
                 cursor?.close()
