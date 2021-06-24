@@ -43,7 +43,8 @@ class CourseUserRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = userList[position]
         holder.cardHeader.text = item.userId
-        holder.cardSubHeader.text = item.username
+        holder.cardSubHeader.text = holder.cardSubHeader.context
+            .getString(R.string.subheader_course_user, item.username, item.email)
         if (item.userId == currentUserId) {
             holder.btnDelete.isEnabled = false
             holder.btnDelete.icon = null

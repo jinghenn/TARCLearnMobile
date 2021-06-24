@@ -54,6 +54,8 @@ class QuestionRecyclerViewAdapter(private val context: Context) :
         val firstBtn = holder.choiceRadioGroup.getChildAt(0) as RadioButton
         firstBtn.isChecked = true
         radioGroupList.add(holder.choiceRadioGroup)
+
+
         qtnLayoutList.add(holder.questionLayout)
     }
 

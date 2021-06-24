@@ -13,12 +13,27 @@ class MaterialViewModel(val repository: MaterialRepository) : ViewModel() {
     val material: LiveData<MaterialDetailDto>
         get() = _material
 
+    private val _fileAvailable = MutableLiveData<Boolean?>()
+    val fileAvailable: LiveData<Boolean?> get() = _fileAvailable
+
     fun fetchMaterialDetail(materialId: Int) {
         viewModelScope.launch {
             val response = repository.getMaterial(materialId)
             if (response.code() == 200) {
                 _material.value = response.body()
             }
+        }
+    }
+
+    fun checkFileAvailability(materialId: Int) {
+        viewModelScope.launch {
+            val response = repository.isFileExist(materialId)
+            if (response.code() == 200) {
+                _fileAvailable.value = response.body()
+            } else {
+                _fileAvailable.value = null
+            }
+
         }
     }
 

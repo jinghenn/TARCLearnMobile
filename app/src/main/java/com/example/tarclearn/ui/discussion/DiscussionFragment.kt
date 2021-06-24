@@ -23,6 +23,7 @@ import com.example.tarclearn.repository.MessageRepository
 import com.example.tarclearn.util.Constants
 import com.example.tarclearn.viewmodel.discussion.DiscussionViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlin.properties.Delegates
 
 class DiscussionFragment : Fragment() {
     private lateinit var binding: FragmentDiscussionBinding
@@ -30,7 +31,9 @@ class DiscussionFragment : Fragment() {
     private val args: DiscussionFragmentArgs by navArgs()
     private lateinit var sharedPref: SharedPreferences
     private lateinit var userId: String
+    private var isLect: Boolean by Delegates.notNull()
     private lateinit var recyclerView: RecyclerView
+    private var threadUserId: String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +48,7 @@ class DiscussionFragment : Fragment() {
             Context.MODE_PRIVATE
         )
         userId = sharedPref.getString(getString(R.string.key_user_id), null) ?: ""
+        isLect = sharedPref.getBoolean(getString(R.string.key_is_lecturer), false)
         recyclerView = binding.messageRecyclerView
         return binding.root
     }
@@ -67,7 +71,8 @@ class DiscussionFragment : Fragment() {
                 binding.tvThreadTitle.text = it.threadTitle
                 binding.tvThreadDescription.text = it.threadDescription
                 binding.tvUserName.text = it.userName
-                if (it.userId == userId) {
+                threadUserId = it.userId
+                if (threadUserId == userId || isLect) {
                     setHasOptionsMenu(true)
                 }
             }
@@ -104,7 +109,7 @@ class DiscussionFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        val adapter = MessageRecyclerViewAdapter()
+        val adapter = MessageRecyclerViewAdapter(requireContext())
         recyclerView.adapter = adapter
         viewModel.messages.observe(viewLifecycleOwner) {
             it?.let {
@@ -116,7 +121,11 @@ class DiscussionFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.edit_delete_menu, menu)
+        if(threadUserId == userId) {
+            inflater.inflate(R.menu.edit_delete_menu, menu)
+        }else{
+            inflater.inflate(R.menu.delete_menu, menu)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

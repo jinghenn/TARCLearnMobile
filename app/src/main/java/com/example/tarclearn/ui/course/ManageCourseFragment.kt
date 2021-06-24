@@ -24,7 +24,7 @@ class ManageCourseFragment : Fragment() {
     private lateinit var sharedPref: SharedPreferences
     private val args: ManageCourseFragmentArgs by navArgs()
     private lateinit var userId: String
-
+    private lateinit var email: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +40,7 @@ class ManageCourseFragment : Fragment() {
             Context.MODE_PRIVATE
         )
         userId = sharedPref.getString(getString(R.string.key_user_id), "")!!
+        email = sharedPref.getString(getString(R.string.key_email), null) ?: ""
         return binding.root
     }
 
@@ -50,9 +51,13 @@ class ManageCourseFragment : Fragment() {
         setupButtonWithMode()
 
         binding.tvCourseCode.doAfterTextChanged {
-            if (it.toString() == "") {
+            val courseCode = it.toString()
+            if (courseCode == "") {
                 binding.tvCourseCodeLayout.isErrorEnabled = true
-                binding.tvCourseCodeLayout.error = "Course ID cannot be empty"
+                binding.tvCourseCodeLayout.error = "Course Code cannot be empty"
+            } else if (!isValidCourseCode(courseCode)) {
+                binding.tvCourseCodeLayout.isErrorEnabled = true
+                binding.tvCourseCodeLayout.error = "Invalid Course Code \n Eg. BAIT2003, MPU-3113, BAIT200C"
             } else {
                 binding.tvCourseCodeLayout.isErrorEnabled = false
             }
@@ -106,14 +111,14 @@ class ManageCourseFragment : Fragment() {
         val btnOk = binding.btnOkCourse
         when (args.mode) {
             Constants.MODE_CREATE -> {
-                btnOk.setText(getString(R.string.label_create))
+                btnOk.text = getString(R.string.label_create)
                 btnOk.setOnClickListener {
-                    val courseId = getCourseCode()
+                    val courseCode = getCourseCode()
                     val courseName = getCourseName()
-                    if (courseId != "" && courseName != "") {
+                    if (courseCode != "" && isValidCourseCode(courseCode) && courseName != "") {
                         viewModel.createCourse(
-                            userId,
-                            courseId,
+                            email,
+                            courseCode,
                             courseName,
                             binding.tvCourseDescription.text.toString()
                         )
@@ -121,11 +126,11 @@ class ManageCourseFragment : Fragment() {
                 }
             }
             Constants.MODE_EDIT -> {
-                btnOk.setText(getString(R.string.label_save))
+                btnOk.text = getString(R.string.label_save)
                 btnOk.setOnClickListener {
                     val courseCode = getCourseCode()
                     val courseName = getCourseName()
-                    if (courseCode != "" && courseName != "") {
+                    if (courseCode != "" && isValidCourseCode(courseCode) && courseName != "") {
                         viewModel.editCourse(
                             args.courseId,
                             courseCode,
@@ -159,5 +164,16 @@ class ManageCourseFragment : Fragment() {
             return ""
         }
         return courseName
+    }
+
+    private fun isValidCourseCode(courseCode: String): Boolean {
+        val regex = Regex(pattern = "[A-Z]{4}\\d{4}")
+        val regexMPU = Regex(pattern = "MPU-[a-zA-Z0-9]{4}")
+        val regexIT = Regex(pattern = "[A-Z]{4}\\d{3}[A-Z]")
+        return when {
+            regex.matches(courseCode) -> true
+            regexMPU.matches(courseCode) -> true
+            else -> regexIT.matches(courseCode)
+        }
     }
 }

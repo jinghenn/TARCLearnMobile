@@ -26,4 +26,7 @@ interface MaterialApi {
         @Path("id") id: Int,
         @Body newMaterial: MaterialDetailDto
     ): Response<MaterialDetailDto>
+
+    @GET("materials/exist/")
+    suspend fun isFileExist(@Query("materialId") materialId: Int): Response<Boolean>
 }

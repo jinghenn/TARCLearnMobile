@@ -1,15 +1,15 @@
 package com.example.tarclearn.ui.course
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -21,7 +21,9 @@ import com.example.tarclearn.model.UserDto
 import com.example.tarclearn.repository.CourseRepository
 import com.example.tarclearn.repository.UserRepository
 import com.example.tarclearn.viewmodel.course.ManageUserViewModel
-import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
 class ManageUserFragment : Fragment() {
     private lateinit var binding: FragmentManageUserBinding
@@ -62,8 +64,7 @@ class ManageUserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupDropDownList()
-        setupBottomSheet()
-
+        setupFab()
         //setup recyclerview
         val recyclerView = binding.courseWithUserRecyclerView
         binding.etCourse.doAfterTextChanged {
@@ -76,12 +77,36 @@ class ManageUserFragment : Fragment() {
             }
             recyclerView.adapter = adapter
         }
-
-        viewModel.errorMessage.observe(viewLifecycleOwner) {
-            it?.let {
-                binding.etLayoutAddUser.isErrorEnabled = true
-                binding.etLayoutAddUser.error = it
+        viewModel.emailList.observe(viewLifecycleOwner){
+            it?.let{
+                viewModel.fetchUserList(courseId)
             }
+        }
+        viewModel.failedEmailList.observe(viewLifecycleOwner) {
+            it?.let {
+                viewModel.fetchUserList(courseId)
+                val iterator = it.iterator()
+                var emailList = ""
+                while(iterator.hasNext()){
+                    val next = iterator.next()
+                    emailList += if(iterator.hasNext()){
+                        "\t$next,\n"
+                    }else{
+                        "\t$next"
+                    }
+                }
+                val scrollView = View.inflate(requireContext(), R.layout.add_user_fail, null)
+                val failedEt: TextView = scrollView.findViewById(R.id.tv_fail_email_list)
+                failedEt.movementMethod = ScrollingMovementMethod()
+                failedEt.text = emailList
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Add User(s)")
+                    .setView(scrollView)
+                    .setMessage("Failed to add the following user(s):")
+                    .setPositiveButton("Ok", null)
+                    .show()
+            }
+
         }
 
         viewModel.successMessage.observe(viewLifecycleOwner) {
@@ -115,26 +140,55 @@ class ManageUserFragment : Fragment() {
         })
     }
 
-    private fun setupBottomSheet() {
-        BottomSheetBehavior.from(binding.bottomSheet).apply {
-            peekHeight = 120
-            this.state = BottomSheetBehavior.STATE_COLLAPSED
-        }
-        binding.btnAddUser.setOnClickListener {
-            val userId = binding.etAddUser.text.toString()
+    private fun setupFab() {
+        val fab = binding.fabAddUser
+
+        fab.setOnClickListener {
+            val editTextLayout = View.inflate(requireContext(), R.layout.add_user_edit_text, null)
+            val editTextInputLayout: TextInputLayout = editTextLayout
+                .findViewById(R.id.et_email_list_layout)
+            val editText: TextInputEditText = editTextLayout.findViewById(R.id.et_email_list)
+            editText.doAfterTextChanged {
+                if(it.toString() != ""){
+                    editTextInputLayout.isErrorEnabled = false
+                }
+            }
             if (courseId == -1) {
                 binding.courseMenu.isErrorEnabled = true
-                binding.courseMenu.error = "Please select a course"
-            } else if (userId == "") {
-                binding.etLayoutAddUser.isErrorEnabled = true
-                binding.etLayoutAddUser.error = "User ID cannot be empty"
+                binding.courseMenu.error = "Course cannot be empty"
             } else {
-                viewModel.enrol(courseId, userId)
-            }
+                val dialog = MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Add User(s)")
+                    .setMessage("Enter emails of users separated by comma")
+                    .setView(editTextLayout)
+                    .setPositiveButton(getString(R.string.label_add), null)
+                    .setNegativeButton(getString(R.string.label_cancel), null)
+                    .create()
 
-        }
-        binding.etAddUser.doAfterTextChanged {
-            binding.etLayoutAddUser.isErrorEnabled = false
+                dialog.setOnShowListener{
+                    val btn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                    btn.setOnClickListener {
+                        if(editText.text.toString() == ""){
+
+                            editTextInputLayout.isErrorEnabled = true
+                            editTextInputLayout.error = "Email(s) cannot be empty"
+                        }else{
+                            val emailList = viewModel.validateEmailList(editText.text.toString())
+
+                            if (emailList.isNotEmpty()) {
+                                viewModel.enrol(courseId, emailList)
+                                dialog.dismiss()
+                            }else{
+                                editTextInputLayout.isErrorEnabled = true
+                                editTextInputLayout.error = "Invalid email"
+                            }
+
+                        }
+                    }
+                }
+                dialog.show()
+            }
         }
     }
+
 }

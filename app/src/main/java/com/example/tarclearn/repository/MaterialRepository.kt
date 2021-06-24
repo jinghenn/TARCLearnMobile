@@ -9,14 +9,9 @@ class MaterialRepository {
         return RetrofitInstance.materialApi.getMaterial(materialId)
     }
 
-//    suspend fun upload(
-//        fileModel: MultipartBody.Part,
-//        filePart: MultipartBody.Part,
-//        chapterId: Int,
-//        type: String
-//    ): Response<MaterialDetailDto> {
-//        return RetrofitInstance.materialApi.upload(fileModel, filePart, chapterId, type)
-//    }
+    suspend fun isFileExist(materialId: Int): Response<Boolean> {
+        return RetrofitInstance.materialApi.isFileExist(materialId)
+    }
 
     suspend fun updateMaterial(
         materialId: Int,

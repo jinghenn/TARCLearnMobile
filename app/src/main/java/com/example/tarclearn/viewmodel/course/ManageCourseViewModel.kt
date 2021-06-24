@@ -23,7 +23,7 @@ class ManageCourseViewModel(
     val success: LiveData<Boolean?>
         get() = _success
 
-    fun createCourse(userId: String, courseCode: String, courseName: String, desc: String) {
+    fun createCourse(email: String, courseCode: String, courseName: String, desc: String) {
         viewModelScope.launch {
             val newCourse = CourseDetailDto(0, courseCode, courseName, desc)
             val response = repository.createCourse(newCourse)
@@ -31,7 +31,8 @@ class ManageCourseViewModel(
                 _course.value = response.body()
                 _error.value = null
                 _success.value = true
-                repository.enrol(_course.value!!.courseId, userId)
+                val emailList = listOf(email)
+                repository.enrol(_course.value!!.courseId, emailList)
             }
             if (response.code() == 409) {
                 _error.value = "Course already exist"

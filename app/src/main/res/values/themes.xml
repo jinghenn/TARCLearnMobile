@@ -37,12 +37,4 @@
 
     </style>
 
-    <style name="Theme.TARCLearnMobile.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="Theme.TARCLearnMobile.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.TARCLearnMobile.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

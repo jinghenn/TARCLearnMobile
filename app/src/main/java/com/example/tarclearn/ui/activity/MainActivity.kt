@@ -48,8 +48,9 @@ class MainActivity : AppCompatActivity() {
         navView.addHeaderView(drawerHeaderBinding.root)
         val uid = sharedPref.getString(getString(R.string.key_user_id), "Nothing")
         val username = sharedPref.getString(getString(R.string.key_username), "Nothing")
+        val email = sharedPref.getString(getString(R.string.key_email), null) ?: ""
         val isLect = sharedPref.getBoolean(getString(R.string.key_is_lecturer), false)
-        val currentUser = UserDetailDto(uid!!, "", username!!, isLect)
+        val currentUser = UserDetailDto(uid!!, "", username!!, email, isLect)
         drawerHeaderBinding.user = currentUser
         if (isLect) {
             navView.inflateMenu(R.menu.profile_menu)

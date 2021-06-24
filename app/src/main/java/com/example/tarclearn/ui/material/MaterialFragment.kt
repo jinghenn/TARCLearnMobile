@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.example.tarclearn.R
 import com.example.tarclearn.databinding.FragmentMaterialBinding
 import com.example.tarclearn.factory.MaterialViewModelFactory
 import com.example.tarclearn.repository.MaterialRepository
@@ -27,6 +28,7 @@ class MaterialFragment : Fragment() {
     private val args: MaterialFragmentArgs by navArgs()
     private var fetch: Fetch by Delegates.notNull()
     private var contentType = ""
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,12 +55,27 @@ class MaterialFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var materialName: String? = null
         viewModel.material.observe(viewLifecycleOwner) {
             it?.let {
+                viewModel.checkFileAvailability(it.materialId)
                 binding.tvMaterialTitle.text = it.materialTitle
                 binding.tvMaterialDesc.text = it.materialDescription
                 binding.btnViewMaterial.text = it.materialName
-                setupViewMaterialButton(it.materialName)
+                materialName = it.materialName
+
+            }
+        }
+        viewModel.fileAvailable.observe(viewLifecycleOwner) {
+            it?.let { isFileExist ->
+                if (isFileExist) {
+                    materialName?.let { name ->
+                        setupViewMaterialButton(name)
+                    }
+                } else {
+                    binding.btnViewMaterial.isEnabled = false
+                    binding.btnViewMaterial.text = getString(R.string.corrupted_file)
+                }
             }
         }
 
@@ -71,6 +88,7 @@ class MaterialFragment : Fragment() {
         contentType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(ext) ?: "*/*"
 
         btn.setOnClickListener {
+
             val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
                 type = contentType

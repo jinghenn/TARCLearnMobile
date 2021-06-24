@@ -6,36 +6,22 @@
     <string name="pref_user">com.example.tarclearn.user</string>
     <string name="key_user_id">KEY_UID</string>
     <string name="key_username">KEY_USERNAME</string>
+    <string name="key_email">KEY_EMAIL</string>
     <string name="key_is_lecturer">KEY_IS_LECTURER</string>
     <string name="key_is_logged_in">KEY_IS_LOGGED_IN</string>
     <string name="label_logout">Logout</string>
     <string name="label_about">About</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main2">MainActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
     <string name="label_course">Course</string>
     <string name="label_nothing_to_show">Nothing to show&#8230; yet</string>
     <string name="label_manage_user">Manage User</string>
     <string name="label_add">Add</string>
     <string name="label_delete">Delete</string>
-    <string name="label_lecture">Lecture</string>
-    <string name="label_practical">Practical</string>
-    <string name="label_tutorial">Tutorial</string>
     <string name="label_video">Video</string>
     <string name="label_material">Material</string>
     <string name="label_discussion">Discussion</string>
     <string name="label_quiz">Quiz</string>
-    <string name="label_info">Info</string>
     <string name="label_add_course">Create New Course</string>
     <string name="label_course_code">Course Code</string>
     <string name="label_course_name">Course Name</string>
@@ -63,10 +49,13 @@
     <string name="label_enter_message">Enter message</string>
     <string name="question_text">%d) %s</string>
     <string name="label_check_answer">Check Answer</string>
-    <string name="answer">Answer: %s</string>
     <string name="label_question">Question</string>
     <string name="label_add_choice">choice</string>
     <string name="label_add_question">question</string>
     <string name="score_string">Score: %d/%d</string>
     <string name="welcome">Welcome,</string>
+    <string name="subheader_course_user">%s\n%s</string>
+    <string name="corrupted_file">File corrupted or missing</string>
+    <string name="hint_email_list">Eg. foo@gmail.com, ...</string>
+    <string name="label_email">Email</string>
 </resources>

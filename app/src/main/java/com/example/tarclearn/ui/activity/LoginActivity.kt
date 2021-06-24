@@ -79,10 +79,15 @@ class LoginActivity : AppCompatActivity() {
                         getString(R.string.key_username),
                         viewModel.user.value!!.username
                     )
+                    putString(
+                        getString(R.string.key_email),
+                        viewModel.user.value!!.email
+                    )
                     putBoolean(
                         getString(R.string.key_is_lecturer),
                         viewModel.user.value!!.isLecturer
                     )
+
                     commit()
                 }
                 val intent = Intent(this, MainActivity::class.java)
