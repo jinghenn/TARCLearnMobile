@@ -55,7 +55,7 @@
     <fragment
         android:id="@+id/manageChapterFragment"
         android:name="com.example.tarclearn.ui.course.ManageChapterFragment"
-        android:label="ManageChapterFragment">
+        android:label="Manage Chapter">
         <argument
             android:name="chapterId"
             app:argType="integer" />
