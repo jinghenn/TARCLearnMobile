@@ -95,12 +95,21 @@ class ManageMaterialFragment : Fragment() {
         }
         binding.tvMaterialNo.doAfterTextChanged {
             //binding.tvMaterialNoLayout.isErrorEnabled = false
+            val index = viewModel.material.value?.index ?: -2
             val no = it.toString().toIntOrNull() ?: -1
             if (no == 0) {
                 binding.tvMaterialNoLayout.isErrorEnabled = true
                 binding.tvMaterialNoLayout.error = "Material No. cannot be 0"
             } else {
-                viewModel.checkIsMaterialIndexExist(chapterId, no, binding.menuMode.text.toString().toUpperCase(Locale.ROOT), false)
+                if((args.mode == Constants.MODE_EDIT && index != no) || args.mode == Constants.MODE_CREATE){
+
+                    viewModel.checkIsMaterialIndexExist(
+                        chapterId,
+                        no,
+                        binding.menuMode.text.toString().toUpperCase(Locale.ROOT),
+                        false
+                    )
+                }
             }
         }
         binding.menuMode.doAfterTextChanged {

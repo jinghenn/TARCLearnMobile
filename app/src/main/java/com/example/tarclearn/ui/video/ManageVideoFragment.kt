@@ -92,17 +92,20 @@ class ManageVideoFragment : Fragment() {
     private fun setupTextViews() {
         binding.tvVideoName.doAfterTextChanged { binding.tvVideoNameLayout.isErrorEnabled = false }
         binding.tvVideoNo.doAfterTextChanged {
+            val index = viewModel.video.value?.index ?: -2
             val no = it.toString().toIntOrNull() ?: -1
             if (no == 0) {
                 binding.tvVideoNoLayout.isErrorEnabled = true
                 binding.tvVideoNoLayout.error = "Video No. cannot be 0"
             } else {
-                viewModel.checkIsVideoIndexExist(
-                    chapterId,
-                    no,
-                    binding.menuMode.text.toString().toUpperCase(Locale.ROOT),
-                    true
-                )
+                if((args.mode == Constants.MODE_EDIT && index != no) || args.mode == Constants.MODE_CREATE){
+                    viewModel.checkIsVideoIndexExist(
+                        chapterId,
+                        no,
+                        binding.menuMode.text.toString().toUpperCase(Locale.ROOT),
+                        true
+                    )
+                }
             }
         }
         binding.menuMode.doAfterTextChanged {
