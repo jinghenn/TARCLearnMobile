@@ -69,13 +69,24 @@ class ManageMaterialFragment : Fragment() {
             }
 
         }
+        viewModel.noExistFlag.observe(viewLifecycleOwner) {
+            it?.let {
+                if (it) {
+                    binding.tvMaterialNoLayout.isErrorEnabled = true
+                    binding.tvMaterialNoLayout.error = "Material No. already exist."
+                } else {
+                    binding.tvMaterialNoLayout.isErrorEnabled = false
+                }
+                viewModel.resetNoExistFlag()
+            }
+        }
     }
 
     private fun setupModeMenu() {
-        Log.d("menui", "set")
         val items = listOf("Lecture", "Tutorial", "Practical")
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown, items)
         (binding.menuMode as? AutoCompleteTextView)?.setAdapter(adapter)
+        binding.menuMode.setText(binding.menuMode.adapter.getItem(0).toString(), false)
     }
 
     private fun setupTextViews() {
@@ -83,9 +94,24 @@ class ManageMaterialFragment : Fragment() {
             binding.tvMaterialNameLayout.isErrorEnabled = false
         }
         binding.tvMaterialNo.doAfterTextChanged {
-            binding.tvMaterialNoLayout.isErrorEnabled = false
+            //binding.tvMaterialNoLayout.isErrorEnabled = false
+            val no = it.toString().toIntOrNull() ?: -1
+            if (no == 0) {
+                binding.tvMaterialNoLayout.isErrorEnabled = true
+                binding.tvMaterialNoLayout.error = "Material No. cannot be 0"
+            } else {
+                viewModel.checkIsMaterialIndexExist(chapterId, no, binding.menuMode.text.toString().toUpperCase(Locale.ROOT), false)
+            }
         }
-        binding.menuMode.doAfterTextChanged { binding.menuModeLayout.isErrorEnabled = false }
+        binding.menuMode.doAfterTextChanged {
+            val no = binding.tvMaterialNo.text.toString().toIntOrNull() ?: -1
+            if (no == 0) {
+                binding.tvMaterialNoLayout.isErrorEnabled = true
+                binding.tvMaterialNoLayout.error = "Material No. cannot be 0"
+            } else {
+                viewModel.checkIsMaterialIndexExist(chapterId, no, binding.menuMode.text.toString().toUpperCase(Locale.ROOT), false)
+            }
+        }
         binding.tvMaterialTitle.doAfterTextChanged {
             binding.tvMaterialTitleLayout.isErrorEnabled = false
         }
@@ -142,8 +168,8 @@ class ManageMaterialFragment : Fragment() {
                             0, matNo, matTitle, matDesc, matName, matMode, false
                         )
 
-                        val serverUrl = "http://192.168.0.72:50000/api/" +
-                                "upload?chapterId=$chapterId&type=${Constants.OTHER_MATERIAL}"
+                        val serverUrl =
+                            "${Constants.BASE_URL}upload?chapterId=$chapterId&type=${Constants.OTHER_MATERIAL}"
                         MultipartUploadRequest(
                             requireContext(), serverUrl
                         ).setMethod("POST")
@@ -188,10 +214,10 @@ class ManageMaterialFragment : Fragment() {
                         it, null, null, null, null
                     )
 
-                cursor?.let {
-                    val nameIdx = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
-                    it.moveToFirst()
-                    val name = it.getString(nameIdx)
+                cursor?.let { c ->
+                    val nameIdx = c.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                    c.moveToFirst()
+                    val name = c.getString(nameIdx)
                     binding.tvMaterialName.setText(name)
                 }
                 cursor?.close()
@@ -220,6 +246,9 @@ class ManageMaterialFragment : Fragment() {
 
     private fun getMaterialNo(): Int {
         val materialNo = binding.tvMaterialNo.text.toString()
+        if (binding.tvMaterialNoLayout.isErrorEnabled) {
+            return -1
+        }
         if (materialNo == "") {
             binding.tvMaterialNoLayout.isErrorEnabled = true
             binding.tvMaterialNoLayout.error = "Material No. cannot be empty"

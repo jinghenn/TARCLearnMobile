@@ -13,6 +13,10 @@ class MaterialRepository {
         return RetrofitInstance.materialApi.isFileExist(materialId)
     }
 
+    suspend fun isIndexExist(chapterId: Int, materialIndex: Int, mode: String, isVideo: Boolean): Response<Boolean> {
+        return RetrofitInstance.materialApi.isIndexExist(chapterId, materialIndex, mode, isVideo)
+    }
+
     suspend fun updateMaterial(
         materialId: Int,
         newMaterial: MaterialDetailDto

@@ -21,6 +21,9 @@ class ManageMaterialViewModel(
     private val _error = MutableLiveData<Boolean?>()
     val error: LiveData<Boolean?> get() = _error
 
+    private val _noExistFlag = MutableLiveData<Boolean?>()
+    val noExistFlag: LiveData<Boolean?> get() = _noExistFlag
+
     fun fetchMaterialDetail(materialId: Int) {
         viewModelScope.launch {
             val response = repository.getMaterial(materialId)
@@ -45,11 +48,21 @@ class ManageMaterialViewModel(
         }
     }
 
+    fun checkIsMaterialIndexExist(chapterId: Int, materialNo: Int, mode: String, isVideo: Boolean) {
+        viewModelScope.launch {
+            val response = repository.isIndexExist(chapterId, materialNo, mode, isVideo)
+            if (response.code() == 200) {
+                _noExistFlag.value = response.body()
+            }
+        }
+    }
+
     fun resetSuccessFlag() {
         _success.value = null
     }
 
-    fun resetErrorFlag() {
-        _error.value = null
+    fun resetNoExistFlag() {
+        _noExistFlag.value = null
     }
+
 }

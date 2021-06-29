@@ -69,19 +69,56 @@ class ManageVideoFragment : Fragment() {
             }
 
         }
+        viewModel.noExistFlag.observe(viewLifecycleOwner) {
+            it?.let {
+                if (it) {
+                    binding.tvVideoNoLayout.isErrorEnabled = true
+                    binding.tvVideoNoLayout.error = "Video No. already exist."
+                } else {
+                    binding.tvVideoNoLayout.isErrorEnabled = false
+                }
+                viewModel.resetNoExistFlag()
+            }
+        }
     }
 
     private fun setupModeMenu() {
         val items = listOf("Lecture", "Tutorial", "Practical")
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown, items)
         (binding.menuMode as? AutoCompleteTextView)?.setAdapter(adapter)
-
+        binding.menuMode.setText(binding.menuMode.adapter.getItem(0).toString(), false)
     }
 
     private fun setupTextViews() {
         binding.tvVideoName.doAfterTextChanged { binding.tvVideoNameLayout.isErrorEnabled = false }
-        binding.tvVideoNo.doAfterTextChanged { binding.tvVideoNoLayout.isErrorEnabled = false }
-        binding.menuMode.doAfterTextChanged { binding.menuModeLayout.isErrorEnabled = false }
+        binding.tvVideoNo.doAfterTextChanged {
+            val no = it.toString().toIntOrNull() ?: -1
+            if (no == 0) {
+                binding.tvVideoNoLayout.isErrorEnabled = true
+                binding.tvVideoNoLayout.error = "Video No. cannot be 0"
+            } else {
+                viewModel.checkIsVideoIndexExist(
+                    chapterId,
+                    no,
+                    binding.menuMode.text.toString().toUpperCase(Locale.ROOT),
+                    true
+                )
+            }
+        }
+        binding.menuMode.doAfterTextChanged {
+            val no = binding.tvVideoNo.text.toString().toIntOrNull() ?: -1
+            if (no == 0) {
+                binding.tvVideoNoLayout.isErrorEnabled = true
+                binding.tvVideoNoLayout.error = "Video No. cannot be 0"
+            } else {
+                viewModel.checkIsVideoIndexExist(
+                    chapterId,
+                    no,
+                    binding.menuMode.text.toString().toUpperCase(Locale.ROOT),
+                    true
+                )
+            }
+        }
         binding.tvVideoTitle.doAfterTextChanged {
             binding.tvVideoTitleLayout.isErrorEnabled = false
         }
@@ -200,6 +237,9 @@ class ManageVideoFragment : Fragment() {
 
     private fun getVideoNo(): Int {
         val videoNo = binding.tvVideoNo.text.toString()
+        if (binding.tvVideoNoLayout.isErrorEnabled) {
+            return -1
+        }
         if (videoNo == "") {
             binding.tvVideoNoLayout.isErrorEnabled = true
             binding.tvVideoNoLayout.error = "Video No. cannot be empty"

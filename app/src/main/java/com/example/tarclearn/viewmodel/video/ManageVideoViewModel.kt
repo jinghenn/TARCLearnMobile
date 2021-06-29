@@ -21,6 +21,9 @@ class ManageVideoViewModel(
     private val _error = MutableLiveData<Boolean?>()
     val error: LiveData<Boolean?> get() = _error
 
+    private val _noExistFlag = MutableLiveData<Boolean?>()
+    val noExistFlag: LiveData<Boolean?> get() = _noExistFlag
+
     fun fetchVideoDetail(materialId: Int) {
         viewModelScope.launch {
             val response = repository.getMaterial(materialId)
@@ -31,18 +34,6 @@ class ManageVideoViewModel(
         }
     }
 
-    //    fun uploadVideo(fileModel: MultipartBody.Part, file: MultipartBody.Part, chapterId: Int, type: String) {
-//        viewModelScope.launch {
-//            val response = repository.upload(fileModel, file, chapterId, Constants.VIDEO_MATERIAL)
-//            if(response.code() == 200){
-//                _video.value = response.body()
-//                _success.value = true
-//            }
-//            if(response.code() == 400){
-//                _error.value = true
-//            }
-//        }
-//    }
     fun updateVideo(materialId: Int, newMaterial: MaterialDetailDto) {
         viewModelScope.launch {
             val response = repository.updateMaterial(materialId, newMaterial)
@@ -56,12 +47,23 @@ class ManageVideoViewModel(
             }
         }
     }
-
+    fun checkIsVideoIndexExist(chapterId: Int, materialNo: Int, mode: String, isVideo: Boolean) {
+        viewModelScope.launch {
+            val response = repository.isIndexExist(chapterId, materialNo, mode, isVideo)
+            if (response.code() == 200) {
+                _noExistFlag.value = response.body()
+            }
+        }
+    }
     fun resetSuccessFlag() {
         _success.value = null
     }
 
     fun resetErrorFlag() {
         _error.value = null
+    }
+
+    fun resetNoExistFlag() {
+        _noExistFlag.value = null
     }
 }

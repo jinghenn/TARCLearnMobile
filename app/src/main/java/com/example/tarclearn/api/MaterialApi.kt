@@ -29,4 +29,12 @@ interface MaterialApi {
 
     @GET("materials/exist/")
     suspend fun isFileExist(@Query("materialId") materialId: Int): Response<Boolean>
+
+    @GET("materials/index/")
+    suspend fun isIndexExist(
+        @Query("chapterId") chapterId: Int,
+        @Query("materialIndex") materialIndex: Int,
+        @Query("mode") mode: String,
+        @Query("isVideo") isVideo:Boolean
+    ): Response<Boolean>
 }
