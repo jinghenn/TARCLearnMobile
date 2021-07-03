@@ -10,7 +10,6 @@
     <string name="key_is_lecturer">KEY_IS_LECTURER</string>
     <string name="key_is_logged_in">KEY_IS_LOGGED_IN</string>
     <string name="label_logout">Logout</string>
-    <!-- TODO: Remove or change this placeholder text -->
 
     <string name="label_course">Course</string>
     <string name="label_nothing_to_show">Nothing to show&#8230; yet</string>
