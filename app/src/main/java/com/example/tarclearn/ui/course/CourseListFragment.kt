@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.tarclearn.R
 import com.example.tarclearn.adapter.CourseRecyclerViewAdapter
 import com.example.tarclearn.databinding.FragmentCourseListBinding
-import com.example.tarclearn.factory.CourseListViewModelFactory
+import com.example.tarclearn.factory.UserViewModelFactory
 import com.example.tarclearn.repository.UserRepository
 import com.example.tarclearn.viewmodel.course.CourseListViewModel
 
@@ -30,7 +30,7 @@ class CourseListFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentCourseListBinding.inflate(inflater, container, false)
         val repository = UserRepository()
-        val viewModelFactory = CourseListViewModelFactory(repository)
+        val viewModelFactory = UserViewModelFactory(repository)
         viewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(
             CourseListViewModel::class.java
         )

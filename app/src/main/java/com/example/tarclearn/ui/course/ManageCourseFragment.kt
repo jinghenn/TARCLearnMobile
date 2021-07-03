@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.tarclearn.R
 import com.example.tarclearn.databinding.FragmentManageCourseBinding
-import com.example.tarclearn.factory.ManageCourseViewModelFactory
+import com.example.tarclearn.factory.CourseViewModelFactory
 import com.example.tarclearn.repository.CourseRepository
 import com.example.tarclearn.util.Constants
 import com.example.tarclearn.viewmodel.course.ManageCourseViewModel
@@ -32,7 +32,7 @@ class ManageCourseFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentManageCourseBinding.inflate(inflater, container, false)
         //create viewmodel
-        val vmFactory = ManageCourseViewModelFactory(CourseRepository())
+        val vmFactory = CourseViewModelFactory(CourseRepository())
         viewModel = ViewModelProvider(this, vmFactory)
             .get(ManageCourseViewModel::class.java)
         sharedPref = requireActivity().getSharedPreferences(

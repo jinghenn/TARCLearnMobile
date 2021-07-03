@@ -24,7 +24,6 @@ import com.example.tarclearn.util.Constants
 import com.example.tarclearn.viewmodel.discussion.DiscussionViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.properties.Delegates
-
 class DiscussionFragment : Fragment() {
     private lateinit var binding: FragmentDiscussionBinding
     private lateinit var viewModel: DiscussionViewModel
@@ -121,9 +120,9 @@ class DiscussionFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        if(threadUserId == userId) {
+        if (threadUserId == userId) {
             inflater.inflate(R.menu.edit_delete_menu, menu)
-        }else{
+        } else {
             inflater.inflate(R.menu.delete_menu, menu)
         }
     }

@@ -14,9 +14,9 @@
             android:icon="@drawable/ic_baseline_manage_accounts_24"
             android:title="@string/label_manage_user" />
         <item
-            android:id="@+id/about_fragment"
-            android:icon="@drawable/ic_baseline_info_24"
-            android:title="@string/label_about" />
+            android:id="@+id/myDiscussionsFragment"
+            android:icon="@drawable/ic_baseline_comment_24"
+            android:title="@string/label_my_discussion" />
         <item
             android:id="@+id/logout"
             android:icon="@drawable/ic_baseline_logout_24"

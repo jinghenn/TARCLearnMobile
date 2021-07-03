@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             AppBarConfiguration(
                 setOf(
                     R.id.course_list_fragment,
-                    R.id.about_fragment,
+                    R.id.myDiscussionsFragment,
                     R.id.manage_user_fragment
                 ), drawerLayout
             )

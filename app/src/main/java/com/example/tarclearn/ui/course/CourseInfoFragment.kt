@@ -13,7 +13,7 @@ import com.example.tarclearn.R
 import com.example.tarclearn.adapter.ChapterRecyclerViewAdapter
 import com.example.tarclearn.adapter.student.StudentChapterRecyclerViewAdapter
 import com.example.tarclearn.databinding.FragmentCourseInfoBinding
-import com.example.tarclearn.factory.CourseInfoViewModelFactory
+import com.example.tarclearn.factory.CourseViewModelFactory
 import com.example.tarclearn.model.ChapterDetailDto
 import com.example.tarclearn.repository.CourseRepository
 import com.example.tarclearn.util.Constants
@@ -35,7 +35,7 @@ class CourseInfoFragment : Fragment() {
         binding = FragmentCourseInfoBinding.inflate(inflater, container, false)
 
         //initialize viewmodel
-        val vmFactory = CourseInfoViewModelFactory(CourseRepository())
+        val vmFactory = CourseViewModelFactory(CourseRepository())
         viewModel = ViewModelProvider(this, vmFactory)
             .get(CourseInfoViewModel::class.java)
         sharedPref = requireContext()

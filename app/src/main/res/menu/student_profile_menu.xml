@@ -10,9 +10,9 @@
             android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/label_course" />
         <item
-            android:id="@+id/about_fragment"
-            android:icon="@drawable/ic_baseline_info_24"
-            android:title="@string/label_about" />
+            android:id="@+id/myDiscussionsFragment"
+            android:icon="@drawable/ic_baseline_comment_24"
+            android:title="@string/label_my_discussion" />
         <item
             android:id="@+id/logout"
             android:icon="@drawable/ic_baseline_logout_24"

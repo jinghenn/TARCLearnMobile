@@ -17,11 +17,6 @@
             app:destination="@id/manageCourseFragment" />
     </fragment>
     <fragment
-        android:id="@+id/about_fragment"
-        android:name="com.example.tarclearn.ui.about.AboutFragment"
-        android:label="About"
-        tools:layout="@layout/fragment_about" />
-    <fragment
         android:id="@+id/manage_user_fragment"
         android:name="com.example.tarclearn.ui.course.ManageUserFragment"
         android:label="Manage User"
@@ -64,6 +59,37 @@
             app:argType="integer" />
         <argument
             android:name="courseId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/myDiscussionsFragment"
+        android:name="com.example.tarclearn.ui.discussion.MyDiscussionsFragment"
+        android:label="My Discussions"
+        tools:layout="@layout/fragment_my_discussions" >
+        <action
+            android:id="@+id/action_myDiscussionsFragment_to_discussionFragment"
+            app:destination="@id/discussionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/discussionFragment"
+        android:name="com.example.tarclearn.ui.discussion.DiscussionFragment"
+        android:label="Discussion">
+        <argument
+            android:name="threadId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_discussionFragment_to_manageDiscussionFragment"
+            app:destination="@id/manageDiscussionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageDiscussionFragment"
+        android:name="com.example.tarclearn.ui.discussion.ManageDiscussionFragment"
+        android:label="Edit Discussion Detail">
+        <argument
+            android:name="mode"
+            app:argType="integer" />
+        <argument
+            android:name="threadId"
             app:argType="integer" />
     </fragment>
 </navigation>

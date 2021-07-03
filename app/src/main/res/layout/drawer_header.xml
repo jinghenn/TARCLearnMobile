@@ -21,7 +21,7 @@
         android:paddingHorizontal="16dp"
         android:paddingTop="140dp"
         android:theme="@style/Theme.TARCLearnMobile"
-        tools:context=".ui.about.ProfileFragment">
+        tools:context=".ui.mydiscussion.ProfileFragment">
 
         <TextView
             android:id="@+id/tvWelcome"
