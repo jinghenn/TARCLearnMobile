@@ -57,6 +57,5 @@
     <string name="corrupted_file">File corrupted or missing</string>
     <string name="hint_email_list">Eg. foo@gmail.com, &#8230;</string>
     <string name="label_email">Email</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="label_my_discussion">My Discussions</string>
 </resources>
