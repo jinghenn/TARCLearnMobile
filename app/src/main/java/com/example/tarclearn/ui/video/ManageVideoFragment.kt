@@ -97,15 +97,14 @@ class ManageVideoFragment : Fragment() {
             if (no == 0) {
                 binding.tvVideoNoLayout.isErrorEnabled = true
                 binding.tvVideoNoLayout.error = "Video No. cannot be 0"
-            } else {
-                if((args.mode == Constants.MODE_EDIT && index != no) || args.mode == Constants.MODE_CREATE){
-                    viewModel.checkIsVideoIndexExist(
-                        chapterId,
-                        no,
-                        binding.menuMode.text.toString().toUpperCase(Locale.ROOT),
-                        true
-                    )
-                }
+            } else if ((args.mode == Constants.MODE_EDIT && index != no) || args.mode == Constants.MODE_CREATE) {
+                viewModel.checkIsVideoIndexExist(
+                    chapterId,
+                    no,
+                    binding.menuMode.text.toString().toUpperCase(Locale.ROOT),
+                    true
+                )
+
             }
         }
         binding.menuMode.doAfterTextChanged {

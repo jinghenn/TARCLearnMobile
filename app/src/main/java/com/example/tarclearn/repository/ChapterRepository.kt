@@ -39,4 +39,8 @@ class ChapterRepository {
     suspend fun getChapterQuizzes(chapterId: Int): Response<List<QuizDto>> {
         return RetrofitInstance.chapterApi.getChapterQuizzes(chapterId)
     }
+
+    suspend fun isChapterNoExist(chapterNo: String, courseId: Int): Response<Boolean> {
+        return RetrofitInstance.chapterApi.isChapterNoExist(chapterNo, courseId)
+    }
 }

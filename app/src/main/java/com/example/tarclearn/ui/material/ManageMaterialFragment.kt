@@ -100,16 +100,15 @@ class ManageMaterialFragment : Fragment() {
             if (no == 0) {
                 binding.tvMaterialNoLayout.isErrorEnabled = true
                 binding.tvMaterialNoLayout.error = "Material No. cannot be 0"
-            } else {
-                if((args.mode == Constants.MODE_EDIT && index != no) || args.mode == Constants.MODE_CREATE){
+            } else if ((args.mode == Constants.MODE_EDIT && index != no) || args.mode == Constants.MODE_CREATE) {
 
-                    viewModel.checkIsMaterialIndexExist(
-                        chapterId,
-                        no,
-                        binding.menuMode.text.toString().toUpperCase(Locale.ROOT),
-                        false
-                    )
-                }
+                viewModel.checkIsMaterialIndexExist(
+                    chapterId,
+                    no,
+                    binding.menuMode.text.toString().toUpperCase(Locale.ROOT),
+                    false
+                )
+
             }
         }
         binding.menuMode.doAfterTextChanged {
@@ -118,7 +117,12 @@ class ManageMaterialFragment : Fragment() {
                 binding.tvMaterialNoLayout.isErrorEnabled = true
                 binding.tvMaterialNoLayout.error = "Material No. cannot be 0"
             } else {
-                viewModel.checkIsMaterialIndexExist(chapterId, no, binding.menuMode.text.toString().toUpperCase(Locale.ROOT), false)
+                viewModel.checkIsMaterialIndexExist(
+                    chapterId,
+                    no,
+                    binding.menuMode.text.toString().toUpperCase(Locale.ROOT),
+                    false
+                )
             }
         }
         binding.tvMaterialTitle.doAfterTextChanged {

@@ -55,6 +55,7 @@ class ManageChapterFragment : Fragment() {
                 binding.tvChapterNoLayout.isErrorEnabled = true
                 binding.tvChapterNoLayout.error = "Chapter No. cannot be empty"
             }
+
         }
         viewModel.success.observe(viewLifecycleOwner) {
             val text = when (args.mode) {
@@ -70,8 +71,17 @@ class ManageChapterFragment : Fragment() {
                 ).show()
 
                 viewModel.resetSuccessFlag()
+                requireActivity().onBackPressed()
             }
         }
+        viewModel.error.observe(viewLifecycleOwner){
+            it?.let{
+                binding.tvChapterNoLayout.isErrorEnabled = true
+                binding.tvChapterNoLayout.error = it
+                viewModel.resetErrorFlag()
+            }
+        }
+
     }
 
     private fun setupTextFieldWithChapterDetail() {
@@ -108,7 +118,7 @@ class ManageChapterFragment : Fragment() {
                     val chapterNo = getChapterNo()
                     val chapterName = getChapterName()
                     if (chapterNo != "" && chapterName != "") {
-                        viewModel.updateChapter(args.chapterId, chapterNo, chapterName)
+                        viewModel.updateChapter(args.courseId, args.chapterId, chapterNo, chapterName)
                     }
                 }
             }
@@ -120,8 +130,7 @@ class ManageChapterFragment : Fragment() {
 
     private fun getChapterNo(): String {
         val chapterNo = binding.tvChapterNo.text.toString()
-        val subChapterNo = binding.tvChapterSubNo.text.toString()
-        val mergedChapNo = when (subChapterNo) {
+        val mergedChapNo = when (val subChapterNo = binding.tvChapterSubNo.text.toString()) {
             "" -> chapterNo
             else -> "$chapterNo.$subChapterNo"
         }

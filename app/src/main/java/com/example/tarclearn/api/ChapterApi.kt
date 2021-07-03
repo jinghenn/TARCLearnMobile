@@ -40,4 +40,10 @@ interface ChapterApi {
 
     @GET("chapters/{id}/quiz")
     suspend fun getChapterQuizzes(@Path("id") chapterId: Int): Response<List<QuizDto>>
+
+    @GET("chapters/no")
+    suspend fun isChapterNoExist(
+        @Query("chapterNo") chapterNo: String,
+        @Query("courseId") courseId: Int
+    ): Response<Boolean>
 }

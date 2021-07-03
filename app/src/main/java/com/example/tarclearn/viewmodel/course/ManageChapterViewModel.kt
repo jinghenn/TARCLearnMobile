@@ -26,28 +26,55 @@ class ManageChapterViewModel(
     fun createChapter(courseId: Int, chapterNo: String, title: String) {
         val newChap = ChapterDto(chapterNo, title)
         viewModelScope.launch {
-            val response = repository.createChapter(courseId, newChap)
-            if (response.code() == 201) {
-                _chapter.value = response.body()
-                _success.value = true
+            val checkExistResponse = repository.isChapterNoExist(chapterNo, courseId)
+            if (checkExistResponse.code() == 200) {
+                if (checkExistResponse.body() == false) {
+                    val response = repository.createChapter(courseId, newChap)
+                    if (response.code() == 201) {
+                        _chapter.value = response.body()
+                        _success.value = true
+                    }
+                    if (response.code() == 400) {
+                        _error.value = "Invalid Chapter Name"
+                    }
+                } else {
+                    _error.value = "Chapter No. already exist"
+                }
             }
-            if (response.code() == 400) {
-                _error.value = "Invalid Chapter Name"
-            }
+
         }
     }
 
-    fun updateChapter(chapterId: Int, chapterNo: String, title: String) {
+    fun updateChapter(courseId: Int, chapterId: Int, chapterNo: String, title: String) {
         val updatedChapter = ChapterDto(chapterNo, title)
         viewModelScope.launch {
-            val response = repository.updateChapter(chapterId, updatedChapter)
-            if (response.code() == 200) {
-                _chapter.value = response.body()
-                _success.value = true
+            if (chapterNo != _chapter.value?.chapterNo) {
+                val checkExistResponse = repository.isChapterNoExist(chapterNo, courseId)
+                if (checkExistResponse.code() == 200) {
+                    if (checkExistResponse.body() == false) {
+                        val response = repository.updateChapter(chapterId, updatedChapter)
+                        if (response.code() == 200) {
+                            _chapter.value = response.body()
+                            _success.value = true
+                        }
+                        if (response.code() == 400) {
+                            _error.value = "Invalid Chapter Name"
+                        }
+                    } else {
+                        _error.value = "Chapter No. already exist"
+                    }
+                }
+            } else {
+                val response = repository.updateChapter(chapterId, updatedChapter)
+                if (response.code() == 200) {
+                    _chapter.value = response.body()
+                    _success.value = true
+                }
+                if (response.code() == 400) {
+                    _error.value = "Invalid Chapter Name"
+                }
             }
-            if (response.code() == 400) {
-                _error.value = "Invalid Chapter Name"
-            }
+
         }
 
     }
@@ -64,4 +91,10 @@ class ManageChapterViewModel(
     fun resetSuccessFlag() {
         _success.value = null
     }
+
+    fun resetErrorFlag() {
+        _error.value = null
+    }
+
+
 }
