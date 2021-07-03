@@ -24,6 +24,7 @@ import com.example.tarclearn.util.Constants
 import com.example.tarclearn.viewmodel.discussion.DiscussionViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlin.properties.Delegates
+
 class DiscussionFragment : Fragment() {
     private lateinit var binding: FragmentDiscussionBinding
     private lateinit var viewModel: DiscussionViewModel

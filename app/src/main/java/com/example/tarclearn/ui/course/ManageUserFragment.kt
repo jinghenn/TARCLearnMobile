@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,8 +76,8 @@ class ManageUserFragment : Fragment() {
             }
             recyclerView.adapter = adapter
         }
-        viewModel.emailList.observe(viewLifecycleOwner){
-            it?.let{
+        viewModel.emailList.observe(viewLifecycleOwner) {
+            it?.let {
                 viewModel.fetchUserList(courseId)
             }
         }
@@ -87,11 +86,11 @@ class ManageUserFragment : Fragment() {
                 viewModel.fetchUserList(courseId)
                 val iterator = it.iterator()
                 var emailList = ""
-                while(iterator.hasNext()){
+                while (iterator.hasNext()) {
                     val next = iterator.next()
-                    emailList += if(iterator.hasNext()){
+                    emailList += if (iterator.hasNext()) {
                         "\t$next,\n"
-                    }else{
+                    } else {
                         "\t$next"
                     }
                 }
@@ -149,7 +148,7 @@ class ManageUserFragment : Fragment() {
                 .findViewById(R.id.et_email_list_layout)
             val editText: TextInputEditText = editTextLayout.findViewById(R.id.et_email_list)
             editText.doAfterTextChanged {
-                if(it.toString() != ""){
+                if (it.toString() != "") {
                     editTextInputLayout.isErrorEnabled = false
                 }
             }
@@ -165,20 +164,20 @@ class ManageUserFragment : Fragment() {
                     .setNegativeButton(getString(R.string.label_cancel), null)
                     .create()
 
-                dialog.setOnShowListener{
+                dialog.setOnShowListener {
                     val btn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
                     btn.setOnClickListener {
-                        if(editText.text.toString() == ""){
+                        if (editText.text.toString() == "") {
 
                             editTextInputLayout.isErrorEnabled = true
                             editTextInputLayout.error = "Email(s) cannot be empty"
-                        }else{
+                        } else {
                             val emailList = viewModel.validateEmailList(editText.text.toString())
 
                             if (emailList.isNotEmpty()) {
                                 viewModel.enrol(courseId, emailList)
                                 dialog.dismiss()
-                            }else{
+                            } else {
                                 editTextInputLayout.isErrorEnabled = true
                                 editTextInputLayout.error = "Invalid email"
                             }

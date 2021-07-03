@@ -3,7 +3,7 @@ package com.example.tarclearn.model
 data class UserDto(
     val userId: String,
     val username: String,
-    val email:String
+    val email: String
 )
 
 data class UserDetailDto(

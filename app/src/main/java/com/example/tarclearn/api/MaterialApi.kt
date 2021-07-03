@@ -35,6 +35,6 @@ interface MaterialApi {
         @Query("chapterId") chapterId: Int,
         @Query("materialIndex") materialIndex: Int,
         @Query("mode") mode: String,
-        @Query("isVideo") isVideo:Boolean
+        @Query("isVideo") isVideo: Boolean
     ): Response<Boolean>
 }

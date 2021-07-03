@@ -74,8 +74,8 @@ class ManageChapterFragment : Fragment() {
                 requireActivity().onBackPressed()
             }
         }
-        viewModel.error.observe(viewLifecycleOwner){
-            it?.let{
+        viewModel.error.observe(viewLifecycleOwner) {
+            it?.let {
                 binding.tvChapterNoLayout.isErrorEnabled = true
                 binding.tvChapterNoLayout.error = it
                 viewModel.resetErrorFlag()
@@ -118,7 +118,12 @@ class ManageChapterFragment : Fragment() {
                     val chapterNo = getChapterNo()
                     val chapterName = getChapterName()
                     if (chapterNo != "" && chapterName != "") {
-                        viewModel.updateChapter(args.courseId, args.chapterId, chapterNo, chapterName)
+                        viewModel.updateChapter(
+                            args.courseId,
+                            args.chapterId,
+                            chapterNo,
+                            chapterName
+                        )
                     }
                 }
             }

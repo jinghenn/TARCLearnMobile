@@ -65,7 +65,7 @@
         android:id="@+id/myDiscussionsFragment"
         android:name="com.example.tarclearn.ui.discussion.MyDiscussionsFragment"
         android:label="My Discussions"
-        tools:layout="@layout/fragment_my_discussions" >
+        tools:layout="@layout/fragment_my_discussions">
         <action
             android:id="@+id/action_myDiscussionsFragment_to_discussionFragment"
             app:destination="@id/discussionFragment" />

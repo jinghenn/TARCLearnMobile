@@ -1,6 +1,5 @@
 package com.example.tarclearn.viewmodel.course
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,8 +9,6 @@ import com.example.tarclearn.model.UserDto
 import com.example.tarclearn.repository.CourseRepository
 import com.example.tarclearn.repository.UserRepository
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
 
 class ManageUserViewModel(
@@ -93,14 +90,14 @@ class ManageUserViewModel(
         }
     }
 
-    fun validateEmailList(raw: String): List<String>{
+    fun validateEmailList(raw: String): List<String> {
         val splitted = raw.split(",").toMutableList()
         val emailIterator = splitted.listIterator()
 
-        while(emailIterator.hasNext()){
+        while (emailIterator.hasNext()) {
 
             val currentEmail = emailIterator.next()
-            if(currentEmail.isBlank()){
+            if (currentEmail.isBlank()) {
                 emailIterator.remove()
                 continue
             }

@@ -57,7 +57,8 @@ class ManageCourseFragment : Fragment() {
                 binding.tvCourseCodeLayout.error = "Course Code cannot be empty"
             } else if (!isValidCourseCode(courseCode)) {
                 binding.tvCourseCodeLayout.isErrorEnabled = true
-                binding.tvCourseCodeLayout.error = "Invalid Course Code \n Eg. BAIT2003, MPU-3113, BAIT200C"
+                binding.tvCourseCodeLayout.error =
+                    "Invalid Course Code \n Eg. BAIT2003, MPU-3113, BAIT200C"
             } else {
                 binding.tvCourseCodeLayout.isErrorEnabled = false
             }

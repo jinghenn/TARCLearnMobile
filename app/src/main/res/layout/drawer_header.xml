@@ -40,6 +40,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:textColor="#FFFFFF"
             tools:text="SOH JING HENN" />
+
         <TextView
             android:id="@+id/tvEmail"
             android:layout_width="match_parent"
@@ -47,6 +48,7 @@
             android:text="@{User.email}"
             android:textColor="#FFFFFF"
             tools:text="sohjh-wp18@student.tarc.edu.my" />
+
         <TextView
             android:id="@+id/tvUserId"
             android:layout_width="match_parent"

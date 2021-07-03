@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.tarclearn.R
 import com.example.tarclearn.adapter.student.MyDiscussionsRecyclerViewAdapter
-import com.example.tarclearn.adapter.student.StudentDiscussionRecyclerViewAdapter
 import com.example.tarclearn.databinding.FragmentMyDiscussionsBinding
 import com.example.tarclearn.factory.UserViewModelFactory
 import com.example.tarclearn.model.DiscussionThreadDto

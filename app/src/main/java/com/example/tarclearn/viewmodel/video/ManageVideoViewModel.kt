@@ -47,6 +47,7 @@ class ManageVideoViewModel(
             }
         }
     }
+
     fun checkIsVideoIndexExist(chapterId: Int, materialNo: Int, mode: String, isVideo: Boolean) {
         viewModelScope.launch {
             val response = repository.isIndexExist(chapterId, materialNo, mode, isVideo)
@@ -55,6 +56,7 @@ class ManageVideoViewModel(
             }
         }
     }
+
     fun resetSuccessFlag() {
         _success.value = null
     }
