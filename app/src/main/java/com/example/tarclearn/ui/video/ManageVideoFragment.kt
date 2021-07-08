@@ -184,7 +184,7 @@ class ManageVideoFragment : Fragment() {
                             .addFileToUpload(uri.toString(), "file")
                             .addParameter("material", newVid.toString())
                             .startUpload()
-
+                        requireActivity().onBackPressed()
                     }
                 }
             }

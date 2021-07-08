@@ -30,7 +30,8 @@
     <string name="label_edit">Edit</string>
     <string name="label_save">Save</string>
     <string name="label_chapter_name">Chapter Name</string>
-    <string name="chapter_title">Chapter %s: %s</string>
+    <string name="chapter_title">%s: %s</string>
+    <string name="material_title">%d: %s</string>
     <string name="label_chapter_sub_no">Sub-chapter No.</string>
     <string name="label_chapter_no">Chapter No.</string>
     <string name="label_material_no">Material No.</string>

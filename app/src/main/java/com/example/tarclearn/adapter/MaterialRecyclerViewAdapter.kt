@@ -44,7 +44,7 @@ class MaterialRecyclerViewAdapter : RecyclerView.Adapter<MaterialRecyclerViewAda
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = materialList[position]
-        holder.title.text = item.materialTitle
+        holder.title.text = holder.title.context.getString(R.string.material_title, item.index, item.materialTitle)
         holder.card.setOnClickListener {
             val action =
                 MaterialListFragmentDirections.actionMaterialListFragmentToMaterialFragment(item.materialId)

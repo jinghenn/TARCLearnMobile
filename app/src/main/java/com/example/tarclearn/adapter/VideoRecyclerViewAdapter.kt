@@ -44,7 +44,7 @@ class VideoRecyclerViewAdapter() : RecyclerView.Adapter<VideoRecyclerViewAdapter
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = videoList[position]
-        holder.title.setText(item.materialTitle)
+        holder.title.text = holder.title.context.getString(R.string.material_title, item.index, item.materialTitle)
         holder.card.setOnClickListener {
             val action =
                 VideoListFragmentDirections.actionVideoListFragmentToVideoFragment(item.materialId)

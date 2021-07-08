@@ -190,6 +190,7 @@ class ManageMaterialFragment : Fragment() {
                             .addParameter("material", newMaterial.toString())
                             .startUpload()
 
+                        requireActivity().onBackPressed()
                     }
                 }
             }

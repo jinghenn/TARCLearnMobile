@@ -38,7 +38,7 @@ class StudentChapterRecyclerViewAdapter(val courseId: Int) :
                 item.chapterNo,
                 item.chapterTitle
             )
-        holder.title.setText(titleText)
+        holder.title.text = titleText
         holder.card.setOnClickListener {
             val context = holder.card.context
             val intent = Intent(context, ChapterActivity::class.java)
