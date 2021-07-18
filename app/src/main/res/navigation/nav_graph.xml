@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/course_list_fragment"
         android:name="com.example.tarclearn.ui.course.CourseListFragment"
-        android:label="Course">
+        android:label="Courses">
         <action
             android:id="@+id/action_course_fragment_to_courseInfoFragment"
             app:destination="@id/courseInfoFragment" />

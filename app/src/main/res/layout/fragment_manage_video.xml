@@ -23,7 +23,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:hint="@string/label_material_no"
+                android:hint="@string/label_video_no"
                 app:layout_constraintEnd_toStartOf="@+id/menu_mode_layout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -78,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:hint="@string/label_description"
+                app:helperText="@string/label_optional"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_video_title_layout">
@@ -95,7 +96,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:hint="@string/label_pick_video"
+                android:hint="@string/label_file_name"
                 app:layout_constraintEnd_toStartOf="@+id/btn_choose_video"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintHorizontal_weight="5"
@@ -115,7 +116,6 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginEnd="5dp"
-                android:includeFontPadding="false"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 android:text="@string/label_choose"

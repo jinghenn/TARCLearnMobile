@@ -30,7 +30,7 @@
     <string name="label_edit">Edit</string>
     <string name="label_save">Save</string>
     <string name="label_chapter_name">Chapter Name</string>
-    <string name="chapter_title">%s: %s</string>
+    <string name="chapter_title">Chapter %s: %s</string>
     <string name="material_title">%d: %s</string>
     <string name="label_chapter_sub_no">Sub-chapter No.</string>
     <string name="label_chapter_no">Chapter No.</string>
@@ -58,4 +58,7 @@
     <string name="hint_email_list">Eg. foo@gmail.com, &#8230;</string>
     <string name="label_email">Email</string>
     <string name="label_my_discussion">My Discussions</string>
+    <string name="label_video_no">Video No.</string>
+    <string name="label_upload">Upload</string>
+    <string name="label_file_name">File Name</string>
 </resources>

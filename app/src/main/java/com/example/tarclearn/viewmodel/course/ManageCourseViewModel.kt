@@ -54,6 +54,10 @@ class ManageCourseViewModel(
                 _error.value = null
                 _success.value = true
             }
+            if (response.code() == 409) {
+                _error.value = "Course already exist"
+                _success.value = null
+            }
             if (response.code() == 404) {
                 _error.value = "Course: $courseId does not exist"
                 _success.value = null

@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +16,7 @@ import com.example.tarclearn.factory.CourseViewModelFactory
 import com.example.tarclearn.repository.CourseRepository
 import com.example.tarclearn.util.Constants
 import com.example.tarclearn.viewmodel.course.ManageCourseViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ManageCourseFragment : Fragment() {
     private lateinit var binding: FragmentManageCourseBinding
@@ -72,18 +72,22 @@ class ManageCourseFragment : Fragment() {
             }
         }
         viewModel.success.observe(viewLifecycleOwner) {
+            val course = viewModel.course.value!!
             val text = when (args.mode) {
-                Constants.MODE_CREATE -> "Course: ${viewModel.course.value?.courseCode} created successfully"
-                Constants.MODE_EDIT -> "Course: ${viewModel.course.value?.courseCode} updated successfully"
+                Constants.MODE_CREATE -> "Course: ${course.courseCode} ${course.courseTitle} is created successfully"
+                Constants.MODE_EDIT -> "Course: ${course.courseCode} ${course.courseTitle} is updated successfully"
                 else -> "Success"
             }
             if (it == true) {
-                Toast.makeText(
-                    requireContext(),
-                    text,
-                    Toast.LENGTH_LONG
-                ).show()
+
                 viewModel.resetSuccessFlag()
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Success")
+                    .setMessage(text)
+                    .setCancelable(false)
+                    .setPositiveButton("Ok") { _, _ ->
+                        requireActivity().onBackPressed()
+                    }.show()
             }
         }
         viewModel.error.observe(viewLifecycleOwner) {

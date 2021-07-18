@@ -167,7 +167,7 @@ class ManageMaterialFragment : Fragment() {
         val btnOk = binding.btnOk
         when (args.mode) {
             Constants.MODE_CREATE -> {
-                btnOk.text = getString(R.string.label_create)
+                btnOk.text = getString(R.string.label_upload)
                 btnOk.setOnClickListener {
                     val matNo = getMaterialNo()
                     val matTitle = getMaterialTitle()
@@ -296,7 +296,7 @@ class ManageMaterialFragment : Fragment() {
         val matName = binding.tvMaterialName.text.toString()
         if (matName == "") {
             binding.tvMaterialNameLayout.isErrorEnabled = true
-            binding.tvMaterialNameLayout.error = "Material File cannot be empty"
+            binding.tvMaterialNameLayout.error = "File Name cannot be empty"
             return ""
         }
         return matName

@@ -163,7 +163,7 @@ class ManageVideoFragment : Fragment() {
         val btnOk = binding.btnOk
         when (args.mode) {
             Constants.MODE_CREATE -> {
-                btnOk.text = getString(R.string.label_create)
+                btnOk.text = getString(R.string.label_upload)
                 btnOk.setOnClickListener {
                     val vidNo = getVideoNo()
                     val vidTitle = getVideoTitle()
@@ -275,7 +275,7 @@ class ManageVideoFragment : Fragment() {
         val vidName = binding.tvVideoName.text.toString()
         if (vidName == "") {
             binding.tvVideoNameLayout.isErrorEnabled = true
-            binding.tvVideoNameLayout.error = "Video File cannot be empty"
+            binding.tvVideoNameLayout.error = "File Name cannot be empty"
             return ""
         }
         return vidName
