@@ -23,8 +23,8 @@ class CourseRepository {
         return RetrofitInstance.courseApi.enrol(courseId, emailList)
     }
 
-    suspend fun unenrol(courseId: Int, userId: String): Response<Void> {
-        return RetrofitInstance.courseApi.unenrol(courseId, userId)
+    suspend fun unenrol(courseId: Int, emailList: List<String>, requesterEmail: String): Response<List<String>> {
+        return RetrofitInstance.courseApi.unenrol(courseId, emailList, requesterEmail)
     }
 
     suspend fun editCourse(courseId: Int, course: CourseDetailDto): Response<CourseDetailDto> {

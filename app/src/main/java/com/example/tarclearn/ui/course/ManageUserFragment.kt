@@ -31,6 +31,7 @@ class ManageUserFragment : Fragment() {
 
     private var courseId = -1
     private var currentUserId = ""
+    private var currentEmail = ""
 
     private var adapter = CourseUserRecyclerViewAdapter(courseId, currentUserId)
     override fun onCreateView(
@@ -46,7 +47,7 @@ class ManageUserFragment : Fragment() {
             Context.MODE_PRIVATE
         )
         currentUserId = sharedPref.getString(getString(R.string.key_user_id), "")!!
-
+        currentEmail = sharedPref.getString(getString(R.string.key_email), null) ?: ""
         //create viewmodel
         val viewModelFactory = ManageUserViewModelFactory(UserRepository(), CourseRepository())
         viewModel = ViewModelProvider(this, viewModelFactory)
@@ -63,7 +64,8 @@ class ManageUserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupDropDownList()
-        setupFab()
+        setupFabAddUser()
+        setupFabRemoveUser()
         //setup recyclerview
         val recyclerView = binding.courseWithUserRecyclerView
         binding.etCourse.doAfterTextChanged {
@@ -99,9 +101,8 @@ class ManageUserFragment : Fragment() {
                 failedEt.movementMethod = ScrollingMovementMethod()
                 failedEt.text = emailList
                 MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Add User(s)")
                     .setView(scrollView)
-                    .setMessage("Failed to add the following user(s):")
+                    .setMessage("The operation failed on the following email:")
                     .setPositiveButton("Ok", null)
                     .show()
             }
@@ -114,6 +115,7 @@ class ManageUserFragment : Fragment() {
             }
         }
     }
+
 
     private fun setupDropDownList() {
         //initialize dropdown menu
@@ -139,7 +141,7 @@ class ManageUserFragment : Fragment() {
         })
     }
 
-    private fun setupFab() {
+    private fun setupFabAddUser() {
         val fab = binding.fabAddUser
 
         fab.setOnClickListener {
@@ -190,4 +192,54 @@ class ManageUserFragment : Fragment() {
         }
     }
 
+    private fun setupFabRemoveUser() {
+        val fab = binding.fabRemoveUser
+        fab.setOnClickListener {
+            val editTextLayout = View.inflate(requireContext(), R.layout.add_user_edit_text, null)
+            val editTextInputLayout: TextInputLayout = editTextLayout
+                .findViewById(R.id.et_email_list_layout)
+            val editText: TextInputEditText = editTextLayout.findViewById(R.id.et_email_list)
+            editText.doAfterTextChanged {
+                if (it.toString() != "") {
+                    editTextInputLayout.isErrorEnabled = false
+                }
+            }
+            if (courseId == -1) {
+                binding.courseMenu.isErrorEnabled = true
+                binding.courseMenu.error = "Course cannot be empty"
+            } else {
+                val dialog = MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("Remove User(s)")
+                    .setMessage("Enter emails of users separated by comma")
+                    .setView(editTextLayout)
+                    .setPositiveButton(getString(R.string.label_remove), null)
+                    .setNegativeButton(getString(R.string.label_cancel), null)
+                    .create()
+
+                dialog.setOnShowListener {
+                    val btn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+                    btn.setOnClickListener {
+                        if (editText.text.toString() == "") {
+
+                            editTextInputLayout.isErrorEnabled = true
+                            editTextInputLayout.error = "Email(s) cannot be empty"
+                        } else {
+                            val emailList = viewModel.validateEmailList(editText.text.toString())
+
+                            if (emailList.isNotEmpty()) {
+                                viewModel.unenrol(courseId, emailList, currentEmail)
+                                dialog.dismiss()
+                            } else {
+                                editTextInputLayout.isErrorEnabled = true
+                                editTextInputLayout.error = "Invalid email"
+                            }
+
+                        }
+                    }
+                }
+                dialog.show()
+            }
+
+        }
+    }
 }

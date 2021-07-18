@@ -17,12 +17,4 @@ interface UserApi {
 
     @GET("users/{id}/discussions")
     suspend fun getUserDiscussions(@Path("id") id: String): Response<List<DiscussionThreadDto>>
-//    @POST("users")//add a new user
-//    suspend fun createUser(@Body user: User): Response<User>
-//
-//    @PUT("users/{id}")//update an existing user
-//    suspend fun updateUser(@Path("id") id: String, @Body user: User): Response<User>
-//
-//    @DELETE("users/{id}")//remove an user
-//    suspend fun deleteUser(@Path("id") id: String): Response<User>
 }

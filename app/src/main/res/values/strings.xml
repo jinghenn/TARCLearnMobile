@@ -61,4 +61,5 @@
     <string name="label_video_no">Video No.</string>
     <string name="label_upload">Upload</string>
     <string name="label_file_name">File Name</string>
+    <string name="label_remove">REMOVE</string>
 </resources>

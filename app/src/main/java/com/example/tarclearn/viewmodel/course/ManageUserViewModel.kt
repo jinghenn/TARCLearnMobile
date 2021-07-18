@@ -54,22 +54,6 @@ class ManageUserViewModel(
         }
     }
 
-    //    fun enrol(courseId: Int, userId: String) {
-//        viewModelScope.launch {
-//            val response = courseRepository.enrol(courseId, userId)
-//            if (response.code() == 201) {
-//                _userList.value = response.body()
-//                _successMessage.value = "User: $userId added successfully"
-//            }
-//            if (response.code() == 404) {
-//                _errorMessage.value = "User: $userId does not exist"
-//            }
-//            if (response.code() == 409) {
-//                _errorMessage.value = "User: $userId is already in this course."
-//            }
-//
-//        }
-//    }
     fun enrol(courseId: Int, emailList: List<String>) {
 
         viewModelScope.launch {
@@ -77,6 +61,25 @@ class ManageUserViewModel(
             if (response.code() == 200) {
                 _emailList.value = response.body()
                 _successMessage.value = "User(s) added successfully"
+            }
+            if (response.code() == 404) {
+                val rawResponse = response.errorBody()?.string()
+
+                val gson = Gson()
+                val list = gson.fromJson(rawResponse, Array<String>::class.java).toList()
+
+                _failedEmailList.value = list
+            }
+
+        }
+    }
+    fun unenrol(courseId: Int, emailList: List<String>, requesterEmail: String) {
+
+        viewModelScope.launch {
+            val response = courseRepository.unenrol(courseId, emailList, requesterEmail)
+            if (response.code() == 200) {
+                _emailList.value = response.body()
+                _successMessage.value = "User(s) removed successfully"
             }
             if (response.code() == 404) {
                 val rawResponse = response.errorBody()?.string()

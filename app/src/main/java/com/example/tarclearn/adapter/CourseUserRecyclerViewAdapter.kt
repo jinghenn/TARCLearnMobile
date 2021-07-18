@@ -26,7 +26,6 @@ class CourseUserRecyclerViewAdapter(
         }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val btnDelete: MaterialButton = itemView.findViewById(R.id.btn_delete)
         val cardHeader: TextView = itemView.findViewById(R.id.tv_card_header)
         val cardSubHeader: TextView = itemView.findViewById(R.id.tv_card_subheader)
     }
@@ -36,7 +35,7 @@ class CourseUserRecyclerViewAdapter(
         viewType: Int
     ): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.item_view_card, parent, false)
+        val view = layoutInflater.inflate(R.layout.item_view_user, parent, false)
         return ViewHolder(view)
     }
 
@@ -45,29 +44,6 @@ class CourseUserRecyclerViewAdapter(
         holder.cardHeader.text = item.userId
         holder.cardSubHeader.text = holder.cardSubHeader.context
             .getString(R.string.subheader_course_user, item.username, item.email)
-        if (item.userId == currentUserId) {
-            holder.btnDelete.isEnabled = false
-            holder.btnDelete.icon = null
-            var headerText = holder.cardHeader.text.toString()
-            headerText += " (you)"
-            holder.cardHeader.text = headerText
-        }
-        holder.btnDelete.setOnClickListener {
-            MaterialAlertDialogBuilder(holder.btnDelete.context)
-                .setTitle("Remove User")
-                .setMessage("Are you sure you want to remove \nUser: ${item.userId} from this course?")
-                .setPositiveButton("Yes") { _, _ ->
-                    CoroutineScope(Dispatchers.Main).launch {
-                        val repository = CourseRepository()
-                        val response = repository.unenrol(courseId, item.userId)
-                        if (response.code() == 200) {
-                            userList.remove(item)
-                            notifyDataSetChanged()
-                        }
-                    }
-                }
-                .setNegativeButton("Cancel", null).show()
-        }
     }
 
     override fun getItemCount(): Int {

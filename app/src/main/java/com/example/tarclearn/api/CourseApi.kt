@@ -10,21 +10,22 @@ interface CourseApi {
     @GET("courses/{id}/users")//get a list of users enrolled in a course
     suspend fun getCourseUsers(@Path("id") id: Int): Response<List<UserDto>>
 
-//    @POST("courses/enrol")
-//    suspend fun enrol(
-//        @Query("courseId") courseId: Int,
-//        @Query("userId") userId: String
-//    ): Response<List<UserDto>>
-
     @POST("courses/{id}/enrol")
     suspend fun enrol(@Path("id") courseId: Int, @Body emailList: List<String>)
             : Response<List<String>>
 
-    @DELETE("courses/unenrol")
+    @PUT("courses/{id}/unenrol")
     suspend fun unenrol(
-        @Query("courseId") courseId: Int,
-        @Query("userId") userId: String
-    ): Response<Void>
+        @Path("id") courseId: Int,
+        @Body emailList: List<String>,
+        @Query("requesterEmail") requesterEmail: String
+    ): Response<List<String>>
+
+//    @DELETE("courses/unenrol")
+//    suspend fun unenrol(
+//        @Query("courseId") courseId: Int,
+//        @Query("userId") userId: String
+//    ): Response<Void>
 
     @GET("courses/{id}")
     suspend fun getCourseInfo(@Path("id") id: Int): Response<CourseDetailDto>
