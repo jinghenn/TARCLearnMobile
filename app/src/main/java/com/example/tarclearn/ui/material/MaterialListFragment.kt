@@ -93,7 +93,7 @@ class MaterialListFragment : Fragment() {
     }
 
     private fun initializeMenu() {
-        val items = listOf("Lecture", "Tutorial", "Practical")
+        val items = listOf("Lecture", "Tutorial", "Practical", "Other")
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown, items)
         (binding.menuMode as? AutoCompleteTextView)?.setAdapter(adapter)
         binding.menuMode.setText(binding.menuMode.adapter.getItem(0).toString(), false)
