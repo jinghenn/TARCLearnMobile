@@ -43,7 +43,11 @@ class QuizCreateRecyclerViewAdapter(val context: Context) :
             if (it.toString() == "") {
                 holder.etQuestionLayout.isErrorEnabled = true
                 holder.etQuestionLayout.error = "Question cannot be empty"
-            } else {
+            }else if (holder.choiceRadioGroup.childCount < 2){
+                holder.etQuestionLayout.isErrorEnabled = true
+                holder.etQuestionLayout.error = "Insufficient choice"
+            }
+            else {
                 holder.etQuestionLayout.isErrorEnabled = false
             }
         }
