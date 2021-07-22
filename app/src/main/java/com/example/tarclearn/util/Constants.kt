@@ -4,7 +4,7 @@ class Constants {
 
 
     companion object {
-        const val BASE_URL = "http://192.168.0.72:50000/api/"
+        const val BASE_URL = "http://192.168.0.72:44349/api/"
         const val MODE_CREATE = 1
         const val MODE_EDIT = 2
         const val VIDEO_MATERIAL = "video"

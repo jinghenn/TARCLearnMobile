@@ -48,6 +48,7 @@ class VideoListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        initializeMenu()
         viewModel.fetchVideoList(
             chapterId,
             binding.menuMode.text.toString().toUpperCase(Locale.ROOT)
@@ -57,7 +58,6 @@ class VideoListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initializeMenu()
         if (!isLect) {
             binding.rootLayout.removeView(binding.coordLayout)
             val params = binding.videoRecyclerView.layoutParams as ConstraintLayout.LayoutParams

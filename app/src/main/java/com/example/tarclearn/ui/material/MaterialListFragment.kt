@@ -48,6 +48,7 @@ class MaterialListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        initializeMenu()
         viewModel.fetchMaterialList(
             chapterId,
             binding.menuMode.text.toString().toUpperCase(Locale.ROOT)
@@ -57,7 +58,7 @@ class MaterialListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initializeMenu()
+
         if (!isLect) {
             binding.rootLayout.removeView(binding.coordLayout)
             val params = binding.materialRecyclerView.layoutParams as ConstraintLayout.LayoutParams

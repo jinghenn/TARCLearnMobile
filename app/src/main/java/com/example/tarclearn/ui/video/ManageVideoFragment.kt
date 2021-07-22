@@ -177,7 +177,7 @@ class ManageVideoFragment : Fragment() {
                             MaterialDetailDto(0, vidNo, vidTitle, vidDesc, vidName, vidMode, true)
 
                         val serverUrl =
-                            "http://192.168.0.72:50000/api/upload?chapterId=$chapterId&type=${Constants.VIDEO_MATERIAL}"
+                            "${Constants.BASE_URL}upload?chapterId=$chapterId&type=${Constants.VIDEO_MATERIAL}"
                         MultipartUploadRequest(
                             requireContext(), serverUrl
                         ).setMethod("POST")

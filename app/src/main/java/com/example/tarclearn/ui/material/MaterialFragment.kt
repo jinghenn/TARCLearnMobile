@@ -26,7 +26,7 @@ class MaterialFragment : Fragment() {
     private lateinit var binding: FragmentMaterialBinding
     private lateinit var viewModel: MaterialViewModel
     private val args: MaterialFragmentArgs by navArgs()
-    private var fetch: Fetch by Delegates.notNull()
+    private var downloader: Fetch by Delegates.notNull()
     private var contentType = ""
 
     override fun onCreateView(
@@ -39,11 +39,11 @@ class MaterialFragment : Fragment() {
         viewModel = ViewModelProvider(this, vmFactory)
             .get(MaterialViewModel::class.java)
 
-        val fetchConfig = FetchConfiguration.Builder(requireActivity().applicationContext)
+        val myFetchConfig = FetchConfiguration.Builder(requireActivity().applicationContext)
             .setDownloadConcurrentLimit(3)
             .enableLogging(true)
             .build()
-        fetch = Fetch.Impl.getInstance(fetchConfig)
+        downloader = Fetch.Impl.getInstance(myFetchConfig)
 
         return binding.root
     }
@@ -109,7 +109,7 @@ class MaterialFragment : Fragment() {
                     priority = Priority.HIGH
                     networkType = NetworkType.ALL
                 }
-                fetch.enqueue(req, {}, { error -> Log.d("download", error.toString()) })
+                downloader.enqueue(req, {}, { error -> Log.d("download", error.toString()) })
                 val mListener = object : AbstractFetchListener() {
                     override fun onCompleted(download: Download) {
                         val intent = Intent().apply {
@@ -129,7 +129,7 @@ class MaterialFragment : Fragment() {
                     }
                 }
 
-                fetch.addListener(mListener)
+                downloader.addListener(mListener)
 
             }
         }
