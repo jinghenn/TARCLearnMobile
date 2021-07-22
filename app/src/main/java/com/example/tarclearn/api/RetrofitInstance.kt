@@ -5,11 +5,16 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
     //change the base url according to the api's uri
+
     private val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-    private val httpClient = OkHttpClient().newBuilder().addInterceptor(logging).build()
+    private val httpClient = OkHttpClient()
+        .newBuilder()
+        .connectTimeout(1, TimeUnit.MINUTES)
+        .addInterceptor(logging).build()
 
     private val retrofit by lazy {
         Retrofit.Builder()
