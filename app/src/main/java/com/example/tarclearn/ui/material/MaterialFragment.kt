@@ -61,7 +61,7 @@ class MaterialFragment : Fragment() {
                 viewModel.checkFileAvailability(it.materialId)
                 binding.tvMaterialTitle.text = it.materialTitle
                 binding.tvMaterialDesc.text = it.materialDescription
-                binding.btnViewMaterial.text = it.materialName
+                binding.btnViewMaterial.text = getString(R.string.download)
                 materialName = it.materialName
 
             }

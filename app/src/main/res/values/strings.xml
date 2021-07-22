@@ -62,4 +62,5 @@
     <string name="label_upload">Upload</string>
     <string name="label_file_name">File Name</string>
     <string name="label_remove">REMOVE</string>
+    <string name="download">Download</string>
 </resources>
