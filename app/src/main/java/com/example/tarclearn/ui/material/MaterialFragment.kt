@@ -104,7 +104,7 @@ class MaterialFragment : Fragment() {
         if (requestCode == Constants.REQUEST_CREATE_FILE && resultCode == RESULT_OK) {
 
             data?.data?.let {
-                val url = "${BASE_URL}materials/download?materialId=${args.materialId}"
+                val url = "${BASE_URL}api/materials/download?materialId=${args.materialId}"
                 val req = Request(url, it).apply {
                     priority = Priority.HIGH
                     networkType = NetworkType.ALL

@@ -8,22 +8,22 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface DiscussionApi {
-    @POST("discussions")
+    @POST("api/discussions")
     suspend fun createDiscussionThread(@Body newThread: DiscussionThread):
             Response<DiscussionThreadDetailDto>
 
-    @GET("discussions/{id}")
+    @GET("api/discussions/{id}")
     suspend fun getDiscussionDetail(@Path("id") id: Int): Response<DiscussionThreadDetailDto>
 
-    @PUT("discussions/{id}")
+    @PUT("api/discussions/{id}")
     suspend fun updateDiscussionDetail(
         @Path("id") id: Int,
         @Body updatedThread: DiscussionAboutDto
     ): Response<DiscussionAboutDto>
 
-    @DELETE("discussions/{id}")
+    @DELETE("api/discussions/{id}")
     suspend fun deleteDiscussionThread(@Path("id") id: Int): Response<DiscussionAboutDto>
 
-    @GET("discussions/{id}/messages")
+    @GET("api/discussions/{id}/messages")
     suspend fun getDiscussionMessages(@Path("id") id: Int): Response<List<MessageDetailDto>>
 }

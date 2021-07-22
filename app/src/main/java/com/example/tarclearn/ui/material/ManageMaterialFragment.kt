@@ -182,7 +182,7 @@ class ManageMaterialFragment : Fragment() {
                         )
 
                         val serverUrl =
-                            "${Constants.BASE_URL}upload?chapterId=$chapterId&type=${Constants.OTHER_MATERIAL}"
+                            "${Constants.BASE_URL}api/upload?chapterId=$chapterId&type=${Constants.OTHER_MATERIAL}"
                         MultipartUploadRequest(
                             requireContext(), serverUrl
                         ).setMethod("POST")

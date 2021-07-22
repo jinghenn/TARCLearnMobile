@@ -9,12 +9,12 @@ import retrofit2.http.Path
 
 interface UserApi {
 
-    @GET("users/{id}")//get a particular user
+    @GET("api/users/{id}")//get a particular user
     suspend fun getUser(@Path("id") id: String): Response<UserDetailDto>
 
-    @GET("users/{id}/courses")//Get the courses enrolled by a user
+    @GET("api/users/{id}/courses")//Get the courses enrolled by a user
     suspend fun getUserCourses(@Path("id") id: String): Response<List<CourseDto>>
 
-    @GET("users/{id}/discussions")
+    @GET("api/users/{id}/discussions")
     suspend fun getUserDiscussions(@Path("id") id: String): Response<List<DiscussionThreadDto>>
 }

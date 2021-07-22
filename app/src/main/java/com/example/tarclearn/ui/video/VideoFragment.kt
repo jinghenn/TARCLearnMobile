@@ -10,6 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.tarclearn.databinding.FragmentVideoBinding
 import com.example.tarclearn.factory.MaterialViewModelFactory
 import com.example.tarclearn.repository.MaterialRepository
+import com.example.tarclearn.util.Constants
 import com.example.tarclearn.viewmodel.video.VideoViewModel
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.norulab.exofullscreen.preparePlayer
@@ -48,7 +49,7 @@ class VideoFragment : Fragment() {
         exoPlayer.preparePlayer(binding.playerView)
         exoPlayer.setSource(
             requireActivity().applicationContext,
-            "http://192.168.0.72:50000/api/videos/play?videoId=${args.materialId}"
+            "${Constants.BASE_URL}api/videos/play?videoId=${args.materialId}"
         )
 //        binding.playerView.player = exoPlayer
 //        val item: MediaItem = MediaItem.Builder()

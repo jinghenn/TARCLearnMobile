@@ -6,16 +6,16 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface QuizApi {
-    @GET("quiz/{id}")
+    @GET("api/quiz/{id}")
     suspend fun getQuizQuestions(@Path("id") quizId: Int): Response<QuizQuestionsDto>
 
-    @POST("quiz")
+    @POST("api/quiz")
     suspend fun createQuiz(@Body newQuiz: Quiz): Response<QuizQuestionsDto>
 
-    @DELETE("quiz/{id}")
+    @DELETE("api/quiz/{id}")
     suspend fun deleteQuiz(@Path("id") quizId: Int): Response<QuizQuestionsDto>
 
-    @PUT("quiz/{id}")
+    @PUT("api/quiz/{id}")
     suspend fun updateQuiz(
         @Path("id") quizId: Int,
         @Body updatedQuiz: Quiz

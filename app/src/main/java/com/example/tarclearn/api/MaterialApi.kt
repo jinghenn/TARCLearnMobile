@@ -6,11 +6,11 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface MaterialApi {
-    @GET("materials/{id}")
+    @GET("api/materials/{id}")
     suspend fun getMaterial(@Path("id") id: Int): Response<MaterialDetailDto>
 
     @Multipart
-    @POST("upload")
+    @POST("api/upload")
     suspend fun upload(
         @Part fileModel: MultipartBody.Part,
         @Part filePart: MultipartBody.Part,
@@ -18,19 +18,19 @@ interface MaterialApi {
         @Query("type") materialType: String
     ): Response<MaterialDetailDto>
 
-    @DELETE("materials/{id}")
+    @DELETE("api/materials/{id}")
     suspend fun deleteMaterial(@Path("id") id: Int): Response<MaterialDetailDto>
 
-    @PUT("materials/{id}")
+    @PUT("api/materials/{id}")
     suspend fun updateMaterial(
         @Path("id") id: Int,
         @Body newMaterial: MaterialDetailDto
     ): Response<MaterialDetailDto>
 
-    @GET("materials/exist/")
+    @GET("api/materials/exist/")
     suspend fun isFileExist(@Query("materialId") materialId: Int): Response<Boolean>
 
-    @GET("materials/index/")
+    @GET("api/materials/index/")
     suspend fun isIndexExist(
         @Query("chapterId") chapterId: Int,
         @Query("materialIndex") materialIndex: Int,
