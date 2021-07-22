@@ -9,7 +9,7 @@ class Constants {
         const val MODE_EDIT = 2
         const val VIDEO_MATERIAL = "video"
         const val OTHER_MATERIAL = "material"
-        const val UPLOAD_ID = "TARCLEARN_UPLOAD"
+        val MODE_LIST = listOf("Lecture", "Tutorial", "Practical", "Other")
         const val REQUEST_PICK_MATERIAL = 1
         const val REQUEST_CREATE_FILE = 2
     }

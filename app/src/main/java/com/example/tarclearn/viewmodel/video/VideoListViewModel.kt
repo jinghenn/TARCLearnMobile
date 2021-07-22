@@ -15,6 +15,9 @@ class VideoListViewModel(
     val chapterList: LiveData<List<MaterialDetailDto>>
         get() = _videoList
 
+    private var _mode = 0
+    val mode get() = _mode
+
     fun fetchVideoList(chapterId: Int, mode: String) {
         viewModelScope.launch {
             val response = repository.getChapterVideos(chapterId, mode)
@@ -23,5 +26,8 @@ class VideoListViewModel(
             }
 
         }
+    }
+    fun changeMode(mode: Int){
+        _mode = mode
     }
 }

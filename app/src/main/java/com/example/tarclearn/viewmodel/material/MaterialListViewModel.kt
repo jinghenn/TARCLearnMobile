@@ -15,6 +15,9 @@ class MaterialListViewModel(
     val materialList: LiveData<List<MaterialDetailDto>>
         get() = _materialList
 
+    private var _mode = 0
+    val mode get() = _mode
+
     fun fetchMaterialList(chapterId: Int, mode: String) {
         viewModelScope.launch {
             val response = repository.getChapterMaterials(chapterId, mode)
@@ -22,5 +25,9 @@ class MaterialListViewModel(
                 _materialList.value = response.body()
             }
         }
+    }
+
+    fun changeMode(mode: Int){
+        _mode = mode
     }
 }

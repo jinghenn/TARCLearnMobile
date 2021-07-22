@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -38,19 +37,17 @@ class MaterialListFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentMaterialListBinding.inflate(inflater, container, false)
         val vmFactory = ChapterViewModelFactory(ChapterRepository())
-        viewModel = ViewModelProvider(this, vmFactory)
+        viewModel = ViewModelProvider(requireActivity().viewModelStore, vmFactory)
             .get(MaterialListViewModel::class.java)
         chapterId = requireActivity().intent.getIntExtra("chapterId", -1)
         sharedPref = requireContext()
             .getSharedPreferences(getString(R.string.pref_user), Context.MODE_PRIVATE)
         isLect = sharedPref.getBoolean(getString(R.string.key_is_lecturer), false)
-
         return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        initializeMenu()
         viewModel.fetchMaterialList(
             chapterId,
             binding.menuMode.text.toString().toUpperCase(Locale.ROOT)
@@ -60,6 +57,7 @@ class MaterialListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initializeMenu()
         if (!isLect) {
             binding.rootLayout.removeView(binding.coordLayout)
             val params = binding.materialRecyclerView.layoutParams as ConstraintLayout.LayoutParams
@@ -93,17 +91,20 @@ class MaterialListFragment : Fragment() {
     }
 
     private fun initializeMenu() {
-        val items = listOf("Lecture", "Tutorial", "Practical", "Other")
+        val items = Constants.MODE_LIST
+        val menuMode = binding.menuMode
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown, items)
-        (binding.menuMode as? AutoCompleteTextView)?.setAdapter(adapter)
-        binding.menuMode.setText(binding.menuMode.adapter.getItem(0).toString(), false)
+        (menuMode as? AutoCompleteTextView)?.setAdapter(adapter)
 
-        binding.menuMode.doAfterTextChanged {
-            viewModel.fetchMaterialList(
-                chapterId,
-                binding.menuMode.text.toString().toUpperCase(Locale.ROOT)
-            )
+        val currentMode = viewModel.mode
+        menuMode.setText(adapter.getItem(currentMode).toString(), false)
+
+        menuMode.setOnItemClickListener { _, _, position, _ ->
+            val selectedMode = adapter.getItem(position).toString().toUpperCase(Locale.ROOT)
+            viewModel.fetchMaterialList(chapterId, selectedMode)
+            viewModel.changeMode(position)
         }
+
     }
 
 }
