@@ -1,5 +1,6 @@
 package com.example.tarclearn.viewmodel.material
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,9 @@ class MaterialViewModel(val repository: MaterialRepository) : ViewModel() {
 
     private val _fileAvailable = MutableLiveData<Boolean?>()
     val fileAvailable: LiveData<Boolean?> get() = _fileAvailable
+
+    private val _uri  = MutableLiveData<Uri>()
+    val uri: LiveData<Uri> get() = _uri
 
     fun fetchMaterialDetail(materialId: Int) {
         viewModelScope.launch {
@@ -37,4 +41,7 @@ class MaterialViewModel(val repository: MaterialRepository) : ViewModel() {
         }
     }
 
+    fun setDownloadCompleted(uri: Uri){
+        _uri.value = uri
+    }
 }

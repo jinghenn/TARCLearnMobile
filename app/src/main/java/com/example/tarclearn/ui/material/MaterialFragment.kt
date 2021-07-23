@@ -79,7 +79,24 @@ class MaterialFragment : Fragment() {
             }
         }
 
-
+        viewModel.uri.observe(viewLifecycleOwner){
+            it?.let{
+                val intent = Intent().apply {
+                        action = Intent.ACTION_VIEW
+                        type = contentType
+                        this.data = it
+                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    }
+                    if (intent.resolveActivity(requireContext().packageManager) != null) {
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(
+                            requireContext(), "No application can open this file.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+            }
+        }
     }
 
     private fun setupViewMaterialButton(fileName: String) {
@@ -103,6 +120,7 @@ class MaterialFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Constants.REQUEST_CREATE_FILE && resultCode == RESULT_OK) {
 
+
             data?.data?.let {
                 val url = "${BASE_URL}api/materials/download?materialId=${args.materialId}"
                 val req = Request(url, it).apply {
@@ -112,23 +130,10 @@ class MaterialFragment : Fragment() {
                 downloader.enqueue(req, {}, { error -> Log.d("download", error.toString()) })
                 val mListener = object : AbstractFetchListener() {
                     override fun onCompleted(download: Download) {
-                        val intent = Intent().apply {
-                            action = Intent.ACTION_VIEW
-                            type = contentType
-                            this.data = it
-                            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                        }
-                        if (intent.resolveActivity(requireContext().packageManager) != null) {
-                            startActivity(intent)
-                        } else {
-                            Toast.makeText(
-                                requireContext(), "This file is not supported on your device",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
+                        Log.d("urionresult", it.toString())
+                        viewModel.setDownloadCompleted(it)
                     }
                 }
-
                 downloader.addListener(mListener)
 
             }
