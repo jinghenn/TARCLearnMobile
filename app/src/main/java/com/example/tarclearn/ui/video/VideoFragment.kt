@@ -51,13 +51,6 @@ class VideoFragment : Fragment() {
             requireActivity().applicationContext,
             "${Constants.BASE_URL}api/videos/play?videoId=${args.materialId}"
         )
-//        binding.playerView.player = exoPlayer
-//        val item: MediaItem = MediaItem.Builder()
-//            .setUri("http://192.168.0.72:50000/api/videos/play?videoId=${args.materialId}")
-//            .build()
-//
-//        exoPlayer.setMediaItem(item)
-
 
         exoPlayer.play()
     }

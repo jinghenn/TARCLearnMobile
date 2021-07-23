@@ -51,7 +51,7 @@ class VideoListFragment : Fragment() {
         initializeMenu()
         viewModel.fetchVideoList(
             chapterId,
-            binding.menuMode.text.toString().toUpperCase(Locale.ROOT)
+            binding.menuMode.text.toString()
         )
 
     }
@@ -99,7 +99,7 @@ class VideoListFragment : Fragment() {
         menuMode.setText(adapter.getItem(currentMode).toString(), false)
 
         menuMode.setOnItemClickListener { _, _, position, _ ->
-            val selectedMode = adapter.getItem(position).toString().toUpperCase(Locale.ROOT)
+            val selectedMode = adapter.getItem(position).toString()
             viewModel.fetchVideoList(chapterId, selectedMode)
             viewModel.changeMode(position)
         }

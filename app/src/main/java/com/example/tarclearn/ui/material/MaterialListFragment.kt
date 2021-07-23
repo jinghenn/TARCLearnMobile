@@ -51,7 +51,7 @@ class MaterialListFragment : Fragment() {
         initializeMenu()
         viewModel.fetchMaterialList(
             chapterId,
-            binding.menuMode.text.toString().toUpperCase(Locale.ROOT)
+            binding.menuMode.text.toString()
         )
 
     }
@@ -101,7 +101,7 @@ class MaterialListFragment : Fragment() {
         menuMode.setText(adapter.getItem(currentMode).toString(), false)
 
         menuMode.setOnItemClickListener { _, _, position, _ ->
-            val selectedMode = adapter.getItem(position).toString().toUpperCase(Locale.ROOT)
+            val selectedMode = adapter.getItem(position).toString()
             viewModel.fetchMaterialList(chapterId, selectedMode)
             viewModel.changeMode(position)
         }

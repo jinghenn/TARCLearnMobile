@@ -83,7 +83,7 @@ class ManageMaterialFragment : Fragment() {
     }
 
     private fun setupModeMenu() {
-        val items = listOf("Lecture", "Tutorial", "Practical", "Other")
+        val items = Constants.MODE_LIST
         val adapter = ArrayAdapter(requireContext(), R.layout.dropdown, items)
         (binding.menuMode as? AutoCompleteTextView)?.setAdapter(adapter)
         binding.menuMode.setText(binding.menuMode.adapter.getItem(0).toString(), false)
@@ -105,7 +105,7 @@ class ManageMaterialFragment : Fragment() {
                 viewModel.checkIsMaterialIndexExist(
                     chapterId,
                     no,
-                    binding.menuMode.text.toString().toUpperCase(Locale.ROOT),
+                    binding.menuMode.text.toString(),
                     false
                 )
 
@@ -120,7 +120,7 @@ class ManageMaterialFragment : Fragment() {
                 viewModel.checkIsMaterialIndexExist(
                     chapterId,
                     no,
-                    binding.menuMode.text.toString().toUpperCase(Locale.ROOT),
+                    binding.menuMode.text.toString(),
                     false
                 )
             }
@@ -138,17 +138,23 @@ class ManageMaterialFragment : Fragment() {
                     it?.let {
 
                         when (it.mode) {
-                            "LECTURE" -> binding.menuMode.setText(
+                            "LECTURE", "Lecture", "lecture" -> binding.menuMode.setText(
                                 binding.menuMode.adapter.getItem(0).toString(), false
                             )
-                            "TUTORIAL" -> {
+
+                            "TUTORIAL", "Tutorial", "tutorial" -> {
                                 binding.menuMode.setText(
                                     binding.menuMode.adapter.getItem(1).toString(), false
                                 )
                             }
-                            "PRACTICAL" -> {
+                            "PRACTICAL", "Practical", "practical" -> {
                                 binding.menuMode.setText(
                                     binding.menuMode.adapter.getItem(2).toString(), false
+                                )
+                            }
+                            "OTHER","Other","other" ->{
+                                binding.menuMode.setText(
+                                    binding.menuMode.adapter.getItem(3).toString(), false
                                 )
                             }
                         }
@@ -282,8 +288,7 @@ class ManageMaterialFragment : Fragment() {
     }
 
     private fun getMaterialMode(): String {
-        val raw = binding.menuMode.text.toString()
-        val matMode = raw.toUpperCase(Locale.ROOT)
+        val matMode = binding.menuMode.text.toString()
         if (matMode == "") {
             binding.menuModeLayout.isErrorEnabled = true
             binding.menuModeLayout.error = "Mode cannot be empty"
