@@ -26,7 +26,7 @@ class MaterialFragment : Fragment() {
     private lateinit var binding: FragmentMaterialBinding
     private lateinit var viewModel: MaterialViewModel
     private val args: MaterialFragmentArgs by navArgs()
-    private var downloader: Fetch by Delegates.notNull()
+    private var fetch: Fetch by Delegates.notNull()
     private var contentType = ""
 
     override fun onCreateView(
@@ -39,11 +39,11 @@ class MaterialFragment : Fragment() {
         viewModel = ViewModelProvider(this, vmFactory)
             .get(MaterialViewModel::class.java)
 
-        val myFetchConfig = FetchConfiguration.Builder(requireActivity().applicationContext)
+        val fetchConfig = FetchConfiguration.Builder(requireActivity().applicationContext)
             .setDownloadConcurrentLimit(3)
             .enableLogging(true)
             .build()
-        downloader = Fetch.Impl.getInstance(myFetchConfig)
+        fetch = Fetch.Impl.getInstance(fetchConfig)
 
         return binding.root
     }
@@ -127,14 +127,14 @@ class MaterialFragment : Fragment() {
                     priority = Priority.HIGH
                     networkType = NetworkType.ALL
                 }
-                downloader.enqueue(req, {}, { error -> Log.d("download", error.toString()) })
+                fetch.enqueue(req, {}, { error -> Log.d("download", error.toString()) })
                 val mListener = object : AbstractFetchListener() {
                     override fun onCompleted(download: Download) {
                         Log.d("urionresult", it.toString())
                         viewModel.setDownloadCompleted(it)
                     }
                 }
-                downloader.addListener(mListener)
+                fetch.addListener(mListener)
 
             }
         }

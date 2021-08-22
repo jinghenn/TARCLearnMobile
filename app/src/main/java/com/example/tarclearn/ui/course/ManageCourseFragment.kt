@@ -72,22 +72,26 @@ class ManageCourseFragment : Fragment() {
             }
         }
         viewModel.success.observe(viewLifecycleOwner) {
-            val course = viewModel.course.value!!
-            val text = when (args.mode) {
-                Constants.MODE_CREATE -> "Course: ${course.courseCode} ${course.courseTitle} is created successfully"
-                Constants.MODE_EDIT -> "Course: ${course.courseCode} ${course.courseTitle} is updated successfully"
-                else -> "Success"
-            }
-            if (it == true) {
+            it?.let {
+                if (it) {
+                    val course = viewModel.course.value!!
+                    val text = when (args.mode) {
+                        Constants.MODE_CREATE -> "Course: ${course.courseCode} ${course.courseTitle} is created successfully"
+                        Constants.MODE_EDIT -> "Course: ${course.courseCode} ${course.courseTitle} is updated successfully"
+                        else -> "Success"
+                    }
 
-                viewModel.resetSuccessFlag()
-                MaterialAlertDialogBuilder(requireContext())
-                    .setTitle("Success")
-                    .setMessage(text)
-                    .setCancelable(false)
-                    .setPositiveButton("Ok") { _, _ ->
-                        requireActivity().onBackPressed()
-                    }.show()
+
+                    viewModel.resetSuccessFlag()
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle("Success")
+                        .setMessage(text)
+                        .setCancelable(false)
+                        .setPositiveButton("Ok") { _, _ ->
+                            requireActivity().onBackPressed()
+                        }.show()
+
+                }
             }
         }
         viewModel.error.observe(viewLifecycleOwner) {
